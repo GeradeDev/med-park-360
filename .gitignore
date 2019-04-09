@@ -1,0 +1,5 @@
+/src/.vs/*
+/src/MedPark.Common/obj/*
+/src/MedPark.Customers/obj/*
+/src/MedPark.Web/MedPark.Web/obj/*
+/src/MedPark.Web/.vs/*
