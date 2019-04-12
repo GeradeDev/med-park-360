@@ -3,3 +3,6 @@
 /src/MedPark.Customers/obj/*
 /src/MedPark.Web/MedPark.Web/obj/*
 /src/MedPark.Web/.vs/*
+/src/MedPark.Common/bin/Debug/
+/src/MedPark.Customers/bin/Debug/
+/src/MedPark.Web/MedPark.Web/bin/Debug/

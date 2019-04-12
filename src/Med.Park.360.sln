@@ -1,17 +1,16 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.Web", "MedPark.Web\MedPark.Web\MedPark.Web.csproj", "{46FE5361-F2A8-4046-B59A-7089B011C5C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Web", "MedPark.Web\MedPark.Web\MedPark.Web.csproj", "{46FE5361-F2A8-4046-B59A-7089B011C5C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{4BAB0ABD-131F-4209-B63F-F9C8736C8818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.Customers", "MedPark.Customers\MedPark.Customers.csproj", "{E6C434A7-2E15-41E5-86D9-9A1214D58564}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.CustomersService", "MedPark.Customers\MedPark.CustomersService.csproj", "{E6C434A7-2E15-41E5-86D9-9A1214D58564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.Common", "MedPark.Common\MedPark.Common.csproj", "{BBD56577-B955-4F91-A605-EB45F2FFA7B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Common", "MedPark.Common\MedPark.Common.csproj", "{BBD56577-B955-4F91-A605-EB45F2FFA7B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

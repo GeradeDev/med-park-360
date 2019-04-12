@@ -2,32 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using MedPark.CustomersService.Dto;
+using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MedPark.Customers.Controllers
+namespace MedPark.CustomersService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        // GET api/values
+        private readonly ICustomerRepository _customerRepo;
+        private readonly IMapper _mapper;
+
+        public CustomersController(ICustomerRepository customerRepo, IMapper mapper)
+        {
+            _customerRepo = customerRepo;
+            _mapper = mapper;
+        }
+        
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAll()
         {
-            return new string[] { "value1", "value2" };
-        }
+            var customers = await _customerRepo.GetAsync(Guid.NewGuid());
 
-        // GET api/values/5
+            return Ok(_mapper.Map<CustomerDto[]>(customers));
+        }
+        
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<CustomerDto>> Get(Guid id)
         {
-            return "value";
-        }
+            var customer = await _customerRepo.GetAsync(id);
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            return Ok(_mapper.Map<CustomerDto>(customer));
         }
+        
     }
 }
