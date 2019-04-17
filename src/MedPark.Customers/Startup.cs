@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using MedPark.Common;
+using MedPark.Common.Handlers;
+using MedPark.Common.Messages;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Dto;
+using MedPark.CustomersService.Handlers.Customers;
+using MedPark.CustomersService.Messages.Commands;
 using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,12 +38,16 @@ namespace MedPark.CustomersService
         {
             //Auto Mapper
             services.AddAutoMapper();
-
+                        
 
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddScoped(typeof(ICommandHandler<CreateCustomer>), typeof(CreateCustomerHandler));
+
+            services.AddDispatchers();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -59,4 +69,5 @@ namespace MedPark.CustomersService
             app.UseMvc();
         }
     }
+    
 }

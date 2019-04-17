@@ -18,7 +18,11 @@ namespace MedPark.CustomersService.Repositories
 
         public Task AddAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                _DbContext.Customers.Add(customer);
+                _DbContext.SaveChanges();
+            });
         }
 
         public Task DeleteAsync(Guid Id)
@@ -28,7 +32,11 @@ namespace MedPark.CustomersService.Repositories
 
         public Task UpdateAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                _DbContext.Customers.Add(customer);
+                _DbContext.SaveChanges();
+            });
         }
 
         public Task<Customer> GetAsync(Guid Id)
@@ -39,11 +47,11 @@ namespace MedPark.CustomersService.Repositories
             });
         }
 
-        public Task<List<Customer>> GetAsync(Expression<Func<Customer, bool>> predicate)
+        public Task<Customer> GetAsync(Expression<Func<Customer, bool>> predicate)
         {
             return Task.Run(() =>
             {
-                return _DbContext.Customers.Where(predicate).ToList();
+                return _DbContext.Customers.Where(predicate).FirstOrDefault();
             });
         }
     }

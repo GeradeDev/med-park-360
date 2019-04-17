@@ -11,7 +11,7 @@ namespace MedPark.CustomersService.Repositories
     {
         Task<Customer> GetAsync(Guid Id);
 
-        Task<List<Customer>> GetAsync(Expression<Func<Customer, bool>> predicate);
+        Task<Customer> GetAsync(Expression<Func<Customer, bool>> predicate);
 
         Task AddAsync(Customer customer);
 
