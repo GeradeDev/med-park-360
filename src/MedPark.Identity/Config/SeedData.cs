@@ -24,21 +24,30 @@ namespace MedPark.Identity.Config
         {
             Console.WriteLine("Seeding database...");
 
-            if (!context.Clients.Any())
+            Console.WriteLine("Clients being populated");
+
+            foreach (var client in IdentityConfig.GetClients())
             {
-                Console.WriteLine("Clients being populated");
-                foreach (var client in IdentityConfig.GetClients())
+                if (context.Clients.Where(x => x.ClientId == client.ClientId).FirstOrDefault() == null)
                 {
-                    var newClient = new ClientEntity { Client = client };
+                    var newClient = new ClientEntity { ClientId = client.ClientId, Client = client };
                     newClient.AddDataToEntity();
 
                     context.Clients.Add(newClient);
+
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine("Clients already populated");
+                else
+                {
+                    var newClient = context.Clients.Where(x => x.ClientId == client.ClientId).FirstOrDefault();
+                    newClient.Client = client;
+
+                    newClient.AddDataToEntity();
+
+                    context.Clients.Update(newClient);
+
+                    context.SaveChanges();
+                }
             }
 
             if (!context.IdentityResources.Any())

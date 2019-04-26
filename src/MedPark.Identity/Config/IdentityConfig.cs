@@ -45,6 +45,23 @@ namespace MedPark.Identity.Config
                     {
                         new Secret("secret".Sha256())
                     },
+                },
+                new Client
+                {
+                    ClientId = "blog",
+                    ClientName = "Personal Website",
+
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.Implicit,
+
+                    RedirectUris = { "https://localhost:44366/signin-oidc" },
+                    AllowedScopes = { "openid", "email", "profile" },
+
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
                 }
             };
         }

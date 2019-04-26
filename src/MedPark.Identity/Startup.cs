@@ -16,6 +16,7 @@ using MedPark.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using IdentityServer4.Services;
 using MedPark.Identity.Config;
+using System.Reflection;
 
 namespace MedPark.Identity
 {
@@ -31,10 +32,15 @@ namespace MedPark.Identity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddDbContext<ApplicationUserContext>(options =>
+               options.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"]));
+
             services.AddDbContext<MedParkContext>(options =>
                 options.UseSqlServer(
                     Configuration["MedPark360IdentityStore:ConnectionString"],
-                    b => b.MigrationsAssembly("MedPark.Identity")
+                    b => b.MigrationsAssembly(migrationsAssembly)
                 )
             );
 
@@ -46,14 +52,24 @@ namespace MedPark.Identity
             services.AddAuthentication();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<MedParkContext>();
+            .AddEntityFrameworkStores<ApplicationUserContext>();
 
             services.AddIdentityServer()
             .AddDeveloperSigningCredential(false)
             .AddResourceStore<ResourceStore>()
             .AddClientStore<ClientStore>()
             .AddAspNetIdentity<ApplicationUser>()
-            .AddProfileService<DefaultProfileService>();
+            .AddProfileService<DefaultProfileService>()
+            .AddOperationalStore(options =>
+             {
+                 options.ConfigureDbContext = builder =>
+                     builder.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"],
+                         sql => sql.MigrationsAssembly(migrationsAssembly));
+
+                 // this enables automatic token cleanup. this is optional.
+                 //options.EnableTokenCleanup = true;
+                 //options.TokenCleanupInterval = 30; // interval in seconds
+             });
 
 
             SeedData.EnsureSeedData(services.BuildServiceProvider());
@@ -80,7 +96,7 @@ namespace MedPark.Identity
 
             app.UseIdentityServer();
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

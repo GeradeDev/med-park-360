@@ -1,0 +1,50 @@
+﻿@page
+@model MedPark.Identity.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<form asp-route-returnurl="@Model.ReturnURL" method="post">
+
+    <div class="wrap-login100">
+        <span class="login100-form-logo">
+            <i class="zmdi zmdi-landscape"></i>
+        </span>
+
+        <span class="login100-form-title p-b-34 p-t-27">
+            Log in
+        </span>
+
+
+
+        <div class="wrap-input100 validate-input" data-validate="Enter username">
+            <input asp-for="Username" class="form-control" placeholder="Username" name="username" />
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+                Login
+            </button>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1>Welcome back @User.Identity.Name</h1>
+            <h2>User Claims</h2>
+            <dl>
+                @foreach (var claim in User.Claims)
+                {
+                    <dt>@claim.Type</dt>
+                    <dd>@claim.Value</dd>
+                }
+            </dl>
+        }
+
+    </div>
+
+</form>

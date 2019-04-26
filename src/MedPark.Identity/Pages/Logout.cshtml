@@ -1,0 +1,46 @@
+﻿@page
+@model MedPark.Identity.Pages.LogoutModel
+@{
+    ViewData["Title"] = "Logout";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<form asp-route-returnurl="@Model.LogoutId" method="post">
+    <div class="logout-page">
+        <div class="page-header">
+            <h1>Logout</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <p>Would you like to logout of IdentityServer?</p>
+
+                <fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Yes</button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1>Welcome back @User.Identity.Name</h1>
+            <h2>User Claims</h2>
+            <dl>
+                @foreach (var claim in User.Claims)
+                {
+                    <dt>@claim.Type</dt>
+                    <dd>@claim.Value</dd>
+                }
+            </dl>
+        }
+        else
+        {
+            <p>You have been logged out.</p>
+        }
+
+    </div>
+</form>
+

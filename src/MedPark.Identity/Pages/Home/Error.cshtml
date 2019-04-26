@@ -1,0 +1,11 @@
+﻿@page
+@model MedPark.Identity.Pages.Home.ErrorModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Error.Error</h1>
+<br />
+<p>@Model.Error.ErrorDescription</p>
+

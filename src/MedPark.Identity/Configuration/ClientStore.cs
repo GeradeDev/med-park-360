@@ -18,7 +18,9 @@ namespace MedPark.Identity.Configuration
 
         Task<Client> IClientStore.FindClientByIdAsync(string clientId)
         {
-            throw new NotImplementedException();
+            var client = _medparkContext.Clients.First(t => t.ClientId == clientId);
+            client.MapDataFromEntity();
+            return Task.FromResult(client.Client);
         }
     }
 }
