@@ -37,7 +37,7 @@ namespace MedPark.Identity.Config
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.Implicit,
 
-                    RedirectUris = { "http://localhost:44356/signin-oidc" },
+                    RedirectUris = { "https://localhost:44356/signin-oidc" },
                     AllowedScopes = { "openid", "email", "profile" },
 
                     // secret for authentication

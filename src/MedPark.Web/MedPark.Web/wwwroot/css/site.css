@@ -45,6 +45,14 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+    body.landing-body {
+        background:url(../images/landing-bg.jpg);
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size:cover;
+    }
+
 .footer {
   position: absolute;
   bottom: 0;

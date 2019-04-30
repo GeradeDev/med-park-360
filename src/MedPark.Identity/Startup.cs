@@ -55,7 +55,6 @@ namespace MedPark.Identity
             .AddEntityFrameworkStores<ApplicationUserContext>();
 
             services.AddIdentityServer()
-            .AddDeveloperSigningCredential(false)
             .AddResourceStore<ResourceStore>()
             .AddClientStore<ClientStore>()
             .AddAspNetIdentity<ApplicationUser>()
@@ -69,7 +68,8 @@ namespace MedPark.Identity
                  // this enables automatic token cleanup. this is optional.
                  //options.EnableTokenCleanup = true;
                  //options.TokenCleanupInterval = 30; // interval in seconds
-             });
+             })
+             .AddDeveloperSigningCredential(true);
 
 
             SeedData.EnsureSeedData(services.BuildServiceProvider());

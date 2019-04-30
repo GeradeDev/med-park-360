@@ -8,3 +8,5 @@
 /src/MedPark.Web/MedPark.Web/bin/Debug/
 /src/MedPark.Identity/bin/Debug/*
 /src/MedPark.Identity/obj/*
+netcoreapp2.2
+obj
