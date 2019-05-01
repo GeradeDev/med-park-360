@@ -36,6 +36,7 @@ namespace MedPark.Identity.Pages.Account
         public bool RememberLogin { get; set; }
         public string ReturnUrl { get; set; }
         public string Email { get; set; }
+        public string ClientName { get; set; }
 
 
 
@@ -125,6 +126,8 @@ namespace MedPark.Identity.Pages.Account
                 var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
                 if (client != null)
                 {
+                    ClientName = client.ClientName;
+
                     allowLocal = client.EnableLocalLogin;
 
                     if (client.IdentityProviderRestrictions != null && client.IdentityProviderRestrictions.Any())

@@ -7,30 +7,41 @@
 
 <form asp-route-returnurl="@Model.ReturnURL" method="post">
 
+    <div class="card w-50 register-card" >
+        <div class="card-header">
+            <h4 class="card-title login-title bold-text">Sign-up - @Model.ClientName</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                <input asp-for="Username" class="form-control" placeholder="Username" name="username" />
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Enter password">
+                <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                    Login
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="wrap-login100">
         <span class="login100-form-logo">
             <i class="zmdi zmdi-landscape"></i>
         </span>
 
         <span class="login100-form-title p-b-34 p-t-27">
-            Log in
+           
         </span>
 
 
 
-        <div class="wrap-input100 validate-input" data-validate="Enter username">
-            <input asp-for="Username" class="form-control" placeholder="Username" name="username" />
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate="Enter password">
-            <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
-        </div>
-
-        <div class="container-login100-form-btn">
-            <button class="login100-form-btn">
-                Login
-            </button>
-        </div>
+      
 
         @if (User.Identity.IsAuthenticated)
         {

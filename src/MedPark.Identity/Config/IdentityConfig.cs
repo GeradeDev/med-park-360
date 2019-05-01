@@ -32,7 +32,7 @@ namespace MedPark.Identity.Config
                 new Client
                 {
                     ClientId = "medpark-web",
-                    ClientName = "Med-Park 360 Website",
+                    ClientName = "Med-Park 360",
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -49,7 +49,7 @@ namespace MedPark.Identity.Config
                 new Client
                 {
                     ClientId = "blog",
-                    ClientName = "Personal Website",
+                    ClientName = "Gerade Geldenhuys Personal Website",
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.Implicit,

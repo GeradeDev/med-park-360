@@ -2,32 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using MedPark.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 
 namespace MedPark.Identity.Pages
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel : BasePageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly IIdentityServerInteractionService _interaction;
+        private readonly IClientStore _clientStore;
 
         public string ReturnURL { get; set; } = "";
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
 
-        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+
+        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _interaction = interaction;
+            _clientStore = clientStore;
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task<IActionResult> OnGet(string returnUrl = null)
         {
             ReturnURL = returnUrl;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPost(string returnurl)
@@ -49,11 +60,14 @@ namespace MedPark.Identity.Pages
 
                     //_logger.LogInformation(3, "User created a new account with password.");
 
-                    //return Redirect(returnurl);
+                    return Redirect(returnurl);
                 }
             }
 
             return Page();
         }
+
+
+        
     }
 }
