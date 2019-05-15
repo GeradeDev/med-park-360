@@ -15,6 +15,15 @@ namespace MedPark.Identity.Config
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResources.Email(),
+                new IdentityResource()
+                {
+                    DisplayName = "firstName",
+                    Name = "firstName",
+                    UserClaims = new List<string>()
+                    {
+                        "firstName"
+                    }
+                }
             };
         }
         
@@ -36,15 +45,18 @@ namespace MedPark.Identity.Config
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.Implicit,
-
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowAccessTokensViaBrowser = true,
                     RedirectUris = { "https://localhost:44356/signin-oidc" },
-                    AllowedScopes = { "openid", "email", "profile" },
+                    AllowedScopes = { "openid", "email", "profile", "firstName" },
+                    PostLogoutRedirectUris = { "https://localhost:44356/signout-callback-oidc" },
 
                     // secret for authentication
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
+                    RequireConsent = false,                    
                 },
                 new Client
                 {

@@ -21,6 +21,8 @@ namespace MedPark.Identity.Pages
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IPersistedGrantService _persistedGrantService;
 
+        public static bool ShowLogoutPrompt = false;
+        public static bool AutomaticRedirectAfterSignOut = true;
 
         public string LogoutId { get; set; } = "";
         public string PostLogoutRedirectUri { get; set; } = "";
@@ -43,6 +45,8 @@ namespace MedPark.Identity.Pages
             if (User.Identity.IsAuthenticated)
             {
                 var context = await _interaction.GetLogoutContextAsync(logoutId);
+
+                ClientName = context?.ClientId;
 
                 if (context?.ShowSignoutPrompt == false)
                 {

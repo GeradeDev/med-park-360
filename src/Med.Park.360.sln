@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Identity", "MedPark
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{3B3CBDAA-9FD1-4493-9BC5-7C239314CFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.API.Gateway", "MedPark.API.Gateway\MedPark.API.Gateway.csproj", "{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.API.Gateway", "MedPark.API.Gateway\MedPark.API.Gateway.csproj", "{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

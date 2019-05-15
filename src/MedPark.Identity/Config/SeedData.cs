@@ -49,22 +49,30 @@ namespace MedPark.Identity.Config
                     context.SaveChanges();
                 }
             }
-
-            if (!context.IdentityResources.Any())
+            
+            Console.WriteLine("IdentityResources being populated");
+            foreach (var resource in IdentityConfig.GetIdentityResources())
             {
-                Console.WriteLine("IdentityResources being populated");
-                foreach (var resource in IdentityConfig.GetIdentityResources())
+                if (context.IdentityResources.Where(x => x.IdentityResourceName == resource.Name).FirstOrDefault() == null)
                 {
                     var res = new IdentityResourceEntity { IdentityResource = resource };
                     res.AddDataToEntity();
 
                     context.IdentityResources.Add(res);
+
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine("IdentityResources already populated");
+                else
+                {
+                    var newres = context.IdentityResources.Where(x => x.IdentityResourceName == resource.Name).FirstOrDefault();
+                    newres.IdentityResource = resource;
+
+                    newres.AddDataToEntity();
+
+                    context.IdentityResources.Update(newres);
+
+                    context.SaveChanges();
+                }
             }
 
             if (!context.ApiResources.Any())

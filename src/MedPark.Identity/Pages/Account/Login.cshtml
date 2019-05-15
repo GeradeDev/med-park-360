@@ -8,29 +8,29 @@
 
 <div class="login-page">
     <div class="page-header">
-        <h1>Login</h1>
     </div>
 
     <div class="row">
 
         @if (Model.EnableLocalLogin)
         {
-            <div class="col-sm-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Local Login</h3>
-                    </div>
-                    <div class="panel-body">
+            <div class="card w-50 register-card">
+                <div class="card-header register-card-hed">
+                    <h4 class="card-title login-title bold-text">Login - @Model.ClientName</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">You may login using your Username and Password below, or use one of our external prodivders to the right</p>
+
+                    <div class="w-50">
 
                         <form asp-route="Login" asp-route-returnurl="@Model.ReturnUrl">
-
                             <fieldset>
                                 <div class="form-group">
-                                    <label asp-for="Username"></label>
+                                    <label asp-for="Username" class="font-weight-bold"></label>
                                     <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="Password"></label>
+                                    <label asp-for="Password" class="font-weight-bold"></label>
                                     <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
                                 </div>
                                 @if (Model.AllowRememberLogin)
@@ -42,12 +42,18 @@
                                         </label>
                                     </div>
                                 }
+
+                                <p>
+                                    <a asp-controller="Register" asp-route-returnurl="@Model.ReturnUrl" class="font-weight-bold">New? Sign Up!</a>
+                                </p>
+
                                 <div class="form-group">
                                     <button class="btn btn-primary" name="button" value="login">Login</button>
                                     <button class="btn btn-default" name="button" value="cancel">Cancel</button>
                                 </div>
                             </fieldset>
                         </form>
+
                     </div>
                 </div>
             </div>

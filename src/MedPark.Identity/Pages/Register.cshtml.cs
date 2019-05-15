@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -24,6 +25,7 @@ namespace MedPark.Identity.Pages
         public string ReturnURL { get; set; } = "";
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
+        public string FirstName { get; set; } = "";
 
 
         public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction)
@@ -45,11 +47,13 @@ namespace MedPark.Identity.Pages
         {
             if (returnurl != null)
             {
-                var user = new ApplicationUser {  UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false };
+                var user = new ApplicationUser {  UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
                 var result = await _userManager.CreateAsync(user, Request.Form["userpassword"]);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddClaimAsync(user, new Claim("firstName", user.FirstName));
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

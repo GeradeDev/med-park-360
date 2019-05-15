@@ -24,7 +24,7 @@ namespace MedPark.Identity.Pages.Account
         private readonly IClientStore _clientStore;
 
 
-        public bool AllowRememberLogin { get; set; } = true;
+        public bool AllowRememberLogin { get; set; }
         public bool EnableLocalLogin { get; set; } = true;
         public IEnumerable<ExternalProvider> ExternalProviders { get; set; }
         public IEnumerable<ExternalProvider> VisibleExternalProviders => ExternalProviders.Where(x => !String.IsNullOrWhiteSpace(x.DisplayName));

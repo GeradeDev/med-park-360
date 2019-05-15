@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
 using MedPark.Web.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,26 +42,24 @@ namespace MedPark.Web
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = "oidc";
             })
-            .AddCookie(options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                options.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddOpenIdConnect("oidc", options =>
             {
                 options.Authority = Globals.Authority;
                 options.ClientId = "medpark-web";
 
-                options.ResponseType = "id_token";
+                options.ResponseType = "id_token token";
 
                 options.Scope.Clear();
 
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
+                options.Scope.Add("firstName");
 
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
                 options.GetClaimsFromUserInfoEndpoint = true;
+                //options.SignedOutRedirectUri = "https://localhost:44356/";
                 options.SaveTokens = true;
 
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -94,12 +93,7 @@ namespace MedPark.Web
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

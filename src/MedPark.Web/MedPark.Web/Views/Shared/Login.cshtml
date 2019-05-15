@@ -1,11 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Authentication
 
+@{
+    string name = null;
+    if (User.Claims.FirstOrDefault(x => x.Type == "firstName") != null)
+    {
+        name = User.Claims.FirstOrDefault(x => x.Type == "firstName").Value;
+    }
+}
 
 @if (User.Identity.IsAuthenticated)
 {
     <ul class="navbar-nav float-right justify-content-sm-end">
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Welcome back, @User.Identity.Name</a>
+            Welcome back,
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <b>@(string.IsNullOrEmpty(name) ? User.Identity.Name : name)</b>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/Account/Profile">Account</a>
+                <a class="dropdown-item" href="#">Orders</a>
+            </div>
         </li>
     </ul>
     <ul class="navbar-nav float-right justify-content-sm-end">

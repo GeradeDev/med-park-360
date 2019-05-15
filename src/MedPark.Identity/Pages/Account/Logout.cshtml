@@ -1,4 +1,7 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authentication;
+
+
 @model MedPark.Identity.Pages.LogoutModel
 @{
     ViewData["Title"] = "Logout";
@@ -9,37 +12,50 @@
 <form asp-route-returnurl="@Model.LogoutId" method="post">
     <div class="logout-page">
         <div class="page-header">
-            <h1>Logout</h1>
         </div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                <p>Would you like to logout of IdentityServer?</p>
-
-                <fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-primary">Yes</button>
+        <div style="background:white;">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="card w-50 register-card">
+                    <div class="card-header register-card-hed">
+                        <h4 class="card-title login-title bold-text">Logout - @Model.ClientName</h4>
                     </div>
-                </fieldset>
-            </div>
-        </div>
+                    <div class="card-body">
+                        <p>Would you like to logout of @Model.ClientName?</p>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            <h1>Welcome back @User.Identity.Name</h1>
-            <h2>User Claims</h2>
-            <dl>
-                @foreach (var claim in User.Claims)
-                {
-                    <dt>@claim.Type</dt>
-                    <dd>@claim.Value</dd>
-                }
-            </dl>
-        }
-        else
-        {
-            <p>You have been logged out.</p>
-        }
+                        <div class="w-50">
+                            <fieldset>
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Yes</button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card w-50 register-card">
+                    <div class="card-header register-card-hed">
+                        <h4 class="card-title login-title bold-text">Logout - @Model.ClientName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">You have successfully been logged out of <b>@Model.ClientName</b>. Hope to see you again soon.</p>
+
+                        <div class="w-50">
+                            @if (Model.PostLogoutRedirectUri != null)
+                            {
+                                <div>
+                                    Click <a href="@Model.PostLogoutRedirectUri">here</a> to return to the
+                                    <span class="font-weight-bold">@Model.ClientName</span> application.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
 
     </div>
 </form>

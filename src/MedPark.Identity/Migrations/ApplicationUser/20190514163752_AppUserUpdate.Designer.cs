@@ -4,14 +4,16 @@ using MedPark.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MedPark.Identity.Migrations.ApplicationUser
 {
     [DbContext(typeof(ApplicationUserContext))]
-    partial class ApplicationUserContextModelSnapshot : ModelSnapshot
+    [Migration("20190514163752_AppUserUpdate")]
+    partial class AppUserUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,13 +36,13 @@ namespace MedPark.Identity.Migrations.ApplicationUser
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<bool>("FirstName");
 
-                    b.Property<string>("IdNumber");
+                    b.Property<bool>("IdNumber");
 
                     b.Property<bool>("IsAdmin");
 
-                    b.Property<string>("LastName");
+                    b.Property<bool>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -52,7 +54,7 @@ namespace MedPark.Identity.Migrations.ApplicationUser
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("PassportNo");
+                    b.Property<bool>("PassportNo");
 
                     b.Property<string>("PasswordHash");
 
