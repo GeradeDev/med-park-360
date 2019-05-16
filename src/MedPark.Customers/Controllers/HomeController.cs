@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace MedPark.CustomersService.Controllers
 {
     [Route("")]
-    public class HomeController : ControllerBase
+    public class HomeController : Controller
     {
         [HttpGet]
-        public IActionResult Get() => Ok("Med Park 360 Customers Service");
+        public IActionResult Home()
+        {
+            return View();
+        }
     }
 }

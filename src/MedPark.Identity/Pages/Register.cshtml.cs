@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace MedPark.Identity.Pages
 {
@@ -26,13 +30,14 @@ namespace MedPark.Identity.Pages
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
         public string FirstName { get; set; } = "";
+        public IHttpClientFactory _httpClient { get; }
 
-
-        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction)
+        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction, IHttpClientFactory httpClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _interaction = interaction;
+            _httpClient = httpClient;
             _clientStore = clientStore;
         }
 
@@ -47,12 +52,19 @@ namespace MedPark.Identity.Pages
         {
             if (returnurl != null)
             {
-                var user = new ApplicationUser {  UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
+                var user = new ApplicationUser { UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
                 var result = await _userManager.CreateAsync(user, Request.Form["userpassword"]);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddClaimAsync(user, new Claim("firstName", user.FirstName));
+                    Customer c = new Customer() { Email = Request.Form["Username"], FirstName = Request.Form["FirstName"], Id = user.IdentityId };
+
+                    var stringContent = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
+
+                    await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("firstName", user.FirstName), new Claim("identityid", user.IdentityId.ToString()) });
+
+
+                    var send = await _httpClient.CreateClient().PostAsync("http://localhost:7000/api/customers/", stringContent);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
@@ -72,6 +84,16 @@ namespace MedPark.Identity.Pages
         }
 
 
-        
+
+    }
+
+    public class Customer
+    {
+        public Guid Id { get; set; }
+        public string FirstName { get;  set; }
+        public string LastName { get;  set; }
+        public string Email { get; set; }
+        public string Mobile { get;  set; }
+        public string Avatar { get; set; }
     }
 }

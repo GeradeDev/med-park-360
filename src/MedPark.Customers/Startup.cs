@@ -66,7 +66,10 @@ namespace MedPark.CustomersService
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseStaticFiles();
+
+            app.UseMvcWithDefaultRoute();
         }
     }
     
