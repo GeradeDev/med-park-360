@@ -7,6 +7,7 @@ using AutoMapper;
 using MedPark.Common;
 using MedPark.Common.Handlers;
 using MedPark.Common.Messages;
+using MedPark.Common.RabbitMq;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Handlers.Customers;
@@ -38,7 +39,8 @@ namespace MedPark.CustomersService
         {
             //Auto Mapper
             services.AddAutoMapper();
-                        
+
+            services.AddRabbitMq();
 
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
@@ -68,6 +70,8 @@ namespace MedPark.CustomersService
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseRabbitMq();
 
             app.UseMvcWithDefaultRoute();
         }
