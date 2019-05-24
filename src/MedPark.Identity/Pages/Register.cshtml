@@ -44,32 +44,4 @@
         </div>
     </div>
 
-    <div class="wrap-login100">
-        <span class="login100-form-logo">
-            <i class="zmdi zmdi-landscape"></i>
-        </span>
-
-        <span class="login100-form-title p-b-34 p-t-27">
-           
-        </span>
-
-
-
-      
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            <h1>Welcome back @User.Identity.Name</h1>
-            <h2>User Claims</h2>
-            <dl>
-                @foreach (var claim in User.Claims)
-                {
-                    <dt>@claim.Type</dt>
-                    <dd>@claim.Value</dd>
-                }
-            </dl>
-        }
-
-    </div>
-
 </form>

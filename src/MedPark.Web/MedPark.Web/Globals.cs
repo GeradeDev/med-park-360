@@ -12,5 +12,7 @@ namespace MedPark.Web
 
         public const string Authority = "https://localhost:44304";
         public const string SampleApi = "http://localhost:3721/";
+
+        public const string GravatarEndpoint = "https://secure.gravatar.com/avatar.php?gravatar_id=";
     }
 }

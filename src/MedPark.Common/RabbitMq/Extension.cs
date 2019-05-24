@@ -1,4 +1,7 @@
-﻿using DShop.Common.Messages;
+﻿using Autofac;
+using DShop.Common.Handlers;
+using DShop.Common.Messages;
+using MedPark.Common.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,43 +26,46 @@ namespace MedPark.Common.RabbitMq
         public static IBusSubscriber UseRabbitMq(this IApplicationBuilder app)
         => new BusSubscriber(app);
 
-        public static void AddRabbitMq(this IServiceCollection services)
+        public static void AddRabbitMq(this ContainerBuilder builder)
         {
-            services.AddSingleton(context =>
+            builder.Register(context =>
             {
-                var configuration = context.GetService<IConfiguration>();
-                var options = configuration.GetValue<RabbitMqOptions>("rabbitMq");
+                var configuration = context.Resolve<IConfiguration>();
+                var options = configuration.GetOptions<RabbitMqOptions>("rabbitMq");
 
                 return options;
-            });
+            }).SingleInstance();
 
-            services.AddSingleton(context =>
+            builder.Register(context =>
             {
-                var configuration = context.GetService<IConfiguration>();
-                var options = configuration.GetValue<RawRabbitConfiguration>("rabbitMq");
+                var configuration = context.Resolve<IConfiguration>();
+                var options = configuration.GetOptions<RawRabbitConfiguration>("rabbitMq");
 
                 return options;
-            });
+            }).SingleInstance();
 
             var assembly = Assembly.GetCallingAssembly();
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(IEventHandler<>))
+                .InstancePerDependency();
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(ICommandHandler<>))
+                .InstancePerDependency();
+            builder.RegisterType<Handler>().As<IHandler>()
+                .InstancePerDependency();
+            builder.RegisterType<BusPublisher>().As<IBusPublisher>()
+                .InstancePerDependency();
 
-            services.Scan(scan => scan
-                .FromAssemblies(assembly)
-                .AddClasses()
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-
-            ConfigureBus(services);
+            ConfigureBus(builder);
         }
 
-        private static void ConfigureBus(IServiceCollection services)
+        private static void ConfigureBus(ContainerBuilder builder)
         {
-            services.AddScoped<IInstanceFactory>(context =>
+            builder.Register<IInstanceFactory>(context =>
             {
-                var options = context.GetService<RabbitMqOptions>();
-                var configuration = context.GetService<RawRabbitConfiguration>();
+                var options = context.Resolve<RabbitMqOptions>();
+                var configuration = context.Resolve<RawRabbitConfiguration>();
                 var namingConventions = new CustomNamingConventions(options.Namespace);
-                //var tracer = context.Resolve<ITracer>();
 
                 return RawRabbitFactory.CreateInstanceFactory(new RawRabbitOptions
                 {
@@ -68,7 +74,6 @@ namespace MedPark.Common.RabbitMq
                         ioc.AddSingleton(options);
                         ioc.AddSingleton(configuration);
                         ioc.AddSingleton<INamingConventions>(namingConventions);
-                        //ioc.AddSingleton(tracer);
                     },
                     Plugins = p => p
                         .UseAttributeRouting()
@@ -76,11 +81,9 @@ namespace MedPark.Common.RabbitMq
                         .UpdateRetryInfo()
                         .UseMessageContext<CorrelationContext>()
                         .UseContextForwarding()
-                        //.UseJaeger(tracer)
                 });
-            });
-
-            services.AddScoped(context => context.GetService<IInstanceFactory>().Create());
+            }).SingleInstance();
+            builder.Register(context => context.Resolve<IInstanceFactory>().Create());
         }
 
         private class CustomNamingConventions : NamingConventions

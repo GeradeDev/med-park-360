@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedPark.Common.RabbitMq
 {
-    interface IBusPublisher
+    public interface IBusPublisher
     {
         Task SendAsync<TCommand>(TCommand command, ICorrelationContext context)
            where TCommand : ICommand;

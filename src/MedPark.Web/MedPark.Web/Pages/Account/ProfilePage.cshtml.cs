@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using MedPark.Common;
 using MedPark.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +25,8 @@ namespace MedPark.Web.Pages.Account
         public string LastName { get; set; }
         public string Mobile { get; set; }
         public DateTime? Birthday { get; set; }
+        public string Email { get; set; }
+        public string Avatar { get; set; }
 
 
         public ProfilePageModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser)
@@ -42,6 +47,11 @@ namespace MedPark.Web.Pages.Account
             LastName = c.LastName;
             Mobile = c.Mobile;
             Birthday = c.Birthday;
+            Email = "GeradeGeldenhuys@Gmail.com";
+            Avatar = c.Avatar;
+
+            if (string.IsNullOrEmpty(Avatar))
+                Avatar = Globals.GravatarEndpoint + Email.ToLower().CalculateMD5Hash();
 
             return Page();
         }

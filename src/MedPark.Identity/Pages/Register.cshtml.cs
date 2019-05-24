@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using MedPark.Common.RabbitMq;
+using MedPark.Identity.Messages.Events;
 
 namespace MedPark.Identity.Pages
 {
@@ -25,6 +27,7 @@ namespace MedPark.Identity.Pages
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
+        private readonly IBusPublisher _busPublisher;
 
         public string ReturnURL { get; set; } = "";
         public string Username { get; set; } = "";
@@ -32,13 +35,14 @@ namespace MedPark.Identity.Pages
         public string FirstName { get; set; } = "";
         public IHttpClientFactory _httpClient { get; }
 
-        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction, IHttpClientFactory httpClient)
+        public RegisterModel(IBusPublisher busPublisher, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction, IHttpClientFactory httpClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _interaction = interaction;
             _httpClient = httpClient;
             _clientStore = clientStore;
+            _busPublisher = busPublisher;
         }
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
@@ -57,14 +61,10 @@ namespace MedPark.Identity.Pages
 
                 if (result.Succeeded)
                 {
-                    Customer c = new Customer() { Email = Request.Form["Username"], FirstName = Request.Form["FirstName"], Id = user.IdentityId };
-
-                    var stringContent = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
-
                     await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("firstName", user.FirstName), new Claim("identityid", user.IdentityId.ToString()) });
 
-
-                    var send = await _httpClient.CreateClient().PostAsync("http://localhost:7000/api/customers/", stringContent);
+                    //Publish message to RabbitMq
+                    await _busPublisher.PublishAsync(new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"]), CorrelationContext.Empty);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link

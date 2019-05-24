@@ -23,7 +23,7 @@ namespace MedPark.CustomersService.Domain
             Email = email;
         }
 
-        public void Create(string firstname, string lastname, string mobile)
+        public void Create(string firstname, string lastname = "", string mobile = "")
         {
             FirstName = firstname;
             LastName = lastname;

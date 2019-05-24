@@ -7,7 +7,46 @@
 
 <h1>Account</h1>
 
-<div>
-    UserName: @Model.FirstName
+<div class="mt-3">
+
+    <div class="w-25 float-left user-details-container">
+
+        <div class="avatar-container">
+            <img class="img-avatar" src="@(!string.IsNullOrEmpty(Model.Avatar) ? Model.Avatar.ToLower() : "~/images/placeholder-avatar.png")" />
+        </div>
+
+        <div class="mt-4 user-details-container">
+
+            <h4>Details:</h4>
+            <div class="col-sm-6 float-left">
+                <label class="font-weight-bold">First Name:</label>
+                <br />
+                @Model.FirstName
+            </div>
+            <div class="col-sm-6 float-left">
+                <label class="font-weight-bold">Last Name:</label>
+                <br />
+                @(Model.LastName.Length > 0 ? Model.LastName : "Please Update")
+            </div>
+            <div class="col-sm-6 mt-4 float-left">
+                <label class="font-weight-bold">Email:</label>
+                <br />
+                @Model.Email
+            </div>
+            <div class="col-sm-6 mt-4 float-left">
+                <label class="font-weight-bold">Date of Birth:</label>
+                <br />
+                @(Model.Birthday.HasValue ? Model.Birthday.Value.ToShortDateString() : "")
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="w-75 float-left'">
+        &nbsp;
+
+    </div>
+
 </div>
 

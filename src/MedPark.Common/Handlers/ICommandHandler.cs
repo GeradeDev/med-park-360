@@ -1,4 +1,5 @@
 ﻿using MedPark.Common.Messages;
+using MedPark.Common.RabbitMq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MedPark.Common.Handlers
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
-        Task HandleAsync(TCommand command);
+        Task HandleAsync(TCommand command, ICorrelationContext context);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MedPark.Common.Handlers;
+using MedPark.Common.RabbitMq;
 using MedPark.Common.Types;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Messages.Commands;
@@ -19,7 +20,7 @@ namespace MedPark.CustomersService.Handlers.Customers
             _customerRepo = customerRepo;
         }
 
-        public async Task HandleAsync(CreateCustomer command)
+        public async Task HandleAsync(CreateCustomer command, ICorrelationContext context)
         {
             var customer = await _customerRepo.GetAsync(x => x.Email == command.Email);
 

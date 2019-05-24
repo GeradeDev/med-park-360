@@ -70,3 +70,18 @@ body {
 .main-contanier{
     max-width:75% !important;
 }
+
+
+.user-details-container {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+
+.avatar-container{
+    text-align:center;
+}
+
+.avatar-container > img {
+    width:260px;
+    border-radius:20%;
+}

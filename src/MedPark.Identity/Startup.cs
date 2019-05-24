@@ -17,20 +17,25 @@ using Microsoft.AspNetCore.Identity;
 using IdentityServer4.Services;
 using MedPark.Identity.Config;
 using System.Reflection;
+using MedPark.Common.RabbitMq;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace MedPark.Identity
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
 
@@ -47,7 +52,6 @@ namespace MedPark.Identity
             );
 
             services.AddTransient<IProfileService, DefaultProfileService>();
-
             services.AddTransient<IClientStore, ClientStore>();
             services.AddTransient<IResourceStore, ResourceStore>();
 
@@ -63,8 +67,8 @@ namespace MedPark.Identity
             .AddProfileService<DefaultProfileService>()
             .AddOperationalStore(options =>
              {
-                 options.ConfigureDbContext = builder =>
-                     builder.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"],
+                 options.ConfigureDbContext = b =>
+                     b.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"],
                          sql => sql.MigrationsAssembly(migrationsAssembly));
 
                  // this enables automatic token cleanup. this is optional.
@@ -77,6 +81,14 @@ namespace MedPark.Identity
             SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            builder.AddRabbitMq();
+
+            Container = builder.Build();
+
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +104,8 @@ namespace MedPark.Identity
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseRabbitMq();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
