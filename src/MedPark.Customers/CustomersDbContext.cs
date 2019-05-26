@@ -9,8 +9,8 @@ namespace MedPark.CustomersService
 {
     public class CustomersDbContext : DbContext
     {
-
         public DbSet<Customer> Customers {get;set;}
+        public DbSet<Address> Address { get; set; }
 
         public CustomersDbContext(DbContextOptions<CustomersDbContext> options) : base(options)
         {
@@ -22,6 +22,7 @@ namespace MedPark.CustomersService
             base.OnModelCreating(builder);
 
             builder.Entity<Customer>().ToTable("Customers");
+            builder.Entity<Address>().ToTable("Address");
         }
     }
 }

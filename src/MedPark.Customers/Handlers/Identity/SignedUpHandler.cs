@@ -1,4 +1,4 @@
-﻿using DShop.Common.Handlers;
+﻿using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Messages.Events;

@@ -1,7 +1,6 @@
 ﻿using Autofac;
-using DShop.Common.Handlers;
-using DShop.Common.Messages;
 using MedPark.Common.Handlers;
+using MedPark.Common.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

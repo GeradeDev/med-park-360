@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MedPark.Common;
+using MedPark.Common.API;
 using MedPark.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,9 +40,7 @@ namespace MedPark.Web.Pages.Account
         {
             var user = _appUserParser.Parse(HttpContext.User);
 
-            string customerString = await _httpClient.CreateClient().GetStringAsync($"http://localhost:7000/api/customers/{ user.IdentityId.ToString()}");
-
-            CustomerDto c = JsonConvert.DeserializeObject<CustomerDto>(customerString);
+            CustomerDto c = JsonConvert.DeserializeObject<CustomerDto>(await new CustomersService(_httpClient).GetDetails(user.IdentityId));
 
             FirstName = c.FirstName;
             LastName = c.LastName;

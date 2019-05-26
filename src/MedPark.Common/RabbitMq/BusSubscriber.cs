@@ -1,5 +1,4 @@
-﻿using DShop.Common.Handlers;
-using MedPark.Common.Handlers;
+﻿using MedPark.Common.Handlers;
 using MedPark.Common.Messages;
 using MedPark.Common.Types;
 using Microsoft.AspNetCore.Builder;

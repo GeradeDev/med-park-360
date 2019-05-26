@@ -1,5 +1,4 @@
-﻿using DShop.Common.Messages;
-using MedPark.Common.Messages;
+﻿using MedPark.Common.Messages;
 using RawRabbit;
 using RawRabbit.Enrichers.MessageContext;
 using System;

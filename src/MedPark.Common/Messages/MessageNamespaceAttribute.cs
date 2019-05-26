@@ -1,6 +1,6 @@
 using System;
 
-namespace DShop.Common.Messages
+namespace MedPark.Common.Messages
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class MessageNamespaceAttribute : Attribute

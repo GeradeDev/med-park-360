@@ -1,4 +1,4 @@
-﻿using DShop.Common.Messages;
+﻿using MedPark.Common.Messages;
 using MedPark.Common.Messages;
 using Newtonsoft.Json;
 using System;

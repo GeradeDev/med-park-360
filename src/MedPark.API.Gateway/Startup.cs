@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,19 +18,26 @@ namespace MedPark.API.Gateway
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddRabbitMq();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            builder.AddRabbitMq();
+
+            Container = builder.Build();
+
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,10 +53,10 @@ namespace MedPark.API.Gateway
                 app.UseHsts();
             }
 
-            app.UseRabbitMq();
-
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseRabbitMq();
         }
     }
 }

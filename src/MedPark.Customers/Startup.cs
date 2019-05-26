@@ -81,7 +81,8 @@ namespace MedPark.CustomersService
             app.UseStaticFiles();
 
             app.UseRabbitMq()
-                .SubscribeEvent<SignedUp>(@namespace: "identity");
+                .SubscribeEvent<SignedUp>(@namespace: "identity")
+                .SubscribeEvent<AddressCreated>(@namespace: "gateway");
 
             app.UseMvcWithDefaultRoute();
         }

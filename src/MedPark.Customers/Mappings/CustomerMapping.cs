@@ -13,6 +13,7 @@ namespace MedPark.CustomersService.Mappings
         public CustomerMapping()
         {
             CreateMap<CustomerDto, Customer>();
+            CreateMap<AddressDto, Address>();
         }
     }
 }
