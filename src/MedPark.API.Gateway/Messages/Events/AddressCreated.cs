@@ -10,7 +10,6 @@ namespace MedPark.API.Gateway.Messages.Events
     public class AddressCreated : IEvent
     {
         public Guid Id { get; set; }
-        public DateTime Modified { get; set; }
 
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
@@ -21,8 +20,9 @@ namespace MedPark.API.Gateway.Messages.Events
         public string PostalCode { get; set; }
 
         [JsonConstructor]
-        public AddressCreated(string line1, string line2, string line3, string postalCode, Int32 type, Guid userId)
+        public AddressCreated(Guid id, string line1, string line2, string line3, string postalCode, Int32 type, Guid userId)
         {
+            Id = id;
             AddressLine1 = line1;
             AddressLine2 = line2;
             AddressLine3 = line3;

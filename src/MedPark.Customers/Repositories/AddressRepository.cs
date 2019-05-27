@@ -16,9 +16,13 @@ namespace MedPark.CustomersService.Repositories
             _DbContext = dbContext;
         }
 
-        public async Task AddAsync(Address address)
+        public Task AddAsync(Address address)
         {
-            await _DbContext.Address.AddAsync(address);
+            return Task.Run(() =>
+            {
+                _DbContext.Address.AddAsync(address);
+                _DbContext.SaveChanges();
+            });
         }
 
         public Task DeleteAsync(Guid Id)
@@ -26,19 +30,29 @@ namespace MedPark.CustomersService.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Address> GetAsync(Guid Id)
+        public Task<Address> GetAsync(Guid Id)
         {
-            return _DbContext.Address.Where(x => x.Id == Id).FirstOrDefault();
+            return Task.Run(() =>
+            {
+                return _DbContext.Address.Where(x => x.Id == Id).FirstOrDefault();
+            });
         }
 
-        public async Task<Address> GetAsync(Expression<Func<Address, bool>> predicate)
+        public Task<Address> GetAsync(Expression<Func<Address, bool>> predicate)
         {
-            return _DbContext.Address.Where(predicate).FirstOrDefault();
+            return Task.Run(() =>
+            {
+                return _DbContext.Address.Where(predicate).FirstOrDefault();
+            });
         }
 
         public Task UpdateAsync(Address address)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                _DbContext.Address.Add(address);
+                _DbContext.SaveChanges();
+            });
         }
     }
 }

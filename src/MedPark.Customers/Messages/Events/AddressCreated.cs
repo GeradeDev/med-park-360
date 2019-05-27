@@ -10,26 +10,27 @@ namespace MedPark.CustomersService.Messages.Events
     [MessageNamespace("gateway")]
     public class AddressCreated : IEvent
     {
-        public Guid Id { get; set; }
-        public DateTime Modified { get; set; }
+        public Guid Id { get;}
+        public DateTime Modified { get;}
 
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string AddressLine3 { get; set; }
-        public Int32 AddressType { get; set; }
-        public Guid UserId { get; set; }
+        public string AddressLine1 { get;}
+        public string AddressLine2 { get;}
+        public string AddressLine3 { get;}
+        public Int32 AddressType { get;}
+        public Guid UserId { get;}
 
-        public string PostalCode { get; set; }
+        public string PostalCode { get;}
 
         [JsonConstructor]
-        public AddressCreated(string line1, string line2, string line3, string postalCode, Int32 type, Guid userId)
+        public AddressCreated(Guid id, string addressLine1, string addressLine2, string addressLine3, string postalCode, Int32 addressType, Guid userId)
         {
-            AddressLine1 = line1;
-            AddressLine2 = line2;
-            AddressLine3 = line3;
+            Id = id;
+            AddressLine1 = addressLine1;
+            AddressLine2 = addressLine2;
+            AddressLine3 = addressLine3;
             PostalCode = postalCode;
             UserId = userId;
-            AddressType = type;
+            AddressType = addressType;
         }
     }
 }

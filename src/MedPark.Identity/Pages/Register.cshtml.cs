@@ -65,7 +65,7 @@ namespace MedPark.Identity.Pages
 
                     //Publish message to RabbitMq
                     await _busPublisher.PublishAsync(new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"]), CorrelationContext.Empty);
-
+                    
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

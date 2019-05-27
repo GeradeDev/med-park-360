@@ -27,13 +27,13 @@ namespace MedPark.CustomersService.Controllers
             _dispatcher = dispatcher;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post(CreateAddress command)
-        {
-            await _dispatcher.SendAsync(command);
+        //[HttpPost]
+        //public async Task<ActionResult> Post(CreateAddress command)
+        //{
+        //    await _dispatcher.SendAsync(command);
 
-            return Accepted();
-        }
+        //    return Accepted();
+        //}
 
         [HttpGet("{id}")]
         public async Task<ActionResult<AddressDto>> Get(Guid id)

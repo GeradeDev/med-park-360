@@ -22,18 +22,32 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpPost("CreateAddress")]
-        public async Task<IActionResult> CreateAddress()
+        public async Task<IActionResult> CreateAddress(CreateAddress command)
+        {
+            try
+            {
+                //Publish message to RabbitMq
+                await _busPublisher.PublishAsync(new AddressCreated(command.Id, command.AddressLine1, command.AddressLine2, command.AddressLine3, command.PostalCode, command.AddressType, command.UserId), CorrelationContext.Empty);
+
+            }
+            catch (Exception ex) { }
+            
+            return Accepted();
+        }
+
+        [HttpGet("GetAddreses/{userid}")]
+        public async Task<IActionResult> GetAddreses(Guid userid)
         {
             try
             {
                 CreateAddress command = new CreateAddress(Guid.NewGuid(), "4 21st street", "Menlo Park", "Pretoria", "0081", 1, Guid.Parse("BA9DC2C6-D40A-4115-AF7B-DB78CC9EFB8F"));
 
                 //Publish message to RabbitMq
-                await _busPublisher.PublishAsync(new AddressCreated(command.AddressLine1, command.AddressLine2, command.AddressLine3, command.PostalCode, command.AddressType, command.UserId), CorrelationContext.Empty);
+                await _busPublisher.PublishAsync(new AddressCreated(command.Id, command.AddressLine1, command.AddressLine2, command.AddressLine3, command.PostalCode, command.AddressType, command.UserId), CorrelationContext.Empty);
 
             }
             catch (Exception ex) { }
-            
+
             return Accepted();
         }
     }

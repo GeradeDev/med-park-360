@@ -49,7 +49,9 @@ namespace MedPark.CustomersService
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped(typeof(ICommandHandler<CreateCustomer>), typeof(CreateCustomerHandler));
+            services.AddScoped<IAddressRepository, AddressRepository>();
+
+            //services.AddScoped(typeof(ICommandHandler<CreateCustomer>), typeof(CreateCustomerHandler));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

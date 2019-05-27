@@ -53,10 +53,10 @@ namespace MedPark.API.Gateway
                 app.UseHsts();
             }
 
+            app.UseRabbitMq();
+
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            app.UseRabbitMq();
         }
     }
 }
