@@ -23,7 +23,7 @@ namespace MedPark.CustomersService.Handlers.Identity
         {
             var customer = new Customer(@event.UserId, @event.Email);
 
-            customer.Create(@event.FirstName);
+            customer.Create(@event.FirstName, @event.AccountType);
 
             await _customerRepo.AddAsync(customer);
         }

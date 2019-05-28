@@ -15,14 +15,16 @@ namespace MedPark.CustomersService.Messages.Events
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
+        public string AccountType { get;}
 
         [JsonConstructor]
-        public SignedUp(Guid userid, string firstname, string lastname, string email)
+        public SignedUp(Guid userid, string firstname, string lastname, string email, string accounttype)
         {
             UserId = userid;
             FirstName = firstname;
             LastName = lastname;
             Email = email;
+            AccountType = accounttype;
         }
     }
 }

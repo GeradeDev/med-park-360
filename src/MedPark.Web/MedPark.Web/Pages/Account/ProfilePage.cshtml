@@ -1,4 +1,6 @@
 ﻿@page "/Account/Profile/"
+@using Microsoft.AspNetCore.Authentication
+
 @model MedPark.Web.Pages.Account.ProfilePageModel
 @{
     ViewData["Title"] = "ProfilePage";
@@ -49,4 +51,8 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    var userId = "@Html.Raw(User.Claims.Where(x => x.Type == "identityid").FirstOrDefault().Value)";
+</script>
 

@@ -16,6 +16,7 @@ namespace MedPark.CustomersService.Domain
         public string Email { get; private set; }
         public string Mobile { get; private set; }
         public string Avatar { get; private set; }
+        public string AccountType { get; private set; }
 
         public Customer(Guid id, string email)
         {
@@ -23,11 +24,12 @@ namespace MedPark.CustomersService.Domain
             Email = email;
         }
 
-        public void Create(string firstname, string lastname = "", string mobile = "")
+        public void Create(string firstname, string accounttype, string lastname = "", string mobile = "")
         {
             FirstName = firstname;
             LastName = lastname;
             Mobile = mobile;
+            AccountType = accounttype;
         }
     }
 }

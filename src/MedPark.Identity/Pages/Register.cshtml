@@ -12,9 +12,17 @@
             <h4 class="card-title login-title bold-text">Sign-up - @Model.ClientName</h4>
         </div>
         <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Register a new account below as a medical practice or patient.</p>
 
             <div class="w-50">
+
+                <div class="mb-4">
+                    <label class="font-weight-bold">Account type:</label>
+                    <select asp-for="Role" class="form-control" placeholder="Role of user" name="role">
+                        <option value="Patient">Patient</option>
+                        <option value="Practice">Practice</option>
+                    </select>
+                </div>
 
                 <div class="mb-4">
                     <label class="font-weight-bold">First name:</label>

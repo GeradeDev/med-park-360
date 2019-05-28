@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace MedPark.Web
+namespace MedPark.Web.Utils.Identity
 {
     public class Program
     {

@@ -32,6 +32,15 @@ namespace MedPark.Identity.Config
                     {
                         "identityid"
                     }
+                },
+                new IdentityResource()
+                {
+                    DisplayName = "Role",
+                    Name = "role",
+                    UserClaims = new List<string>()
+                    {
+                        "role"
+                    }
                 }
             };
         }
@@ -57,7 +66,7 @@ namespace MedPark.Identity.Config
                     AlwaysIncludeUserClaimsInIdToken = true,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = { "https://localhost:44356/signin-oidc" },
-                    AllowedScopes = { "openid", "email", "profile", "firstName", "identityid" },
+                    AllowedScopes = { "openid", "email", "profile", "firstName", "identityid", "role" },
                     PostLogoutRedirectUris = { "https://localhost:44356/signout-callback-oidc" },
 
                     // secret for authentication

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityModel;
 using MedPark.Web.Models;
+using MedPark.Web.Utils.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +58,7 @@ namespace MedPark.Web
                 options.Scope.Add("profile");
                 options.Scope.Add("firstName");
                 options.Scope.Add("identityid");
+                options.Scope.Add("role");
 
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
@@ -101,49 +98,6 @@ namespace MedPark.Web
             app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
-        }
-    }
-
-    public interface IIdentityParser<T>
-    {
-        T Parse(IPrincipal principal);
-    }
-
-    public class ApplicationUser : IdentityUser
-    {
-        public Guid IdentityId { get; set; }
-
-        public bool IsAdmin { get; set; }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string IdNumber { get; set; }
-        public string PassportNo { get; set; }
-
-        public ApplicationUser()
-        {
-            IdentityId = Guid.NewGuid();
-        }
-    }
-
-    public class IdentityParser : IIdentityParser<ApplicationUser>
-    {
-        public ApplicationUser Parse(IPrincipal principal)
-        {
-            // Pattern matching 'is' expression
-            // assigns "claims" if "principal" is a "ClaimsPrincipal"
-            if (principal is ClaimsPrincipal claims)
-            {
-                return new ApplicationUser
-                {
-                    Email = claims.Claims.FirstOrDefault(x => x.Type == "email")?.Value ?? "",
-                    Id = claims.Claims.FirstOrDefault(x => x.Type == "sub")?.Value ?? "",
-                    LastName = claims.Claims.FirstOrDefault(x => x.Type == "last_name")?.Value ?? "",
-                    FirstName = claims.Claims.FirstOrDefault(x => x.Type == "firstname")?.Value ?? "",
-                    IdentityId = Guid.Parse(claims.Claims.FirstOrDefault(x => x.Type == "identityid")?.Value ?? "")
-                };
-            }
-            throw new ArgumentException(message: "The principal must be a ClaimsPrincipal", paramName: nameof(principal));
         }
     }
 }
