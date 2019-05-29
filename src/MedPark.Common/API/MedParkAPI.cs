@@ -9,7 +9,7 @@ namespace MedPark.Common.API
     public class CustomersService
     {
         private readonly IHttpClientFactory _httpClient;
-        private string _baseServiceUrl = "http://localhost:7000/api";
+        private string _baseServiceUrl = "http://localhost:62683/api/customers";
 
         public CustomersService(IHttpClientFactory httpClient)
         {
@@ -19,7 +19,7 @@ namespace MedPark.Common.API
 
         public async Task<string> GetDetails(Guid customerId)
         {
-            return await _httpClient.CreateClient().GetStringAsync($"{_baseServiceUrl}/customers/{ customerId }");
+            return await _httpClient.CreateClient().GetStringAsync($"{_baseServiceUrl}/{ customerId }");
         }
 
 

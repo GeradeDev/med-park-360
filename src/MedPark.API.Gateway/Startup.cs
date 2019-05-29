@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MedPark.API.Gateway.Services;
 using MedPark.Common.RabbitMq;
+using MedPark.Common.RestEase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,8 @@ namespace MedPark.API.Gateway
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDefaultEndpoint<ICustomerService>("customer-service");
+
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

@@ -7,12 +7,13 @@ using MedPark.Common.Dispatchers;
 using MedPark.Common.Handlers;
 using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Messages.Commands;
+using MedPark.CustomersService.Queries;
 using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedPark.CustomersService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -25,6 +26,14 @@ namespace MedPark.CustomersService.Controllers
             _customerRepo = customerRepo;
             _mapper = mapper;
             _dispatcher = dispatcher;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerDto>> Get([FromRoute] GetCustomer query)
+        {
+            var customer = await _dispatcher.QueryAsync(query);
+
+            return Ok(customer);
         }
 
         [HttpPost]
@@ -41,14 +50,6 @@ namespace MedPark.CustomersService.Controllers
             var customers = await _customerRepo.GetAsync(Guid.NewGuid());
 
             return Ok(_mapper.Map<CustomerDto[]>(customers));
-        }
-        
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerDto>> Get(Guid id)
-        {
-            var customer = await _customerRepo.GetAsync(id);
-
-            return Ok(_mapper.Map<CustomerDto>(customer));
         }
         
     }

@@ -16,7 +16,7 @@ namespace MedPark.Common
         {
             builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
             builder.RegisterType<Dispatcher>().As<IDispatcher>();
-            //builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>();
+            builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>();
         }
 
         public static string Underscore(this string value)

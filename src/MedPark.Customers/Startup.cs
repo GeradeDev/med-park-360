@@ -15,6 +15,7 @@ using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Handlers.Customers;
 using MedPark.CustomersService.Messages.Commands;
 using MedPark.CustomersService.Messages.Events;
+using MedPark.CustomersService.Queries;
 using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,7 +52,7 @@ namespace MedPark.CustomersService
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
 
-            //services.AddScoped(typeof(ICommandHandler<CreateCustomer>), typeof(CreateCustomerHandler));
+            services.AddScoped(typeof(IQueryHandler<GetCustomer, CustomerDto>), typeof(GetCustomerHandler));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
