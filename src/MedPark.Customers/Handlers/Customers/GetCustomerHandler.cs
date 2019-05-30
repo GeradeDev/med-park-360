@@ -28,7 +28,7 @@ namespace MedPark.CustomersService.Handlers.Customers
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
-                Avatar = customer.Email,
+                Avatar = customer.Avatar,
                 Birthday = customer.Birthday,
                 Mobile = customer.Mobile
             };
