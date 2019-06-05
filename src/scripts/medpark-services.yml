@@ -3,9 +3,22 @@ version: "3.5"
 services:
   api:
     image: medpark-api
-    container_name: medpark-api
     ports:
-      - 5000:5000
+      - '5000:5000'
+    networks:
+      - medpark
+      
+  identity-service:
+    image: medpark-identity
+    ports:
+      - '5001:5001'
+    networks:
+      - medpark
+      
+  customers-service:
+    image: medpark-customers
+    ports:
+      - '5002:5002'
     networks:
       - medpark
 

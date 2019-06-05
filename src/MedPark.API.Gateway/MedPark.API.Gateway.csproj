@@ -17,8 +17,12 @@
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MedPark.Common\MedPark.Common.csproj" />
+    
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="../MedPark.Common/MedPark.Common.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <ProjectReference Include="../MedPark.Common/MedPark.Common.csproj" />
+  </ItemGroup>
+  
 </Project>
