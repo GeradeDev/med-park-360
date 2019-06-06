@@ -13,6 +13,7 @@ using MedPark.Common.RabbitMq;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Handlers.Customers;
+using MedPark.CustomersService.Handlers.Gateway;
 using MedPark.CustomersService.Messages.Commands;
 using MedPark.CustomersService.Messages.Events;
 using MedPark.CustomersService.Queries;
@@ -32,6 +33,7 @@ namespace MedPark.CustomersService
 {
     public class Startup
     {
+        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
@@ -43,6 +45,16 @@ namespace MedPark.CustomersService
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                            .WithExposedHeaders(Headers));
+            });
+            
             //Auto Mapper
             services.AddAutoMapper();
 
@@ -53,6 +65,7 @@ namespace MedPark.CustomersService
             services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddScoped(typeof(IQueryHandler<GetCustomer, CustomerDto>), typeof(GetCustomerHandler));
+            services.AddScoped(typeof(IQueryHandler<GetCustomerAddress, List<AddressDto>>), typeof(GetCustomerAddressHandler));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

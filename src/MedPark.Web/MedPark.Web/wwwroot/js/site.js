@@ -3,4 +3,4 @@
 
 // Write your JavaScript code.
 
-$customers_api = "http://localhost:62683/customers";
+$medpark_api = "http://localhost:62683/api/";

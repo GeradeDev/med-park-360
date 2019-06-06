@@ -54,5 +54,13 @@ namespace MedPark.CustomersService.Repositories
                 return _DbContext.Customers.Where(predicate).FirstOrDefault();
             });
         }
+
+        public Task<List<Address>> GetAddressAsync(Expression<Func<Address, bool>> predicate)
+        {
+            return Task.Run(() =>
+            {
+                return _DbContext.Address.Where(predicate).ToList();
+            });
+        }
     }
 }

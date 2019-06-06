@@ -43,6 +43,14 @@
 
         </div>
 
+        <br />
+
+        <div class="clearfix mt-4 user-details-container">
+
+            <h4>Addresses:</h4>
+
+        </div>
+
     </div>
 
     <div class="w-75 float-left'">
@@ -55,4 +63,6 @@
 <script type="text/javascript">
     var userId = "@Html.Raw(User.Claims.Where(x => x.Type == "identityid").FirstOrDefault().Value)";
 </script>
+
+<script type="text/javascript" src="~/js/Patient/Profile.js"></script>
 

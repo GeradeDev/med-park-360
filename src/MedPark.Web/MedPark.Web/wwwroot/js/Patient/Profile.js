@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
 
-
+    GetAddresses();
 
 });
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
 function GetAddresses(){
 
     $.ajax({
-        url: $customers_api + "/getaddresses/",
+        url: $medpark_api + "customers/GetAddreses/" + userId,
         success: function (result) {
             $("#div1").html(result);
         }

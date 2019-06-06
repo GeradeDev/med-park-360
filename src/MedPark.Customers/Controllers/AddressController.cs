@@ -6,41 +6,30 @@ using AutoMapper;
 using MedPark.Common.Dispatchers;
 using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Messages.Commands;
+using MedPark.CustomersService.Queries;
 using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedPark.CustomersService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly ICustomerRepository _customerRepo;
-        private readonly IMapper _mapper;
         private readonly IDispatcher _dispatcher;
 
-        public AddressController(ICustomerRepository customerRepo, IMapper mapper, IDispatcher dispatcher)
+        public AddressController(IDispatcher dispatcher)
         {
-            _customerRepo = customerRepo;
-            _mapper = mapper;
             _dispatcher = dispatcher;
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> Post(CreateAddress command)
-        //{
-        //    await _dispatcher.SendAsync(command);
-
-        //    return Accepted();
-        //}
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<AddressDto>> Get(Guid id)
+        public async Task<ActionResult<List<AddressDto>>> Get([FromRoute] GetCustomerAddress query)
         {
-            var customer = await _customerRepo.GetAsync(id);
+            var addresses = await _dispatcher.QueryAsync(query);
 
-            return Ok(_mapper.Map<AddressDto>(customer));
+            return Ok(addresses);
         }
     }
 }

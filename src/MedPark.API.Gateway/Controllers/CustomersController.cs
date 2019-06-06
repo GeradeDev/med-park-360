@@ -52,11 +52,13 @@ namespace MedPark.API.Gateway.Controllers
         {
             try
             {
-               
+                var addresses = await _customerService.GetAddreses(userid);
+
+                return Ok(addresses);
             }
             catch (Exception ex) { }
 
-            return Accepted();
+            return BadRequest();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace MedPark.API.Gateway
 {
     public class Startup
     {
+        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
@@ -32,8 +33,13 @@ namespace MedPark.API.Gateway
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDefaultEndpoint<ICustomerService>("customer-service");
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
+            services.AddDefaultEndpoint<ICustomerService>("customer-service");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -56,6 +62,8 @@ namespace MedPark.API.Gateway
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(options => options.AllowAnyOrigin());
 
             app.UseRabbitMq();
 

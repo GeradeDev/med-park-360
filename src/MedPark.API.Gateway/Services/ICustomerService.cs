@@ -15,10 +15,7 @@ namespace MedPark.API.Gateway.Services
         [Get("/customers/{id}")]
         Task<Customer> GetCustomer([Path] Guid id);
 
-        [Post("/customers/CreateAddress/")]
-        Task CreateAddress([FromQuery] CreateAddress command);
-
-        [Post("/customers/GetAddreses/{userid}")]
-        Task GetAddreses([Path] Guid userid);
+        [Get("/address/{id}")]
+        Task<List<Address>> GetAddreses([Path] Guid id);
     }
 }

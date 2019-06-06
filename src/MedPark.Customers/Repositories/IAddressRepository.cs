@@ -18,5 +18,7 @@ namespace MedPark.CustomersService.Repositories
         Task UpdateAsync(Address customer);
 
         Task DeleteAsync(Guid Id);
+
+        Task<List<Address>> GetAllAsync(Expression<Func<Address, bool>> predicate);
     }
 }
