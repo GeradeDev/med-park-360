@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MedPark.Common;
 using MedPark.Common.RabbitMq;
+using MedPark.MedicalPractice.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace MedPark.MedicalPractice
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

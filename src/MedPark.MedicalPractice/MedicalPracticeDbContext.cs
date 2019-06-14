@@ -11,6 +11,13 @@ namespace MedPark.MedicalPractice
     {
         public DbSet<Practice> Practice { get; set; }
         public DbSet<Credential> Credential { get; set; }
+        public DbSet<OperatingHours> OperatingHours { get; set; }
+        public DbSet<Qualifications> Qualifications { get; set; }
+        public DbSet<AcceptedMedicalScheme> AcceptedMedicalScheme { get; set; }
+        public DbSet<MedicalScheme> MedicalScheme { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Institute> Institute { get; set; }
+        public DbSet<Speciality> Speciality { get; set; }
 
         public MedicalPracticeDbContext(DbContextOptions<MedicalPracticeDbContext> options) : base(options)
         {
@@ -23,6 +30,13 @@ namespace MedPark.MedicalPractice
 
             builder.Entity<Practice>().ToTable("Practice");
             builder.Entity<Credential>().ToTable("Credential");
+            builder.Entity<OperatingHours>().ToTable("OperatingHours");
+            builder.Entity<Qualifications>().ToTable("Qualifications");
+            builder.Entity<AcceptedMedicalScheme>().ToTable("AcceptedMedicalScheme");
+            builder.Entity<MedicalScheme>().ToTable("MedicalScheme");
+            builder.Entity<Address>().ToTable("Address");
+            builder.Entity<Institute>().ToTable("Institute");
+            builder.Entity<Speciality>().ToTable("Speciality");
         }
     }
 }

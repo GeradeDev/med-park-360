@@ -12,7 +12,7 @@ namespace MedPark.MedicalPractice.Domain
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
 
-        public string PracticeName { get; private set; }
+        public string PracticeName { get; set; }
         public string Slogan { get; private set; }
         public string Email { get; private set; }
         public string TelephonePrimary { get; private set; }
