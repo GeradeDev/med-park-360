@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{3B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.API.Gateway", "MedPark.API.Gateway\MedPark.API.Gateway.csproj", "{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.MedicalPractice", "MedPark.MedicalPractice\MedPark.MedicalPractice.csproj", "{BDA646BD-CCE6-4635-AE96-C796AFD21B22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{BBD56577-B955-4F91-A605-EB45F2FFA7B0} = {4BAB0ABD-131F-4209-B63F-F9C8736C8818}
 		{AA6D90C1-3174-4535-AA0F-953190CC40D7} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 		{C77D2A20-E124-45A5-AFE5-19DEE8898C8D} = {3B3CBDAA-9FD1-4493-9BC5-7C239314CFAF}
+		{BDA646BD-CCE6-4635-AE96-C796AFD21B22} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39740E51-064A-4FD5-9C8A-A5A257825D44}
