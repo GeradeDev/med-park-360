@@ -13,7 +13,7 @@ namespace MedPark.Web
         public string LastName { get; set; }
         public string IdNumber { get; set; }
         public string PassportNo { get; set; }
-        public string Role { get; set; }
+        public string AccountType { get; set; }
 
         public ApplicationUser()
         {

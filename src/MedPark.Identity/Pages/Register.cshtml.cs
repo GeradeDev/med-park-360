@@ -64,17 +64,24 @@ namespace MedPark.Identity.Pages
                 if (result.Succeeded)
                 {
                     await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("firstName", user.FirstName), new Claim("identityid", user.IdentityId.ToString()) });
-
+                    
                     if (Role == "Patient")
-                        await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("role", "patient") });
+                    {
+                        await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "patient") });
+                        var newSignUpEvent = new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], Role);
+
+                        //Publish message to RabbitMq
+                        await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
+                    }
                     else
-                        await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("role", "practice") });
+                    {
+                        await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "specialist") });
+                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"]);
 
-                    var newSignUpEvent = new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], Role);
-
-                    //Publish message to RabbitMq
-                    await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
-
+                        //Publish message to RabbitMq
+                        await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
+                    }
+                    
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

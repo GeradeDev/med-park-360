@@ -69,40 +69,6 @@ namespace MedPark.MedicalPractice.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("MedPark.MedicalPractice.Domain.Credential", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Avatar");
-
-                    b.Property<string>("Cellphone");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<bool>("IsAdmin");
-
-                    b.Property<bool>("IsVerfied");
-
-                    b.Property<DateTime>("Modified");
-
-                    b.Property<Guid>("PracticeId");
-
-                    b.Property<Guid?>("SpecialityId");
-
-                    b.Property<string>("Surname");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Credential");
-                });
-
             modelBuilder.Entity("MedPark.MedicalPractice.Domain.Institute", b =>
                 {
                     b.Property<Guid>("Id")
@@ -237,6 +203,42 @@ namespace MedPark.MedicalPractice.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Qualifications");
+                });
+
+            modelBuilder.Entity("MedPark.MedicalPractice.Domain.Specialist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Avatar");
+
+                    b.Property<string>("Cellphone");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsAdmin");
+
+                    b.Property<bool>("IsVerfied");
+
+                    b.Property<DateTime>("Modified");
+
+                    b.Property<Guid>("PracticeId");
+
+                    b.Property<Guid?>("SpecialityId");
+
+                    b.Property<string>("Surname");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialist");
                 });
 
             modelBuilder.Entity("MedPark.MedicalPractice.Domain.Speciality", b =>

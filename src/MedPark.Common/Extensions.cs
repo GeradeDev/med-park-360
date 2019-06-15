@@ -45,5 +45,10 @@ namespace MedPark.Common
             }
             return sb.ToString();
         }
+
+        public static string GetAvatar(this string email)
+        {
+            return Globals.GravatarEndpoint + email.ToLower().CalculateMD5Hash();
+        }
     }
 }

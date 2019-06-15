@@ -2,9 +2,15 @@
 
 @{
     string name = null;
+    string accType = null;
     if (User.Claims.FirstOrDefault(x => x.Type == "firstName") != null)
     {
         name = User.Claims.FirstOrDefault(x => x.Type == "firstName").Value;
+    }
+
+    if (User.Claims.FirstOrDefault(x => x.Type == "accounttype") != null)
+    {
+        accType = User.Claims.FirstOrDefault(x => x.Type == "accounttype").Value;
     }
 }
 
@@ -17,7 +23,8 @@
                 <b>@(string.IsNullOrEmpty(name) ? User.Identity.Name : name)</b>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="/Account/Profile">Account</a>
+                <a class="dropdown-item @(accType == "patient" ? "" : "hidden")" href="/Account/Profile">Account</a>
+                <a class="dropdown-item @(accType == "specialist" ? "" : "hidden")" href="/Specialist/Profile">Profile</a>
                 <a class="dropdown-item" href="#">Orders</a>
             </div>
         </li>

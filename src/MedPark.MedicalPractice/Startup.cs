@@ -4,9 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using MedPark.Common;
+using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.MedicalPractice.Config;
+using MedPark.MedicalPractice.Dto;
+using MedPark.MedicalPractice.Handlers.MedicalPractice;
+using MedPark.MedicalPractice.Messages.Events;
+using MedPark.MedicalPractice.Queries;
+using MedPark.MedicalPractice.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,8 +39,15 @@ namespace MedPark.MedicalPractice
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
             //Add DBContext
             services.AddDbContext<MedicalPracticeDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
+
+            services.AddScoped<ISpeclialistRepository, SpeclialistRepository>();
+
+            services.AddScoped(typeof(IQueryHandler<GetSpecialist, SpecialistDto>), typeof(GetSpecialistHandler));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -64,6 +78,9 @@ namespace MedPark.MedicalPractice
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseRabbitMq()
+                .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity");
 
             app.UseMvcWithDefaultRoute();
         }

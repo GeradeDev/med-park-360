@@ -58,7 +58,7 @@ namespace MedPark.Web
                 options.Scope.Add("profile");
                 options.Scope.Add("firstName");
                 options.Scope.Add("identityid");
-                options.Scope.Add("role");
+                options.Scope.Add("accounttype");
 
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class Credential : IIdentifiable
+    public class Specialist : IIdentifiable
     {
         public Guid Id { get; set; }
         public DateTime Created { get; set; }
@@ -22,5 +22,20 @@ namespace MedPark.MedicalPractice.Domain
         public Guid PracticeId { get; private set; }
         public Boolean IsAdmin { get; private set; }
         public Boolean IsVerfied { get; private set; }
+        public Boolean Active { get; private set; }
+
+        public Specialist(Guid id)
+        {
+            Id = id;
+        }
+
+        public void Create(string firstname, string surname, string email)
+        {
+            Created = DateTime.Now;
+            Modified = DateTime.Now;
+            FirstName = firstname;
+            Surname = surname;
+            Email = email;
+        }
     }
 }

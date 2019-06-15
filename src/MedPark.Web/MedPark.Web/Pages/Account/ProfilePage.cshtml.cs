@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MedPark.Common;
 using MedPark.Common.API;
+using MedPark.Web.Dto;
 using MedPark.Web.Models;
 using MedPark.Web.Utils.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -51,20 +52,9 @@ namespace MedPark.Web.Pages.Account
             Avatar = c.Avatar;
 
             if (string.IsNullOrEmpty(Avatar))
-                Avatar = Globals.GravatarEndpoint + Email.ToLower().CalculateMD5Hash();
+                Avatar = Email.GetAvatar();
 
             return Page();
         }
-    }
-
-    public class CustomerDto
-    {
-        public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime? Birthday { get; set; }
-        public string Email { get; set; }
-        public string Mobile { get; set; }
-        public string Avatar { get; set; }
     }
 }

@@ -15,14 +15,12 @@ namespace MedPark.Common.API
         {
             _httpClient = httpClient;
         }
-        
+
 
         public async Task<string> GetDetails(Guid customerId)
         {
             return await _httpClient.CreateClient().GetStringAsync($"{_baseServiceUrl}/{ customerId }");
         }
-
-
 
         public async Task<string> GetAddresses(Guid customerId)
         {
@@ -32,6 +30,22 @@ namespace MedPark.Common.API
         public async Task<string> CreateUpdateAddresses(Guid customerId)
         {
             return await _httpClient.CreateClient().GetStringAsync($"{_baseServiceUrl} /address/ { customerId }");
+        }
+    }
+
+    public class SpecilaistService
+    {
+        private readonly IHttpClientFactory _httpClient;
+        private string _baseServiceUrl = "http://localhost:62683/api/specialist";
+
+        public SpecilaistService(IHttpClientFactory httpClient)
+        {
+            _httpClient = httpClient;
+        }
+        
+        public async Task<string> GetDetails(Guid specialistId)
+        {
+            return await _httpClient.CreateClient().GetStringAsync($"{_baseServiceUrl}/{ specialistId }");
         }
     }
 }

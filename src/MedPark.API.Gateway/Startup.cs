@@ -40,6 +40,7 @@ namespace MedPark.API.Gateway
             });
 
             services.AddDefaultEndpoint<ICustomerService>("customer-service");
+            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

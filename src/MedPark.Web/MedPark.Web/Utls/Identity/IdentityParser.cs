@@ -20,7 +20,7 @@ namespace MedPark.Web.Utils.Identity
                     LastName = claims.Claims.FirstOrDefault(x => x.Type == "last_name")?.Value ?? "",
                     FirstName = claims.Claims.FirstOrDefault(x => x.Type == "firstname")?.Value ?? "",
                     IdentityId = Guid.Parse(claims.Claims.FirstOrDefault(x => x.Type == "identityid")?.Value ?? ""),
-                    Role = claims.Claims.FirstOrDefault(x => x.Type == "role")?.Value ?? ""
+                    AccountType = claims.Claims.FirstOrDefault(x => x.Type == "accounttype")?.Value ?? ""
                 };
             }
             throw new ArgumentException(message: "The principal must be a ClaimsPrincipal", paramName: nameof(principal));

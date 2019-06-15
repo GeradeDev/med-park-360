@@ -10,7 +10,7 @@ namespace MedPark.MedicalPractice
     public class MedicalPracticeDbContext : DbContext
     {
         public DbSet<Practice> Practice { get; set; }
-        public DbSet<Credential> Credential { get; set; }
+        public DbSet<Specialist> Specialist { get; set; }
         public DbSet<OperatingHours> OperatingHours { get; set; }
         public DbSet<Qualifications> Qualifications { get; set; }
         public DbSet<AcceptedMedicalScheme> AcceptedMedicalScheme { get; set; }
@@ -29,7 +29,7 @@ namespace MedPark.MedicalPractice
             base.OnModelCreating(builder);
 
             builder.Entity<Practice>().ToTable("Practice");
-            builder.Entity<Credential>().ToTable("Credential");
+            builder.Entity<Specialist>().ToTable("Specialist");
             builder.Entity<OperatingHours>().ToTable("OperatingHours");
             builder.Entity<Qualifications>().ToTable("Qualifications");
             builder.Entity<AcceptedMedicalScheme>().ToTable("AcceptedMedicalScheme");
