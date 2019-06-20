@@ -18,7 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{3B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.API.Gateway", "MedPark.API.Gateway\MedPark.API.Gateway.csproj", "{C77D2A20-E124-45A5-AFE5-19DEE8898C8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.MedicalPractice", "MedPark.MedicalPractice\MedPark.MedicalPractice.csproj", "{BDA646BD-CCE6-4635-AE96-C796AFD21B22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.MedicalPractice", "MedPark.MedicalPractice\MedPark.MedicalPractice.csproj", "{BDA646BD-CCE6-4635-AE96-C796AFD21B22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B3D526A4-EAE0-43E3-980D-7E9CE35373D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customers.Tests", "Customers.Tests", "{93046606-966B-43F5-B530-C378AB54D7AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MedicalPractice.Tests", "MedicalPractice.Tests", "{5D312703-A7CD-434D-B85E-8B53065D1BDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Tests", "CustomerService.Tests\CustomerService.Tests.csproj", "{BDEA91C9-15A7-41A4-B58F-301F103669A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +58,10 @@ Global
 		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDA646BD-CCE6-4635-AE96-C796AFD21B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,9 @@ Global
 		{AA6D90C1-3174-4535-AA0F-953190CC40D7} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 		{C77D2A20-E124-45A5-AFE5-19DEE8898C8D} = {3B3CBDAA-9FD1-4493-9BC5-7C239314CFAF}
 		{BDA646BD-CCE6-4635-AE96-C796AFD21B22} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
+		{93046606-966B-43F5-B530-C378AB54D7AC} = {B3D526A4-EAE0-43E3-980D-7E9CE35373D2}
+		{5D312703-A7CD-434D-B85E-8B53065D1BDB} = {B3D526A4-EAE0-43E3-980D-7E9CE35373D2}
+		{BDEA91C9-15A7-41A4-B58F-301F103669A7} = {93046606-966B-43F5-B530-C378AB54D7AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39740E51-064A-4FD5-9C8A-A5A257825D44}
