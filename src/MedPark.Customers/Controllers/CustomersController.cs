@@ -47,7 +47,7 @@ namespace MedPark.CustomersService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAll()
         {
-            var customers = await _customerRepo.GetAsync(Guid.NewGuid());
+            var customers = await _customerRepo.GetAsync(x => x.Birthday < DateTime.Now);
 
             return Ok(_mapper.Map<CustomerDto[]>(customers));
         }

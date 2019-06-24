@@ -26,7 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customers.Tests", "Customer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MedicalPractice.Tests", "MedicalPractice.Tests", "{5D312703-A7CD-434D-B85E-8B53065D1BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Tests", "CustomerService.Tests\CustomerService.Tests.csproj", "{BDEA91C9-15A7-41A4-B58F-301F103669A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Tests", "CustomerService.Tests\CustomerService.Tests.csproj", "{BDEA91C9-15A7-41A4-B58F-301F103669A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.MedicalPractice.Tests", "Test\MedPark.MedicalPractice.Tests\MedPark.MedicalPractice.Tests.csproj", "{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDEA91C9-15A7-41A4-B58F-301F103669A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{93046606-966B-43F5-B530-C378AB54D7AC} = {B3D526A4-EAE0-43E3-980D-7E9CE35373D2}
 		{5D312703-A7CD-434D-B85E-8B53065D1BDB} = {B3D526A4-EAE0-43E3-980D-7E9CE35373D2}
 		{BDEA91C9-15A7-41A4-B58F-301F103669A7} = {93046606-966B-43F5-B530-C378AB54D7AC}
+		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6} = {5D312703-A7CD-434D-B85E-8B53065D1BDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39740E51-064A-4FD5-9C8A-A5A257825D44}

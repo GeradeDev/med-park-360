@@ -14,32 +14,34 @@ using Xunit;
 
 namespace CustomerService.Tests.Queries
 {
-    public class CustomerQueries
+    public class CustomerQueries : BaseCustomersTest
     {
-        public Mock<ICustomerRepository> _custRepo;
-        public Mock<IAddressRepository> _addrRepo;
-
         public CustomerQueries()
         {
-            _custRepo = new Mock<ICustomerRepository>();
-            _addrRepo = new Mock<IAddressRepository>();
-
-            Setup();
-        }
-        
-        public void Setup()
-        {
-            _custRepo.Setup(s => s.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Customer(Guid.NewGuid(), "")));
-
-            _addrRepo.Setup(s => s.GetAllAsync(It.IsAny<Expression<Func<Address, bool>>>())).Returns(Task.FromResult(new List<Address>() { new Address(Guid.NewGuid(), Guid.NewGuid()) }));
-            
         }
 
         [Fact]
-        public async Task GetCustomerQuery_GetCustomer_isDto()
+        public async Task GetCustomer_Handle_NotNull()
         {
             //Arange
-            GetCustomerHandler _handler = new GetCustomerHandler(_custRepo.Object);
+            GetCustomerHandler _handler = new GetCustomerHandler(_customersRepo.Object);
+
+            GetCustomer query = new GetCustomer();
+            query.Id = Guid.NewGuid();
+
+
+            //Act
+            CustomerDto customer = await _handler.HandleAsync(query);
+
+            //Assert
+            Assert.NotNull(customer);
+        }
+
+        [Fact]
+        public async Task GetCustomer_Handle_isDto()
+        {
+            //Arange
+            GetCustomerHandler _handler = new GetCustomerHandler(_customersRepo.Object);
 
             GetCustomer query = new GetCustomer();
             query.Id = Guid.NewGuid();
@@ -53,10 +55,27 @@ namespace CustomerService.Tests.Queries
         }
 
         [Fact]
-        public async Task GetCustomerQuery_GetCustomerAddress_isDto()
+        public async Task GetCustomerAddress_Handle_NotNull()
         {
             //Arange
-            GetCustomerAddressHandler _handler = new GetCustomerAddressHandler(_addrRepo.Object);
+            GetCustomerAddressHandler _handler = new GetCustomerAddressHandler(_addressRepo.Object);
+
+            GetCustomerAddress query = new GetCustomerAddress();
+            query.Id = Guid.NewGuid();
+
+
+            //Act
+            List<AddressDto> customer = await _handler.HandleAsync(query);
+
+            //Assert
+            Assert.NotNull(customer);
+        }
+
+        [Fact]
+        public async Task GetCustomerAddress_Handle_isDto()
+        {
+            //Arange
+            GetCustomerAddressHandler _handler = new GetCustomerAddressHandler(_addressRepo.Object);
 
             GetCustomerAddress query = new GetCustomerAddress();
             query.Id = Guid.NewGuid();
