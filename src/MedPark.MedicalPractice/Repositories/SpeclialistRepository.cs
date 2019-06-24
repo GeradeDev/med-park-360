@@ -47,5 +47,13 @@ namespace MedPark.MedicalPractice.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Specialist>> BrowseAsync(Expression<Func<Specialist, bool>> predicate)
+        {
+            return await Task.Run(() =>
+            {
+                return _context.Specialist.Where(predicate).ToList();
+            });
+        }
     }
 }

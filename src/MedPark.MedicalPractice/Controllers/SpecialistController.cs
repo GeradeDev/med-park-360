@@ -12,25 +12,25 @@ namespace MedPark.MedicalPractice.Controllers
 {
     [Route("specialist")]
     [ApiController]
-    public class PracticeController : ControllerBase
+    public class SpecialistController : ControllerBase
     {
         private readonly IDispatcher _dispatcher;
-
-
-        public PracticeController(IDispatcher dispatcher)
+        
+        public SpecialistController(IDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PracticeDto>> GetSpecialist([FromRoute] GetSpecialist query)
+        public async Task<IActionResult> GetSpecialist([FromRoute] GetSpecialist query)
         {
             try
             {
                 var s = await _dispatcher.QueryAsync(query);
+
                 return Ok(s);
             }
-            catch
+            catch (Exception ex)
             {
 
             }

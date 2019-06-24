@@ -18,5 +18,7 @@ namespace MedPark.MedicalPractice.Repositories
         Task UpdateAsync(Specialist specilaist);
 
         Task DeleteAsync(Guid Id);
+
+        Task<List<Specialist>> BrowseAsync(Expression<Func<Specialist, bool>> predicate);
     }
 }
