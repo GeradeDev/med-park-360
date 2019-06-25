@@ -3,7 +3,6 @@ using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Handlers.Customers;
 using MedPark.CustomersService.Handlers.Gateway;
 using MedPark.CustomersService.Queries;
-using MedPark.CustomersService.Repositories;
 using Moq;
 using System;
 using System.Collections.Generic;

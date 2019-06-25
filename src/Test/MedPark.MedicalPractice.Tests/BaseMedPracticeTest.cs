@@ -5,7 +5,6 @@ using MedPark.MedicalPractice.Dto;
 using MedPark.MedicalPractice.Handlers.MedicalPractice;
 using MedPark.MedicalPractice.Mappings;
 using MedPark.MedicalPractice.Queries;
-using MedPark.MedicalPractice.Repositories;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace MedPark.MedicalPractice.Tests
         public IMapper _mapper;
         public Mock<IDispatcher> _dispatcher;
 
-        public Mock<ISpeclialistRepository> _specialistRepo;
+        ///public Mock<ISpeclialistRepository> _specialistRepo;
 
         public BaseMedPracticeTest()
         {
@@ -34,7 +33,7 @@ namespace MedPark.MedicalPractice.Tests
 
             _dispatcher = new Mock<IDispatcher>();
 
-            _specialistRepo = new Mock<ISpeclialistRepository>();
+           // _specialistRepo = new Mock<ISpeclialistRepository>();
             SetupRepositories();
 
             Setup();
@@ -42,11 +41,11 @@ namespace MedPark.MedicalPractice.Tests
 
         private void SetupRepositories()
         {
-            _specialistRepo.Setup(r => r.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
-            _specialistRepo.Setup(r => r.UpdateAsync(It.IsAny<Specialist>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
-            _specialistRepo.Setup(r => r.DeleteAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
-            _specialistRepo.Setup(r => r.AddAsync(It.IsAny<Specialist>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
-            _specialistRepo.Setup(r => r.BrowseAsync(It.IsAny<Expression<Func<Specialist, bool>>>())).Returns(Task.FromResult(new List<Specialist> { new Specialist(Guid.NewGuid()) }));
+            //_specialistRepo.Setup(r => r.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
+            //_specialistRepo.Setup(r => r.UpdateAsync(It.IsAny<Specialist>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
+            //_specialistRepo.Setup(r => r.DeleteAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
+            //_specialistRepo.Setup(r => r.AddAsync(It.IsAny<Specialist>())).Returns(Task.FromResult(new Specialist(Guid.NewGuid())));
+            //_specialistRepo.Setup(r => r.BrowseAsync(It.IsAny<Expression<Func<Specialist, bool>>>())).Returns(Task.FromResult(new List<Specialist> { new Specialist(Guid.NewGuid()) }));
         }
 
         public void Setup()

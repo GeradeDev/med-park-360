@@ -18,6 +18,7 @@ namespace MedPark.MedicalPractice
         public DbSet<Address> Address { get; set; }
         public DbSet<Institute> Institute { get; set; }
         public DbSet<Speciality> Speciality { get; set; }
+        public DbSet<PendingRegistration> PendingRegistration { get; set; }
 
         public MedicalPracticeDbContext(DbContextOptions<MedicalPracticeDbContext> options) : base(options)
         {
@@ -37,6 +38,7 @@ namespace MedPark.MedicalPractice
             builder.Entity<Address>().ToTable("Address");
             builder.Entity<Institute>().ToTable("Institute");
             builder.Entity<Speciality>().ToTable("Speciality");
+            builder.Entity<PendingRegistration>().ToTable("PendingRegistration");
         }
     }
 }
