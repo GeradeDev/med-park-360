@@ -17,7 +17,6 @@ using MedPark.CustomersService.Handlers.Gateway;
 using MedPark.CustomersService.Messages.Commands;
 using MedPark.CustomersService.Messages.Events;
 using MedPark.CustomersService.Queries;
-using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -61,18 +60,19 @@ namespace MedPark.CustomersService
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
-
             services.AddScoped(typeof(IQueryHandler<GetCustomer, CustomerDto>), typeof(GetCustomerHandler));
             services.AddScoped(typeof(IQueryHandler<GetCustomerAddress, List<AddressDto>>), typeof(GetCustomerAddressHandler));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<CustomersDbContext>().As<DbContext>().InstancePerLifetimeScope();
+
             builder.Populate(services);
             builder.AddDispatchers();
             builder.AddRabbitMq();
+            builder.AddRepository<Customer>();
 
             Container = builder.Build();
 

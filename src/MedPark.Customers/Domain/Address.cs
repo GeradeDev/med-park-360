@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MedPark.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MedPark.CustomersService.Domain
 {
-    public class Address
+    public class Address : IIdentifiable
     {
         public Guid Id { get; set; }
         public DateTime Modified { get; set; }

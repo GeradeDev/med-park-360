@@ -5,22 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using MedPark.Common.Handlers;
 using MedPark.CustomersService.Queries;
-using MedPark.CustomersService.Repositories;
+using MedPark.Common;
+using MedPark.CustomersService.Domain;
 
 namespace MedPark.CustomersService.Handlers.Customers
 {
     public class GetCustomerHandler : IQueryHandler<GetCustomer, CustomerDto>
     {
-        private readonly ICustomerRepository _custRepo;
+        private IMedParkRepository<Customer> _customerRepo { get; }
 
-        public GetCustomerHandler(ICustomerRepository custRepo)
+        public GetCustomerHandler(IMedParkRepository<Customer> customerRepo)
         {
-            _custRepo = custRepo;
+            _customerRepo = customerRepo;
         }
 
         public async Task<CustomerDto> HandleAsync(GetCustomer query)
         {
-            var customer = await _custRepo.GetAsync(query.Id);
+            var customer = await _customerRepo.GetAsync(query.Id);
 
             return new CustomerDto()
             {

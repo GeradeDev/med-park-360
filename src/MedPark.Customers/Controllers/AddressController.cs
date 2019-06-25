@@ -7,7 +7,6 @@ using MedPark.Common.Dispatchers;
 using MedPark.CustomersService.Dto;
 using MedPark.CustomersService.Messages.Commands;
 using MedPark.CustomersService.Queries;
-using MedPark.CustomersService.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

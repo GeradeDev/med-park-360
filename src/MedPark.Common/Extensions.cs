@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MedPark.Common.Dispatchers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -50,5 +51,10 @@ namespace MedPark.Common
         {
             return Globals.GravatarEndpoint + email.ToLower().CalculateMD5Hash();
         }
+
+        public static void AddRepository<TEntity>(this ContainerBuilder builder) where TEntity : class, IIdentifiable
+           => builder.Register(ctx => new MedParkRepository<TEntity>(ctx.Resolve<DbContext>()))
+               .As<IMedParkRepository<TEntity>>()
+               .InstancePerLifetimeScope();
     }
 }

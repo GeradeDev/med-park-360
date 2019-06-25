@@ -13,7 +13,6 @@ using MedPark.MedicalPractice.Dto;
 using MedPark.MedicalPractice.Handlers.MedicalPractice;
 using MedPark.MedicalPractice.Messages.Events;
 using MedPark.MedicalPractice.Queries;
-using MedPark.MedicalPractice.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,8 +43,6 @@ namespace MedPark.MedicalPractice
             //Add DBContext
             services.AddDbContext<MedicalPracticeDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddScoped<ISpeclialistRepository, SpeclialistRepository>();
-
             services.AddScoped(typeof(IQueryHandler<GetSpecialist, SpecialistDto>), typeof(GetSpecialistHandler));
 
 
@@ -54,6 +51,9 @@ namespace MedPark.MedicalPractice
             SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<MedicalPracticeDbContext>().As<DbContext>().InstancePerLifetimeScope();
+
             builder.Populate(services);
             builder.AddDispatchers();
             builder.AddRabbitMq();

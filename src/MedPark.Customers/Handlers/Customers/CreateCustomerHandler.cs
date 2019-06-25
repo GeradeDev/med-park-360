@@ -1,9 +1,9 @@
-﻿using MedPark.Common.Handlers;
+﻿using MedPark.Common;
+using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.Common.Types;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Messages.Commands;
-using MedPark.CustomersService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ namespace MedPark.CustomersService.Handlers.Customers
 {
     public class CreateCustomerHandler : ICommandHandler<CreateCustomer>
     {
-        private readonly ICustomerRepository _customerRepo;
+        private IMedParkRepository<Customer> _customerRepo { get; }
 
-        public CreateCustomerHandler(ICustomerRepository customerRepo)
+        public CreateCustomerHandler(IMedParkRepository<Customer> customerRepo)
         {
             _customerRepo = customerRepo;
         }

@@ -1,8 +1,8 @@
-﻿using MedPark.Common.Handlers;
+﻿using MedPark.Common;
+using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Messages.Events;
-using MedPark.CustomersService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace MedPark.CustomersService.Handlers.Identity
 {
     public class SignedUpHandler : IEventHandler<SignedUp>
     {
-        private readonly ICustomerRepository _customerRepo;
+        private IMedParkRepository<Customer> _customerRepo { get; }
 
-        public SignedUpHandler(ICustomerRepository customerRepo)
+        public SignedUpHandler(IMedParkRepository<Customer> customerRepo)
         {
             _customerRepo = customerRepo;
         }

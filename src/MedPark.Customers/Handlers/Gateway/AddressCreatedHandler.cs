@@ -1,8 +1,8 @@
-﻿using MedPark.Common.Handlers;
+﻿using MedPark.Common;
+using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.CustomersService.Domain;
 using MedPark.CustomersService.Messages.Events;
-using MedPark.CustomersService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace MedPark.CustomersService.Handlers.Gateway
 {
     public class AddressCreatedHandler : IEventHandler<AddressCreated>
     {
-        private readonly IAddressRepository _addressRepo;
+        private IMedParkRepository<Address> _addressRepo { get; }
 
-        public AddressCreatedHandler(IAddressRepository addressRepo)
+        public AddressCreatedHandler(IMedParkRepository<Address> addressRepo)
         {
             _addressRepo = addressRepo;
         }
