@@ -9,6 +9,7 @@ using MedPark.Common;
 using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using MedPark.MedicalPractice.Config;
+using MedPark.MedicalPractice.Domain;
 using MedPark.MedicalPractice.Dto;
 using MedPark.MedicalPractice.Handlers.MedicalPractice;
 using MedPark.MedicalPractice.Messages.Events;
@@ -44,6 +45,7 @@ namespace MedPark.MedicalPractice
             services.AddDbContext<MedicalPracticeDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
             services.AddScoped(typeof(IQueryHandler<GetSpecialist, SpecialistDto>), typeof(GetSpecialistHandler));
+            services.AddScoped(typeof(IQueryHandler<GetRegistrationOTP, PendingRegistrationDto>), typeof(GetRegistrationOTPHandler));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -57,6 +59,8 @@ namespace MedPark.MedicalPractice
             builder.Populate(services);
             builder.AddDispatchers();
             builder.AddRabbitMq();
+            builder.AddRepository<Specialist>();
+            builder.AddRepository<PendingRegistration>();
 
             Container = builder.Build();
 

@@ -28,5 +28,13 @@ namespace MedPark.API.Gateway.Controllers
 
             return Ok(specialist);
         }
+
+        [HttpGet("getregistrationotp/{otp}")]
+        public async Task<IActionResult> GetRegistrationOtp(Int32 otp)
+        {
+            var otpDetails = await _specialistService.GetRegistrationOTP(otp);
+
+            return Ok(otpDetails);
+        }
     }
 }

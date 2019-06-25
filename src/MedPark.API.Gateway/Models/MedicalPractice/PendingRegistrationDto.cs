@@ -1,17 +1,13 @@
-﻿using MedPark.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.MedicalPractice.Domain
+namespace MedPark.API.Gateway.Models
 {
-    public class PendingRegistration : IIdentifiable
+    public class PendingRegistrationDto
     {
         public Guid Id { get; set; }
-
-        public DateTime Created { get; set; }
-
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Email { get; set; }
@@ -19,10 +15,5 @@ namespace MedPark.MedicalPractice.Domain
         public Guid PracticeId { get; set; }
         public Boolean IsAdmin { get; set; }
         public Int32 OTP { get; set; }
-
-        public PendingRegistration()
-        {
-
-        }
     }
 }

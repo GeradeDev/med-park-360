@@ -1,4 +1,5 @@
-﻿using MedPark.API.Gateway.Models.MedicalPractice;
+﻿using MedPark.API.Gateway.Models;
+using MedPark.API.Gateway.Models.MedicalPractice;
 using RestEase;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace MedPark.API.Gateway.Services
         [Get("/specialist/{id}")]
         Task<SpecialistDto> GetSpecialist([Path] Guid id);
 
-        //[Get("/address/{id}")]
-        //Task<List<Address>> GetInstitutes([Path] Guid id);
+        [Get("/registration/{otp}")]
+        Task<PendingRegistrationDto> GetRegistrationOTP([Path] Int32 otp);
     }
 }

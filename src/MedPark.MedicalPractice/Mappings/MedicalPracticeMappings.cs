@@ -13,6 +13,7 @@ namespace MedPark.MedicalPractice.Mappings
         public MedicalPracticeMappings()
         {
             CreateMap<Specialist, SpecialistDto>();
+            CreateMap<PendingRegistration, PendingRegistrationDto>();
         }
     }
 }
