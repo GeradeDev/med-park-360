@@ -20,6 +20,8 @@ using System.Reflection;
 using MedPark.Common.RabbitMq;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MedPark.Common.RestEase;
+using MedPark.Identity.Services;
 
 namespace MedPark.Identity
 {
@@ -54,6 +56,8 @@ namespace MedPark.Identity
             services.AddTransient<IProfileService, DefaultProfileService>();
             services.AddTransient<IClientStore, ClientStore>();
             services.AddTransient<IResourceStore, ResourceStore>();
+
+            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
 
             services.AddAuthentication();
 

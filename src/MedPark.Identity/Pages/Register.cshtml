@@ -7,29 +7,40 @@
 
 <form asp-route-returnurl="@Model.ReturnURL" method="post">
 
-    <div class="card w-50 register-card" >
+    <div class="card w-50 register-card">
         <div class="card-header register-card-hed">
             <h4 class="card-title login-title bold-text">Sign-up - @Model.ClientName</h4>
         </div>
         <div class="card-body">
             <p class="card-text">Register a new account below as a medical practice or patient.</p>
 
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+            }
+
             <div class="w-50">
 
-                <div class="mb-4">
-                    <label class="font-weight-bold">Account type:</label>
-                    <select asp-for="Role" class="form-control" placeholder="Role of user" name="role">
-                        <option value="Patient">Patient</option>
-                        <option value="Specialist">Specialist</option>
-                    </select>
+                <div class="mb-4 d-flex">
+                    <div class="col-sm-6 p-0 float-left">
+                        <label class="font-weight-bold">Account type:</label>
+                        <select asp-for="Role" class="form-control" placeholder="Role of user" name="role" id="ddlRole">
+                            <option value="Patient">Patient</option>
+                            <option value="Specialist">Specialist</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5 hidden float-left">
+                        <label class="font-weight-bold">Registration OTP:</label>
+                        <input class="form-control" placeholder="OTP" name="otp" asp-for="SpecialistOTP" />
+                    </div>
                 </div>
 
-                <div class="mb-4">
+                <div class="mt-4 clear reg-field">
                     <label class="font-weight-bold">First name:</label>
                     <input asp-for="FirstName" class="form-control" placeholder="First name" name="firstname" />
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4 reg-field">
                     <label class="font-weight-bold">Email:</label>
                     <input asp-for="Username" class="form-control" placeholder="Username" name="username" />
                 </div>
@@ -47,7 +58,6 @@
                 <button class="btn btn-primary">
                     Register
                 </button>
-
             </div>
         </div>
     </div>

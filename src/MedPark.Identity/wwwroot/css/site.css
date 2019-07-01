@@ -74,3 +74,15 @@ body.identity-background{
 .register-card-hed {
     background-color: white;
 }
+
+.hidden {
+    display: none !important;
+}
+
+.clear {
+    clear: both;
+}
+
+.alert-danger > ul{
+    margin-bottom:0pc !important;
+}

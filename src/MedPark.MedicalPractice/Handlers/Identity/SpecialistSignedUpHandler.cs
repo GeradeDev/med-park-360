@@ -24,6 +24,7 @@ namespace MedPark.MedicalPractice.Handlers.Identity
             Specialist specialist = new Specialist(@event.Id);
 
             specialist.Create(@event.FirstName, @event.Surname, @event.Email);
+            specialist.SignUp(@event.PracticeId, @event.IsAdmin);
 
             await _specialistRepo.AddAsync(specialist);
         }

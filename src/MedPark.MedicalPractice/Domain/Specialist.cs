@@ -37,5 +37,11 @@ namespace MedPark.MedicalPractice.Domain
             Surname = surname;
             Email = email;
         }
+
+        public void SignUp(Guid practiceId, bool isAdmin)
+        {
+            PracticeId = practiceId;
+            IsAdmin = isAdmin;
+        }
     }
 }

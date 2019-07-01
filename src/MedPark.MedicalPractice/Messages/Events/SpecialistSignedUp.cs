@@ -14,14 +14,20 @@ namespace MedPark.MedicalPractice.Messages.Events
         public string FirstName { get;}
         public string Surname { get; }
         public string Email { get; }
+        public Guid PracticeId { get; }
+        public Boolean IsAdmin { get; set; }
+        public Int32 OTP { get; set; }
 
         [JsonConstructor]
-        public SpecialistSignedUp(Guid id, string firstName, string surname, string email)
+        public SpecialistSignedUp(Guid id, string firstName, string surname, string email, Guid practiceid, bool isAdmin, int otp )
         {
             Id = id;
             FirstName = firstName;
             Surname = surname;
-            email = Email;
+            Email = email;
+            PracticeId = practiceid;
+            IsAdmin = isAdmin;
+            OTP = otp;
         }
     }
 }

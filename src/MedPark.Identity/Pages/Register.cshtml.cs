@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 using System.Text;
 using MedPark.Common.RabbitMq;
 using MedPark.Identity.Messages.Events;
+using MedPark.Identity.Services;
+using MedPark.Identity.Models.MedicalPracticeService;
 
 namespace MedPark.Identity.Pages
 {
@@ -29,15 +31,19 @@ namespace MedPark.Identity.Pages
         private readonly IClientStore _clientStore;
         private readonly IBusPublisher _busPublisher;
 
+
+        private readonly IMedicalPracticeService _specialistService;
+
         public string ReturnURL { get; set; } = "";
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string Role { get; set; } = "";
+        public Int32 SpecialistOTP { get; set; }
 
         public IHttpClientFactory _httpClient { get; }
 
-        public RegisterModel(IBusPublisher busPublisher, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction, IHttpClientFactory httpClient)
+        public RegisterModel(IMedicalPracticeService specialistService, IBusPublisher busPublisher, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClientStore clientStore, IIdentityServerInteractionService interaction, IHttpClientFactory httpClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +51,7 @@ namespace MedPark.Identity.Pages
             _httpClient = httpClient;
             _clientStore = clientStore;
             _busPublisher = busPublisher;
+            _specialistService = specialistService;
         }
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
@@ -58,6 +65,29 @@ namespace MedPark.Identity.Pages
         {
             if (returnurl != null)
             {
+                PendingRegistrationDto otpDetails = new PendingRegistrationDto();
+
+                //Validate if OTP is valid before registering specilist user
+                if (Request.Form["Role"] == "Specialist")
+                {
+                    int otp = Convert.ToInt32(Request.Form["Otp"].ToString());
+
+                    otpDetails = await _specialistService.GetRegistrationOTPDetails(otp);
+
+                    if (otpDetails == null)
+                    {
+                        ModelState.AddModelError("invalis_registration_otp", "The OTP entered is not valid. Please try again.");
+                        ReturnURL = returnurl;
+
+                        return Page();
+                    }
+                    else
+                    {
+                        FirstName = otpDetails.FirstName;
+                        Username = otpDetails.Email;
+                    }
+                }
+
                 var user = new ApplicationUser { UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
                 var result = await _userManager.CreateAsync(user, Request.Form["userpassword"]);
 
@@ -65,7 +95,7 @@ namespace MedPark.Identity.Pages
                 {
                     await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("firstName", user.FirstName), new Claim("identityid", user.IdentityId.ToString()) });
                     
-                    if (Role == "Patient")
+                    if (Request.Form["Role"] == "Patient")
                     {
                         await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "patient") });
                         var newSignUpEvent = new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], Role);
@@ -76,7 +106,7 @@ namespace MedPark.Identity.Pages
                     else
                     {
                         await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "specialist") });
-                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"]);
+                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], otpDetails.PracticeId, otpDetails.IsAdmin, otpDetails.OTP);
 
                         //Publish message to RabbitMq
                         await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
@@ -94,13 +124,19 @@ namespace MedPark.Identity.Pages
 
                     return Redirect(returnurl);
                 }
+                else
+                {
+                    result.Errors.ToList().ForEach(e =>
+                    {
+                        ModelState.AddModelError(e.Code, e.Description);
+                    });
+
+                    ReturnURL = returnurl;
+                }
             }
 
             return Page();
         }
-
-
-
     }
 
     public class Customer
