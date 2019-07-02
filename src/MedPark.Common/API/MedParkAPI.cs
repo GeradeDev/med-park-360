@@ -36,7 +36,7 @@ namespace MedPark.Common.API
     public class SpecilaistService
     {
         private readonly IHttpClientFactory _httpClient;
-        private string _baseServiceUrl = "http://localhost:62683/api/specialist";
+        private string _baseServiceUrl = "http://localhost:7001/specialist";
 
         public SpecilaistService(IHttpClientFactory httpClient)
         {

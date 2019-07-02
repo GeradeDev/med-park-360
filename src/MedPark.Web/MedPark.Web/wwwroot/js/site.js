@@ -4,3 +4,20 @@
 // Write your JavaScript code.
 
 $medpark_api = "http://localhost:62683/api/";
+
+
+$(document).ready(function() {
+
+    $("#btnShowEdit").click(function () {
+        $(this).prev().prev().hide();
+        $(this).prev().show();
+        $(this).hide();
+    });
+    
+    $("#btnCancelSave").click(function () {
+        $(this).parent().prev().show();
+        $(this).parent().hide();
+        $("#btnShowEdit").show();
+    });
+
+});

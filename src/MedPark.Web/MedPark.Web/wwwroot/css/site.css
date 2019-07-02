@@ -89,3 +89,12 @@ body {
 .hidden{
     display:none !important;
 }
+
+.list-details > li {
+    display: flex;
+    align-items: center;
+}
+
+.list-details > li > .form-control {
+    width:90% !important;
+}

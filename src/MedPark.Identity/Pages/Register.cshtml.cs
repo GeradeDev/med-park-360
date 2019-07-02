@@ -66,6 +66,7 @@ namespace MedPark.Identity.Pages
             if (returnurl != null)
             {
                 PendingRegistrationDto otpDetails = new PendingRegistrationDto();
+                ApplicationUser user;
 
                 //Validate if OTP is valid before registering specilist user
                 if (Request.Form["Role"] == "Specialist")
@@ -82,13 +83,11 @@ namespace MedPark.Identity.Pages
                         return Page();
                     }
                     else
-                    {
-                        FirstName = otpDetails.FirstName;
-                        Username = otpDetails.Email;
-                    }
+                        user = new ApplicationUser { UserName = otpDetails.Email, Email = otpDetails.Email, IsAdmin = false, FirstName = otpDetails.FirstName };
                 }
-
-                var user = new ApplicationUser { UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
+                else
+                    user = new ApplicationUser { UserName = Request.Form["Username"], Email = Request.Form["Username"], IsAdmin = false, FirstName = Request.Form["FirstName"] };
+                
                 var result = await _userManager.CreateAsync(user, Request.Form["userpassword"]);
 
                 if (result.Succeeded)
@@ -112,15 +111,15 @@ namespace MedPark.Identity.Pages
                         await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
                     }
                     
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.PasswordSignInAsync(Request.Form["Username"], Request.Form["userpassword"], true, false);
+                    //// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                    //// Send an email with this link
+                    ////var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    ////var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    ////await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    ////    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    //await _signInManager.PasswordSignInAsync(Request.Form["Username"], Request.Form["userpassword"], true, false);
 
-                    //_logger.LogInformation(3, "User created a new account with password.");
+                    ////_logger.LogInformation(3, "User created a new account with password.");
 
                     return Redirect(returnurl);
                 }

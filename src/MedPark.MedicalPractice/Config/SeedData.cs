@@ -72,7 +72,7 @@ namespace MedPark.MedicalPractice.Config
             List<PendingRegistration> registrations = GetSeededRegistrations(new List<PendingRegistration>());
             foreach (var reg in registrations)
             {
-                if (context.PendingRegistration.Where(x => x.Email == reg.Email).FirstOrDefault() == null)
+                if (context.PendingRegistration.Where(x => x.Email.Contains(reg.Email)).FirstOrDefault() == null)
                 {
                     context.PendingRegistration.Add(reg);
                     context.SaveChanges();
@@ -214,7 +214,7 @@ namespace MedPark.MedicalPractice.Config
 
         public static List<PendingRegistration> GetSeededRegistrations(List<PendingRegistration> regs)
         {
-            regs.Add(new PendingRegistration { Id = Guid.NewGuid(), Created = DateTime.Now, Email = "GeradeSpec@Test.com", FirstName = "Gerade", LastName = "Geldenhuys", Mobile = "+27828789615", PracticeId = Guid.Parse("D83539F7-0919-40C1-BF69-4F99BF8DB13F"), IsAdmin = true, OTP = 147852 });
+            regs.Add(new PendingRegistration { Id = Guid.NewGuid(), Created = DateTime.Now, Email = "@Test.com", FirstName = "Gerade", LastName = "Geldenhuys", Mobile = "+27828789615", PracticeId = Guid.Parse("D83539F7-0919-40C1-BF69-4F99BF8DB13F"), IsAdmin = true, OTP = 147852 });
 
             return regs;
         }

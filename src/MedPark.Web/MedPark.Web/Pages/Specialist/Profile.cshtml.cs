@@ -13,11 +13,8 @@ using Newtonsoft.Json;
 
 namespace MedPark.Web.Pages.Specialist
 {
-    public class ProfileModel : PageModel
+    public class ProfileModel : BasePageModel
     {
-        private readonly IIdentityParser<ApplicationUser> _appUserParser;
-        private readonly IHttpClientFactory _httpClient;
-
         Guid LoggedInGuid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -26,10 +23,8 @@ namespace MedPark.Web.Pages.Specialist
         public string Email { get; set; }
         public string Avatar { get; set; }
 
-        public ProfileModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser)
+        public ProfileModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser) : base(httpClient, appUserParser)
         {
-            _httpClient = httpClient;
-            _appUserParser = appUserParser;
         }
 
         public async Task<IActionResult> OnGet()
@@ -37,6 +32,11 @@ namespace MedPark.Web.Pages.Specialist
             var user = _appUserParser.Parse(HttpContext.User);
 
             var specialist = JsonConvert.DeserializeObject<SpecialistDto>(await new SpecilaistService(_httpClient).GetDetails(user.IdentityId));
+
+            var isProfileComplete = specialist.GetType().GetProperties().All(x => x.GetValue(specialist) != null);
+
+            if (!isProfileComplete)
+                ModelState.AddModelError("incomplete_profile", "Your profile has not been completed. Your profile will only be visible once it has been completed.");
 
             BuildPageModel(specialist);
 
