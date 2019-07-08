@@ -14,6 +14,9 @@ namespace MedPark.MedicalPractice.Mappings
         {
             CreateMap<Specialist, SpecialistDto>();
             CreateMap<PendingRegistration, PendingRegistrationDto>();
+            CreateMap<Practice, PracticeDto>();
+            CreateMap<Address, PracticeAddressDTO>();
+            CreateMap<OperatingHours, OperatingHoursDTO>();
         }
     }
 }

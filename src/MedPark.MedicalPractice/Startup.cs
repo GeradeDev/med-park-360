@@ -46,6 +46,8 @@ namespace MedPark.MedicalPractice
 
             services.AddScoped(typeof(IQueryHandler<GetSpecialist, SpecialistDto>), typeof(GetSpecialistHandler));
             services.AddScoped(typeof(IQueryHandler<GetRegistrationOTP, PendingRegistrationDto>), typeof(GetRegistrationOTPHandler));
+            services.AddScoped(typeof(IQueryHandler<PracticeQuery, PracticeDto>), typeof(PracticeQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<PracticeQuery, PracticeDetailDTO>), typeof(PracticeDetailQueryHandler));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -61,6 +63,9 @@ namespace MedPark.MedicalPractice
             builder.AddRabbitMq();
             builder.AddRepository<Specialist>();
             builder.AddRepository<PendingRegistration>();
+            builder.AddRepository<Practice>();
+            builder.AddRepository<Address>();
+            builder.AddRepository<OperatingHours>();
 
             Container = builder.Build();
 

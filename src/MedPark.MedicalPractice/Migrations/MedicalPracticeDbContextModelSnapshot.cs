@@ -62,7 +62,7 @@ namespace MedPark.MedicalPractice.Migrations
 
                     b.Property<string>("PostalCode");
 
-                    b.Property<Guid>("PractiveId");
+                    b.Property<Guid>("PracticeId");
 
                     b.HasKey("Id");
 
