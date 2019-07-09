@@ -21,7 +21,7 @@ namespace MedPark.MedicalPractice.Controllers
             _dispatcher = dispatcher;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{specialistid}")]
         public async Task<IActionResult> Get([FromRoute] SpecialistQualificationsQuery qualificationsQuery)
         {
             try

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.API.Gateway.Models
+namespace MedPark.API.Gateway.Models.MedicalPractice
 {
     public class PendingRegistrationDto
     {

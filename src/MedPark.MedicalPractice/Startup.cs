@@ -52,6 +52,7 @@ namespace MedPark.MedicalPractice
             services.AddScoped(typeof(IQueryHandler<MedicalSchemeQuery, MedicalSchemeDTO>), typeof(MedicalSchemeQueryHandler));
             services.AddScoped(typeof(IQueryHandler<OperatingHoursQuery, OperatingHoursDTO>), typeof(OperatingHoursQueryHandler));
             services.AddScoped(typeof(IQueryHandler<SpecialistQualificationsQuery, SpecialistQualificationDTO>), typeof(SpecialistQualificationsQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<AcceptedMedicalSchemeQuery, AcceptedMedicalSchemeDTO>), typeof(AcceptedMedicalSchemeQueryHandler));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -21,7 +21,7 @@ namespace MedPark.MedicalPractice.Controllers
             _dispatcher = dispatcher;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{schemeid}")]
         public async Task<IActionResult> Get([FromRoute] MedicalSchemeQuery msQuery)
         {
             try
