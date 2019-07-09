@@ -22,9 +22,11 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
             _mapper = mapper;
         }
 
-        public Task<AcceptedMedicalSchemeDTO> HandleAsync(AcceptedMedicalSchemeQuery query)
+        public async Task<AcceptedMedicalSchemeDTO> HandleAsync(AcceptedMedicalSchemeQuery query)
         {
-            throw new NotImplementedException();
+            AcceptedMedicalScheme ams = await _medSchemeRepo.GetAsync(query.PracticeId);
+
+            return _mapper.Map<AcceptedMedicalSchemeDTO>(ams);
         }
     }
 }
