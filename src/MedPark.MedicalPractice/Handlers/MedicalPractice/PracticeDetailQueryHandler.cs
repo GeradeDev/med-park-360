@@ -2,13 +2,14 @@
 using MedPark.Common;
 using MedPark.Common.Handlers;
 using MedPark.MedicalPractice.Domain;
+using MedPark.MedicalPractice.Dto;
 using MedPark.MedicalPractice.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.MedicalPractice.Dto
+namespace MedPark.MedicalPractice.Handlers
 {
     public class PracticeDetailQueryHandler : IQueryHandler<PracticeQuery, PracticeDetailDTO>
     {
@@ -16,6 +17,7 @@ namespace MedPark.MedicalPractice.Dto
         private IMedParkRepository<Address> _addressRepo { get; }
         private IMedParkRepository<Specialist> _specialistRepo { get; }
         private IMedParkRepository<OperatingHours> _opHoursRepo { get; }
+
         private IMapper _mapper { get; }
         
         public PracticeDetailQueryHandler(IMedParkRepository<Practice> practiceRepo, IMapper mapper, IMedParkRepository<Address> addressRepo, IMedParkRepository<Specialist> specialistRepo, IMedParkRepository<OperatingHours> opHoursRepo)
@@ -29,12 +31,12 @@ namespace MedPark.MedicalPractice.Dto
 
         public async Task<PracticeDetailDTO> HandleAsync(PracticeQuery query)
         {
-            PracticeDetailDTO result = new PracticeDetailDTO();
-
             var prac = await _practiceRepo.GetAsync(query.Id);
 
             if (prac != null)
             {
+                PracticeDetailDTO result = new PracticeDetailDTO();
+
                 var mappedPractice = _mapper.Map<PracticeDto>(prac);
                 result.Practice = mappedPractice;
 
@@ -52,9 +54,11 @@ namespace MedPark.MedicalPractice.Dto
                 var opHours = await _opHoursRepo.GetAsync(query.Id);
                 var mappedHours = _mapper.Map<OperatingHoursDTO>(opHours);
                 result.OperatingHours = mappedHours;
+
+                return result;
             }
 
-            return result;
+            return null;
         }
     }
 }

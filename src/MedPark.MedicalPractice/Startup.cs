@@ -11,7 +11,9 @@ using MedPark.Common.RabbitMq;
 using MedPark.MedicalPractice.Config;
 using MedPark.MedicalPractice.Domain;
 using MedPark.MedicalPractice.Dto;
+using MedPark.MedicalPractice.Handlers;
 using MedPark.MedicalPractice.Handlers.MedicalPractice;
+using MedPark.MedicalPractice.Messages.Commands;
 using MedPark.MedicalPractice.Messages.Events;
 using MedPark.MedicalPractice.Queries;
 using Microsoft.AspNetCore.Builder;
@@ -99,6 +101,7 @@ namespace MedPark.MedicalPractice
             app.UseStaticFiles();
 
             app.UseRabbitMq()
+                .SubscribeCommand<AddPracticeAcceptedMedicalScheme>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity");
 
             app.UseMvcWithDefaultRoute();

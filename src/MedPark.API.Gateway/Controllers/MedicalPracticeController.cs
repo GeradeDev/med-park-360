@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedPark.API.Gateway.Messages.Commands;
 using MedPark.API.Gateway.Services;
+using MedPark.Common;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,6 +61,14 @@ namespace MedPark.API.Gateway.Controllers
             var acceptedSchemesByPractice = await _specialistService.GetAcceptedSchemesByPracticeId(practiceId);
 
             return Ok(acceptedSchemesByPractice);
+        }
+
+        [HttpPost("addacceptedscheme")]
+        public async Task<IActionResult> AddAcceptedScheme(AddPracticeAcceptedMedicalScheme command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()).Bind(x => x.DateEffective, DateTime.Now).Bind(X => X.DateEnd, DateTime.Now.AddYears(1)), null);
+
+            return Accepted();
         }
 
         [HttpGet("getinstitute/{id}")]
