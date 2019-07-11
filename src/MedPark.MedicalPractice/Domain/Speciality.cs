@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class Speciality : IIdentifiable
+    public class Speciality : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public Speciality(Guid id) : base(id)
+        {
+
+        }
 
         public string Name { get; set; }
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

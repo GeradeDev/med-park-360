@@ -11,6 +11,7 @@ namespace MedPark.MedicalPractice.Domain
         public Guid Id { get; set; }
 
         public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
 
         public String FirstName { get; set; }
         public String LastName { get; set; }

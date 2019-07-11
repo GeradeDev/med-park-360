@@ -71,6 +71,14 @@ namespace MedPark.API.Gateway.Controllers
             return Accepted();
         }
 
+        [HttpPost("updateacceptedscheme")]
+        public async Task<IActionResult> UpdateAcceptedScheme(UpdatePracticeAcceptedMedicalScheme command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.DateEffective, DateTime.Now).Bind(X => X.DateEnd, DateTime.Now.AddYears(2)), null);
+
+            return Accepted();
+        }
+
         [HttpGet("getinstitute/{id}")]
         public async Task<IActionResult> GetInstitute(Guid id)
         {

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class Qualifications : IIdentifiable
+    public class Qualifications : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public Qualifications(Guid id) : base(id)
+        {
+
+        }
 
         public string QualificationName { get; set; }
         public string InstituteName { get; set; }
@@ -18,5 +19,8 @@ namespace MedPark.MedicalPractice.Domain
         public DateTime YearObtained { get; set; }
 
         public Guid CredentialId { get; set; }
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

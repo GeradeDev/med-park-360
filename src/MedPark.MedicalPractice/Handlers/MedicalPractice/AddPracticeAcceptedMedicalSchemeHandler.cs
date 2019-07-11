@@ -30,38 +30,18 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
                 throw new MedParkException($"Invalid medical scheme Id ({command.SchemeId}) for new accepted scheme.");
             }
 
-            AcceptedMedicalScheme acceptedScheme = await _acceptedSchemesRepo.GetAsync(x => x.Id == command.Id);
-
-            if(acceptedScheme == null)
+            AcceptedMedicalScheme acceptedScheme = new AcceptedMedicalScheme(command.Id)
             {
-                acceptedScheme = new AcceptedMedicalScheme()
-                {
-                    Id = command.Id,
-                    Created = DateTime.Now,
-                    Modified = DateTime.Now,
-                    PracticeId = command.PracticeId,
-                    SchemeId = command.SchemeId,
-                    SchemeName = command.SchemeName,
-                    DateEffective = command.DateEffective,
-                    DateEnd = command.DateEnd,
-                    IsActive = command.IsActive
-                };
+                PracticeId = command.PracticeId,
+                SchemeId = command.SchemeId,
+                SchemeName = command.SchemeName,
+                DateEffective = command.DateEffective,
+                DateEnd = command.DateEnd,
+                IsActive = command.IsActive
+            };
 
-                //Save accepted medical scheme for medical practice
-                await _acceptedSchemesRepo.AddAsync(acceptedScheme);
-            }
-            else
-            {
-                //Update values
-                acceptedScheme.SchemeId = command.SchemeId;
-                acceptedScheme.SchemeName = command.SchemeName;
-                acceptedScheme.DateEffective = command.DateEffective;
-                acceptedScheme.DateEnd = command.DateEnd;
-                acceptedScheme.IsActive = command.IsActive;
-
-                //Save updated accepted medical scheme for medical practice
-                await _acceptedSchemesRepo.UpdateAsync(acceptedScheme);
-            }
+            //Save accepted medical scheme for medical practice
+            await _acceptedSchemesRepo.AddAsync(acceptedScheme);
         }
     }
 }

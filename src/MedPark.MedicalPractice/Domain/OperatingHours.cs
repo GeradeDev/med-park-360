@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class OperatingHours : IIdentifiable
+    public class OperatingHours : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public OperatingHours(Guid id) : base(id)
+        {
+
+        }
 
         public Guid PracticeId { get; set; }
 
@@ -31,5 +32,8 @@ namespace MedPark.MedicalPractice.Domain
 
         public DateTime? PublicHolidayOpen { get; set; }
         public DateTime? PublicHolidayClose { get; set; }
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class Practice : IIdentifiable
+    public class Practice : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public Practice(Guid id) : base(id)
+        {
+
+        }
 
         public string PracticeName { get; set; }
         public string Slogan { get; private set; }
@@ -22,5 +23,8 @@ namespace MedPark.MedicalPractice.Domain
 
         public string LocationLongitude { get; private set; }
         public string LocationLatitude { get; private set; }
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

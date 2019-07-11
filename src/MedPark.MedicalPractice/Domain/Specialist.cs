@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class Specialist : IIdentifiable
+    public class Specialist : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public Specialist(Guid id) : base(id)
+        {
+
+        }
 
         public string Title { get; private set; }
         public string FirstName { get; private set; }
@@ -23,11 +24,6 @@ namespace MedPark.MedicalPractice.Domain
         public Boolean IsAdmin { get; private set; }
         public Boolean IsVerfied { get; private set; }
         public Boolean Active { get; private set; }
-
-        public Specialist(Guid id)
-        {
-            Id = id;
-        }
 
         public void Create(string firstname, string surname, string email)
         {
@@ -43,5 +39,8 @@ namespace MedPark.MedicalPractice.Domain
             PracticeId = practiceId;
             IsAdmin = isAdmin;
         }
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

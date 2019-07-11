@@ -59,7 +59,7 @@ namespace MedPark.MedicalPractice
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            SeedData.EnsureSeedData(services.BuildServiceProvider());
+            //SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
 
@@ -102,6 +102,7 @@ namespace MedPark.MedicalPractice
 
             app.UseRabbitMq()
                 .SubscribeCommand<AddPracticeAcceptedMedicalScheme>()
+                .SubscribeCommand<UpdatePracticeAcceptedMedicalScheme>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity");
 
             app.UseMvcWithDefaultRoute();

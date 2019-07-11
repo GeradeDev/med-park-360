@@ -166,6 +166,8 @@ namespace MedPark.MedicalPractice.Migrations
 
                     b.Property<string>("Mobile");
 
+                    b.Property<DateTime>("Modified");
+
                     b.Property<int>("OTP");
 
                     b.Property<Guid>("PracticeId");

@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class AcceptedMedicalScheme : IIdentifiable
+    public class AcceptedMedicalScheme : BaseIdentifiable
     {
-        public Guid Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public AcceptedMedicalScheme(Guid id) : base(id)
+        {
 
+        }
+        
         public string SchemeName { get; set; }
         public Guid SchemeId { get; set; }
         public Guid PracticeId { get; set; }
         public Boolean IsActive { get; set; }
         public DateTime DateEffective { get; set; }
         public DateTime DateEnd { get; set; }
+
+
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }
