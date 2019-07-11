@@ -168,7 +168,7 @@ namespace MedPark.MedicalPractice.Migrations
 
                     b.Property<DateTime>("Modified");
 
-                    b.Property<int>("OTP");
+                    b.Property<string>("OTP");
 
                     b.Property<Guid>("PracticeId");
 
@@ -219,8 +219,6 @@ namespace MedPark.MedicalPractice.Migrations
                     b.Property<Guid>("CredentialId");
 
                     b.Property<Guid>("InstituteId");
-
-                    b.Property<string>("InstituteName");
 
                     b.Property<DateTime>("Modified");
 

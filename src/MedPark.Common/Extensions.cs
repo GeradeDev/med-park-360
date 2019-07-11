@@ -15,6 +15,10 @@ namespace MedPark.Common
 {
     public static class Extensions
     {
+        private static string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private static string small_alphabets = "abcdefghijklmnopqrstuvwxyz";
+        private static string numbers = "1234567890";
+
         public static void AddDispatchers(this ContainerBuilder builder)
         {
             builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
@@ -87,6 +91,28 @@ namespace MedPark.Common
             field.SetValue(model, value);
 
             return model;
+        }
+
+        public static string NewOTP(this string otp, int length)
+        {
+            //Generate OTP with alpha and numeric characters
+            string characters = alphabets + small_alphabets + numbers;
+
+            for (int i = 0; i <= length; i++)
+            {
+                string character = string.Empty;
+                do
+                {
+                    int index = new Random().Next(0, characters.Length);
+
+                    character = characters.ToCharArray()[index].ToString();
+
+                } while (otp.IndexOf(character) != -1);
+
+                otp += character;
+            }
+
+            return otp;
         }
     }
 }

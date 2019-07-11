@@ -214,7 +214,7 @@ namespace MedPark.MedicalPractice.Config
 
         public static List<PendingRegistration> GetSeededRegistrations(List<PendingRegistration> regs)
         {
-            regs.Add(new PendingRegistration { Id = Guid.NewGuid(), Created = DateTime.Now, Modified = DateTime.UtcNow, Email = "@Test.com", FirstName = "Gerade", LastName = "Geldenhuys", Mobile = "+27828789615", PracticeId = Guid.Parse("D83539F7-0919-40C1-BF69-4F99BF8DB13F"), IsAdmin = true, OTP = 147852 });
+            regs.Add(new PendingRegistration (Guid.NewGuid()) { Email = "@Test.com", FirstName = "Gerade", LastName = "Geldenhuys", Mobile = "+27828789615", PracticeId = Guid.Parse("D83539F7-0919-40C1-BF69-4F99BF8DB13F"), IsAdmin = true, OTP = "147852" });
 
             return regs;
         }

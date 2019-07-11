@@ -9,6 +9,6 @@ namespace MedPark.MedicalPractice.Queries
 {
     public class GetRegistrationOTP : IQuery<PendingRegistrationDto>
     {
-        public Int32 OTP { get; set; }
+        public String OTP { get; set; }
     }
 }

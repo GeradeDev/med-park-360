@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Domain
 {
-    public class PendingRegistration : IIdentifiable
+    public class PendingRegistration : BaseIdentifiable
     {
-        public Guid Id { get; set; }
+        public PendingRegistration(Guid id) : base(id)
+        {
 
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        }
 
         public String FirstName { get; set; }
         public String LastName { get; set; }
@@ -19,11 +19,9 @@ namespace MedPark.MedicalPractice.Domain
         public String Mobile { get; set; }
         public Guid PracticeId { get; set; }
         public Boolean IsAdmin { get; set; }
-        public Int32 OTP { get; set; }
+        public string OTP { get; set; }
 
-        public PendingRegistration()
-        {
-
-        }
+        public void UpdatedModifiedDate()
+            => UpdatedModified();
     }
 }

@@ -103,6 +103,17 @@ namespace MedPark.MedicalPractice
             app.UseRabbitMq()
                 .SubscribeCommand<AddPracticeAcceptedMedicalScheme>()
                 .SubscribeCommand<UpdatePracticeAcceptedMedicalScheme>()
+                .SubscribeCommand<RemoveAcceptedMedicalScheme>()
+                .SubscribeCommand<AddInstitute>()
+                .SubscribeCommand<AddAddress>()
+                .SubscribeCommand<UpdateAddress>()
+                .SubscribeCommand<AddMedicalScheme>()
+                .SubscribeCommand<AddOperatingHours>()
+                .SubscribeCommand<UpdateOperatingHours>()
+                .SubscribeCommand<AddPendingRegistration>()
+                .SubscribeCommand<UpdatePendingRegistration>()
+                .SubscribeCommand<AddQualification>()
+                .SubscribeCommand<RemoveQualification>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity");
 
             app.UseMvcWithDefaultRoute();

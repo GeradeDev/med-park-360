@@ -38,6 +38,14 @@ namespace MedPark.API.Gateway.Controllers
 
             return Ok(otpDetails);
         }
+        
+        [HttpPost("addregistrationotp")]
+        public async Task<IActionResult> AddAddress(AddPendingRegistration command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
 
         [HttpGet("getpractice/{id}")]
         public async Task<IActionResult> GetPractice(Guid id)
@@ -45,6 +53,22 @@ namespace MedPark.API.Gateway.Controllers
             var practice = await _specialistService.GetPracticeById(id);
 
             return Ok(practice);
+        }
+
+        [HttpPost("addaddress")]
+        public async Task<IActionResult> AddAddress(AddAddress command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
+
+        [HttpPost("updateaddress")]
+        public async Task<IActionResult> UpdateAddress(UpdateAddress command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
         }
 
         [HttpGet("getpracticedetails/{id}")]
@@ -79,12 +103,28 @@ namespace MedPark.API.Gateway.Controllers
             return Accepted();
         }
 
+        [HttpPost("removeacceptedscheme")]
+        public async Task<IActionResult> RemoveAcceptedScheme(RemoveAcceptedMedicalScheme command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
+        }
+
         [HttpGet("getinstitute/{id}")]
         public async Task<IActionResult> GetInstitute(Guid id)
         {
             var institute = await _specialistService.GetInstituteById(id);
 
             return Ok(institute);
+        }
+
+        [HttpPost("addinstitute")]
+        public async Task<IActionResult> AddInstitute(AddInstitute command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
         }
 
         [HttpGet("getmedicalscheme/{schemeid}")]
@@ -95,6 +135,14 @@ namespace MedPark.API.Gateway.Controllers
             return Ok(scheme);
         }
 
+        [HttpPost("addmedicalscheme")]
+        public async Task<IActionResult> AddMedicalScheme(AddMedicalScheme command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
+
         [HttpGet("getpracticeoperatinghours/{practiceid}")]
         public async Task<IActionResult> GetOperatingHours(Guid practiceid)
         {
@@ -103,12 +151,44 @@ namespace MedPark.API.Gateway.Controllers
             return Ok(operatingHours);
         }
 
+        [HttpPost("setpracticeoperatinghours")]
+        public async Task<IActionResult> SetPracticeHours(AddOperatingHours command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
+
+        [HttpPost("updateoperatinghours")]
+        public async Task<IActionResult> UpdatePracticeHours(UpdateOperatingHours command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
+        }
+
         [HttpGet("specialistqualifications/{specialistid}")]
         public async Task<IActionResult> GetSpecialistQualifications(Guid specialistid)
         {
             var qualifications = await _specialistService.GetSpecialistQualifications(specialistid);
 
             return Ok(qualifications);
+        }
+
+        [HttpPost("addqualification")]
+        public async Task<IActionResult> AddSpecialistQualifications(AddQualification command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
+
+        [HttpPost("removequalification")]
+        public async Task<IActionResult> DeleteSpecialistQualifications(RemoveQualification command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
         }
     }
 }

@@ -14,7 +14,6 @@ namespace MedPark.MedicalPractice.Domain
         }
 
         public string QualificationName { get; set; }
-        public string InstituteName { get; set; }
         public Guid InstituteId { get; set; }
         public DateTime YearObtained { get; set; }
 
