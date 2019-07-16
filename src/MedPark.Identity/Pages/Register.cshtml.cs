@@ -38,6 +38,7 @@ namespace MedPark.Identity.Pages
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
         public string FirstName { get; set; } = "";
+        public string LastName { get; set; } = "";
         public string Role { get; set; } = "";
         public Int32 SpecialistOTP { get; set; }
 
@@ -97,7 +98,7 @@ namespace MedPark.Identity.Pages
                     if (Request.Form["Role"] == "Patient")
                     {
                         await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "patient") });
-                        var newSignUpEvent = new SignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], Role);
+                        var newSignUpEvent = new SignedUp(user.IdentityId, Request.Form["FirstName"], Request.Form["LastName"], Request.Form["Username"], Role);
 
                         //Publish message to RabbitMq
                         await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);
@@ -105,7 +106,7 @@ namespace MedPark.Identity.Pages
                     else
                     {
                         await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "specialist") });
-                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], "", Request.Form["Username"], otpDetails.PracticeId, otpDetails.IsAdmin, otpDetails.OTP);
+                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], Request.Form["LastName"], Request.Form["Username"], otpDetails.PracticeId, otpDetails.IsAdmin, otpDetails.OTP);
 
                         //Publish message to RabbitMq
                         await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);

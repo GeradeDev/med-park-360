@@ -13,19 +13,25 @@ namespace MedPark.CustomersService.Handlers.Identity
     public class SignedUpHandler : IEventHandler<SignedUp>
     {
         private IMedParkRepository<Customer> _customerRepo { get; }
+        private IBusPublisher _busPublisher;
 
-        public SignedUpHandler(IMedParkRepository<Customer> customerRepo)
+        public SignedUpHandler(IMedParkRepository<Customer> customerRepo, IBusPublisher busPublisher)
         {
             _customerRepo = customerRepo;
+            _busPublisher = busPublisher;
         }
 
         public async Task HandleAsync(SignedUp @event, ICorrelationContext context)
         {
-            var customer = new Customer(@event.UserId, @event.Email);
+            Customer customer = new Customer(@event.UserId, @event.Email);
 
-            customer.Create(@event.FirstName, @event.AccountType);
+            customer.Create(@event.FirstName, @event.AccountType, @event.LastName);
 
             await _customerRepo.AddAsync(customer);
+
+            //Publish event that new customer has signed up
+            CustomerCreated customerCreated = new CustomerCreated(@event.UserId, @event.FirstName, @event.LastName, @event.Email, "");
+            await _busPublisher.PublishAsync(customerCreated, null);
         }
     }
 }

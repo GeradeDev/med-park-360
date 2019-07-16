@@ -8,6 +8,7 @@ using AutoMapper;
 using MedPark.Common;
 using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
+using MedPark.CustomersService.Messages.Events;
 using MedPark.MedicalPractice.Config;
 using MedPark.MedicalPractice.Domain;
 using MedPark.MedicalPractice.Dto;
@@ -78,6 +79,7 @@ namespace MedPark.MedicalPractice
             builder.AddRepository<AcceptedMedicalScheme>();
             builder.AddRepository<Qualifications>();
             builder.AddRepository<Speciality>();
+            builder.AddRepository<Customer>();
 
             Container = builder.Build();
 
@@ -114,7 +116,8 @@ namespace MedPark.MedicalPractice
                 .SubscribeCommand<UpdatePendingRegistration>()
                 .SubscribeCommand<AddQualification>()
                 .SubscribeCommand<RemoveQualification>()
-                .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity");
+                .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity")
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers");
 
             app.UseMvcWithDefaultRoute();
         }

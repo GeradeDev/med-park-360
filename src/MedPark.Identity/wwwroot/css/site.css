@@ -86,3 +86,7 @@ body.identity-background{
 .alert-danger > ul{
     margin-bottom:0pc !important;
 }
+
+.flex-display{
+    display:flex;
+}
