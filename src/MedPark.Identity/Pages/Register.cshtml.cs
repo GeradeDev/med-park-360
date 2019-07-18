@@ -72,7 +72,7 @@ namespace MedPark.Identity.Pages
                 //Validate if OTP is valid before registering specilist user
                 if (Request.Form["Role"] == "Specialist")
                 {
-                    int otp = Convert.ToInt32(Request.Form["Otp"].ToString());
+                    string otp = Request.Form["Otp"].ToString();
 
                     otpDetails = await _specialistService.GetRegistrationOTPDetails(otp);
 
@@ -106,7 +106,7 @@ namespace MedPark.Identity.Pages
                     else
                     {
                         await _userManager.AddClaimsAsync(user, new Claim[] { new Claim("accounttype", "specialist") });
-                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, Request.Form["FirstName"], Request.Form["LastName"], Request.Form["Username"], otpDetails.PracticeId, otpDetails.IsAdmin, otpDetails.OTP);
+                        var newSignUpEvent = new SpecialistSignedUp(user.IdentityId, otpDetails.FirstName, otpDetails.LastName, otpDetails.Email, otpDetails.PracticeId, otpDetails.IsAdmin);
 
                         //Publish message to RabbitMq
                         await _busPublisher.PublishAsync(newSignUpEvent, CorrelationContext.Empty);

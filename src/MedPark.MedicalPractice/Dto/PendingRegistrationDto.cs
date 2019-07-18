@@ -14,6 +14,5 @@ namespace MedPark.MedicalPractice.Dto
         public String Mobile { get; set; }
         public Guid PracticeId { get; set; }
         public Boolean IsAdmin { get; set; }
-        public Int32 OTP { get; set; }
     }
 }

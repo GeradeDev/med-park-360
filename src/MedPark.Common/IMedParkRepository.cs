@@ -10,6 +10,7 @@ namespace MedPark.Common
     {
         Task<TEntity> GetAsync(Guid id);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> BrowseAsync(Expression<Func<TEntity, bool>> predicate);
         Task AddAsync(TEntity entity);

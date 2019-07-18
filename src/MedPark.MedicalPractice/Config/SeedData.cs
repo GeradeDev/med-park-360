@@ -79,6 +79,17 @@ namespace MedPark.MedicalPractice.Config
                 }
             }
 
+            Console.WriteLine("Appointment types");
+            List<AppointmentType> appTypes = GetAppointmentTypes(new List<AppointmentType>());
+            foreach (var app in appTypes)
+            {
+                if (context.AppointmentType.Where(x => x.Name == app.Name).FirstOrDefault() == null)
+                {
+                    context.AppointmentType.Add(app);
+                    context.SaveChanges();
+                }
+            }
+
             Console.WriteLine("Done seeding database.");
             Console.WriteLine();
         }
@@ -217,6 +228,31 @@ namespace MedPark.MedicalPractice.Config
             regs.Add(new PendingRegistration (Guid.NewGuid()) { Email = "@Test.com", FirstName = "Gerade", LastName = "Geldenhuys", Mobile = "+27828789615", PracticeId = Guid.Parse("D83539F7-0919-40C1-BF69-4F99BF8DB13F"), IsAdmin = true, OTP = "147852" });
 
             return regs;
+        }
+
+        private static List<AppointmentType> GetAppointmentTypes(List<AppointmentType> types)
+        {
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Annual Physical" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Birth Control/Contraception" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Ear Infection" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Ear Syringe" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Flu/Cough/Sinus" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "General Consultation" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "General Follow Up" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "High Blood Pressure" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Hip/Back/Neck Pain" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Illness" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Injury" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Insurance Medical" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Minor procedure" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Muscle Strain" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Other" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Pap Smear" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Pre-Surgery Screening" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Prescription/Refill" });
+            types.Add(new AppointmentType(Guid.NewGuid()) { Name = "Vaccine(s)/Flu Shot" });
+
+            return types;
         }
     }
 }

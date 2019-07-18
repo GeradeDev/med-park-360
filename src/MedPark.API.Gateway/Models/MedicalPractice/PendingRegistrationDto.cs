@@ -14,6 +14,6 @@ namespace MedPark.API.Gateway.Models.MedicalPractice
         public String Mobile { get; set; }
         public Guid PracticeId { get; set; }
         public Boolean IsAdmin { get; set; }
-        public Int32 OTP { get; set; }
+        public String OTP { get; set; }
     }
 }

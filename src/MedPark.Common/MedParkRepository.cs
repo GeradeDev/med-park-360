@@ -54,5 +54,10 @@ namespace MedPark.Common
             _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _context.Set<TEntity>().ToListAsync();
+        }
     }
 }

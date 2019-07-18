@@ -16,10 +16,9 @@ namespace MedPark.MedicalPractice.Messages.Events
         public string Email { get; }
         public Guid PracticeId { get; }
         public Boolean IsAdmin { get; set; }
-        public Int32 OTP { get; set; }
 
         [JsonConstructor]
-        public SpecialistSignedUp(Guid id, string firstName, string surname, string email, Guid practiceid, bool isAdmin, int otp )
+        public SpecialistSignedUp(Guid id, string firstName, string surname, string email, Guid practiceid, bool isAdmin)
         {
             Id = id;
             FirstName = firstName;
@@ -27,7 +26,6 @@ namespace MedPark.MedicalPractice.Messages.Events
             Email = email;
             PracticeId = practiceid;
             IsAdmin = isAdmin;
-            OTP = otp;
         }
     }
 }

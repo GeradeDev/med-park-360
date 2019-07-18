@@ -32,12 +32,14 @@ namespace MedPark.MedicalPractice.Domain
             FirstName = firstname;
             Surname = surname;
             Email = email;
+            Title = "Dr";
         }
 
         public void SignUp(Guid practiceId, bool isAdmin)
         {
             PracticeId = practiceId;
             IsAdmin = isAdmin;
+            Active = true;
         }
 
         public void UpdatedModifiedDate()
