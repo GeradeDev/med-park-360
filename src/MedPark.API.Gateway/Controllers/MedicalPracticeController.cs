@@ -190,5 +190,21 @@ namespace MedPark.API.Gateway.Controllers
 
             return Accepted();
         }
+
+        [HttpGet("appointmenttypes")]
+        public async Task<IActionResult> AddSpecialistQualifications()
+        {
+            var appTypes = await _specialistService.GetAllAppointmentTypes();
+
+            return Ok(appTypes);
+        }
+
+        [HttpGet("appointmenttypes/{specialistid}")]
+        public async Task<IActionResult> DeleteSpecialistQualifications(Guid specialistid)
+        {
+            var appTypes = await _specialistService.GetAppointmentTypesBySpecialistId(specialistid);
+
+            return Ok(appTypes);
+        }
     }
 }

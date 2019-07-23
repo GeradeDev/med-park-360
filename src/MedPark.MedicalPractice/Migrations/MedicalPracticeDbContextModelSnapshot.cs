@@ -69,6 +69,42 @@ namespace MedPark.MedicalPractice.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("MedPark.MedicalPractice.Domain.AppointmentAccepted", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AppointmentTypeId");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<bool>("Enabled");
+
+                    b.Property<DateTime>("Modified");
+
+                    b.Property<Guid>("SpecialistId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentAccepted");
+                });
+
+            modelBuilder.Entity("MedPark.MedicalPractice.Domain.AppointmentType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("Modified");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentType");
+                });
+
             modelBuilder.Entity("MedPark.MedicalPractice.Domain.Customer", b =>
                 {
                     b.Property<Guid>("Id")

@@ -50,5 +50,13 @@ namespace MedPark.API.Gateway.Services
         //Specialist Qualifications
         [Get("/qualifications/{specialistid}")]
         Task<SpecialistQualificationDTO> GetSpecialistQualifications([Path] Guid specialistid);
+
+
+        //appointment Types
+        [Get("/appointmenttype/")]
+        Task<List<AppointmentTypeDTO>> GetAllAppointmentTypes();
+        
+        [Get("/appointmenttype/{specialistid}")]
+        Task<SpecialistAppointmentTypesDTO> GetAppointmentTypesBySpecialistId([Path] Guid specialistid);
     }
 }

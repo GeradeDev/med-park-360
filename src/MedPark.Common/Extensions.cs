@@ -114,5 +114,10 @@ namespace MedPark.Common
 
             return otp;
         }
+
+        public static string GetInitials(this string fullName)
+        {
+            return String.Join("", fullName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+        }
     }
 }

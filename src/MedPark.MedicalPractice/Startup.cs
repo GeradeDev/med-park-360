@@ -56,11 +56,13 @@ namespace MedPark.MedicalPractice
             services.AddScoped(typeof(IQueryHandler<OperatingHoursQuery, OperatingHoursDTO>), typeof(OperatingHoursQueryHandler));
             services.AddScoped(typeof(IQueryHandler<SpecialistQualificationsQuery, SpecialistQualificationDTO>), typeof(SpecialistQualificationsQueryHandler));
             services.AddScoped(typeof(IQueryHandler<AcceptedMedicalSchemeQuery, AcceptedMedicalSchemeDTO>), typeof(AcceptedMedicalSchemeQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, List<AppointmentTypeDTO>>), typeof(GetAllAppointmentTypesHandler));
+            services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, SpecialistAppointmentTypesDTO>), typeof(GetSpecialistAppointmentTypesHandler));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //SeedData.EnsureSeedData(services.BuildServiceProvider());
+            SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
 
@@ -80,6 +82,8 @@ namespace MedPark.MedicalPractice
             builder.AddRepository<Qualifications>();
             builder.AddRepository<Speciality>();
             builder.AddRepository<Customer>();
+            builder.AddRepository<AppointmentType>();
+            builder.AddRepository<AppointmentAccepted>();
 
             Container = builder.Build();
 

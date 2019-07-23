@@ -10,6 +10,6 @@ namespace MedPark.Identity.Services
     public interface IMedicalPracticeService
     {
         [Get("/registration/{otp}")]
-        Task<PendingRegistrationDto> GetRegistrationOTPDetails([Path] Int32 otp);
+        Task<PendingRegistrationDto> GetRegistrationOTPDetails([Path] string otp);
     }
 }
