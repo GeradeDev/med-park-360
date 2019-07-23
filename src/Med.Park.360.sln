@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Web", "MedPark.Web\MedPark.Web\MedPark.Web.csproj", "{46FE5361-F2A8-4046-B59A-7089B011C5C9}"
 EndProject
@@ -31,6 +31,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.MedicalPractice.Tests", "Test\MedPark.MedicalPractice.Tests\MedPark.MedicalPractice.Tests.csproj", "{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Bookings", "MedPark.Bookings\MedPark.Bookings.csproj", "{2572AB69-0790-48CE-B729-C64C26CD8AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.Catalog", "MedParl.Catalog\MedPark.Catalog.csproj", "{4F215AEB-84B9-4191-A52C-35A002177049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,12 @@ Global
 		{2572AB69-0790-48CE-B729-C64C26CD8AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2572AB69-0790-48CE-B729-C64C26CD8AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2572AB69-0790-48CE-B729-C64C26CD8AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Console|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Console|Any CPU.Build.0 = Debug|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F215AEB-84B9-4191-A52C-35A002177049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +116,7 @@ Global
 		{BDEA91C9-15A7-41A4-B58F-301F103669A7} = {93046606-966B-43F5-B530-C378AB54D7AC}
 		{5DDAC7B6-84C9-4440-80CC-8E5B74A634C6} = {5D312703-A7CD-434D-B85E-8B53065D1BDB}
 		{2572AB69-0790-48CE-B729-C64C26CD8AFD} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
+		{4F215AEB-84B9-4191-A52C-35A002177049} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39740E51-064A-4FD5-9C8A-A5A257825D44}
