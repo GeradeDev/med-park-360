@@ -22,6 +22,7 @@ using MedPark.Common.Handlers;
 using MedPark.Bookings.Queries;
 using MedPark.Bookings.Handlers.Bookings;
 using MedPark.Bookings.Dto;
+using MedPark.Bookings.Messaging.Command;
 
 namespace MedPark.Bookings
 {
@@ -82,6 +83,7 @@ namespace MedPark.Bookings
             app.UseHttpsRedirection();
 
             app.UseRabbitMq()
+                .SubscribeCommand<AddAppointment>()
                 .SubscribeEvent<SpecialistSignedUp>("identity")
                 .SubscribeEvent<CustomerCreated>("customers");
 
