@@ -9,9 +9,9 @@ namespace MedPark.Catalog
 {
     public class CatalogDBContext : DbContext
     {
-        DbSet<Product> Product { get; set; }
-        DbSet<Category> Category { get; set; }
-        DbSet<ProductCatalog> ProductCatalog { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<ProductCatalog> ProductCatalog { get; set; }
 
         public CatalogDBContext(DbContextOptions<CatalogDBContext> options) : base(options)
         {

@@ -16,5 +16,6 @@ namespace MedPark.Catalog.Domain
         public string Name { get; private set; }
         public string Description { get; private set; }
         public bool Available { get; private set; }
+        public Guid? ParentCategory { get; private set; }
     }
 }

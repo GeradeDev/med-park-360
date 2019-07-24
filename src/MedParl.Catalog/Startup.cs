@@ -39,6 +39,8 @@ namespace MedPark.Catalog
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            //SeedData.EnsureSeedData(services.BuildServiceProvider());
+
             var builder = new ContainerBuilder();
 
             builder.RegisterType<CatalogDBContext>().As<DbContext>().InstancePerLifetimeScope();

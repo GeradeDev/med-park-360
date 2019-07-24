@@ -34,6 +34,8 @@ namespace MedPark.Catalog.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<Guid?>("ParentCategory");
+
                     b.HasKey("Id");
 
                     b.ToTable("Category");
