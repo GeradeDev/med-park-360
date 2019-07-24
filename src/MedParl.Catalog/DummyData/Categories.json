@@ -1,0 +1,135 @@
+[
+  {
+    "Id": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1",
+    "Name": "Pharmaceuticals",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": null
+  },
+  {
+    "Id": "b3d2884f-875d-48aa-ac42-42ff992027dd",
+    "Name": "Anaesthetics",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "b1e60304-0aad-4c55-98ef-4922fff7f369",
+    "Name": "Anti-Anaemia Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "2a468fcf-9319-4462-a474-3df870ee354d",
+    "Name": "Antibacterials",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "1891ecc7-7ded-4eb4-b137-3291df41e43b",
+    "Name": "Antifungal Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "a7315d72-46c4-4ee3-81cc-b19c0fe600b7",
+    "Name": "Antimalarial Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "fd91cbbc-9b5e-493e-b638-96bf3aaa85bf",
+    "Name": "Antiprotozoal Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "e6320113-d3cb-45d7-9567-0c07cfa6eb07",
+    "Name": "Antiretroviral Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "e99259b4-9b8e-4f35-9724-7e97fdee1659",
+    "Name": "Antiseptics",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "48cdcfef-504c-44e6-b7de-56840019dcbf",
+    "Name": "Cardiovascular Medicines",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "f9b2122b-d3b8-4684-bdeb-8fa54c3a3d01",
+    "Name": "Diagnostic and Lab. Reagents",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "5bec36b4-157d-4784-8159-397e4bff7d0f",
+    "Name": "Intravenous Solutions",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "4f8cfac8-0f10-43ba-87be-316bc997c0d0",
+    "Name": "Other Pharmaceuticals",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "03170f51-64dc-420c-8b79-318e3626055b",
+    "Name": "Oxytocics and Anti-oxytocics",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "60912164-a2c8-49fe-904e-a3b85c6230d3",
+    "Name": "Vitamins and Minerals",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "4a06fb27-ef92-4567-ab68-55aca718c046",
+    "Name": "Emergency RH, Dignity & Other kits",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": null
+  },
+  {
+    "Id": "20b09617-2a12-4c62-9444-2362ab01be23",
+    "Name": "Dignity Kits",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "3f4422a1-258d-41cb-b95d-cfac3988bdb1",
+    "Name": "Medical Kits",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  },
+  {
+    "Id": "9a51a621-a77b-440b-af91-2c6ab729daf3",
+    "Name": "Reproductive Health Kits",
+    "Description": "",
+    "Available": true,
+    "ParentCategory": "cbf5b38c-76f0-4c6c-85ed-86fcbdd3bec1"
+  }
+]
