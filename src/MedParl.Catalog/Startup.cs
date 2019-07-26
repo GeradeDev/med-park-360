@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -42,8 +43,6 @@ namespace MedPark.Catalog
             //Add DBContext
             services.AddDbContext<CatalogDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddScoped(typeof(IQueryHandler<ProductQueries, ProductDetailDto>), typeof(ProductQueriesHandler));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //SeedData.EnsureSeedData(services.BuildServiceProvider());
@@ -53,6 +52,8 @@ namespace MedPark.Catalog
             builder.RegisterType<CatalogDBContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                .AsImplementedInterfaces();
             builder.AddDispatchers();
             //builder.AddRabbitMq();
             builder.AddRepository<Product>();

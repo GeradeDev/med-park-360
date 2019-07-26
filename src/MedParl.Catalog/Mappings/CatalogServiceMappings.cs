@@ -16,6 +16,7 @@ namespace MedPark.Bookings.Mappings
         {
             CreateMap<Product, ProductDetailDto>();
             CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDetailDto>();
         }
     }
 }
