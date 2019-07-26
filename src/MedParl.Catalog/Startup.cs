@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using MedPark.Catalog.Domain;
+using MedPark.Catalog.Dto;
+using MedPark.Catalog.Handlers.Catalog;
+using MedPark.Catalog.Queries;
 using MedPark.Common;
+using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,8 +52,13 @@ namespace MedPark.Catalog
             builder.RegisterType<CatalogDBContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                .AsImplementedInterfaces();
             builder.AddDispatchers();
-            builder.AddRabbitMq();
+            //builder.AddRabbitMq();
+            builder.AddRepository<Product>();
+            builder.AddRepository<Category>();
+            builder.AddRepository<ProductCatalog>();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
@@ -68,7 +79,7 @@ namespace MedPark.Catalog
 
             app.UseHttpsRedirection();
 
-            app.UseRabbitMq();
+            //app.UseRabbitMq();
 
             app.UseMvcWithDefaultRoute();
         }
