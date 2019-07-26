@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -41,9 +42,13 @@ namespace MedPark.API.Gateway
 
             services.AddDefaultEndpoint<ICustomerService>("customer-service");
             services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
+            services.AddDefaultEndpoint<IBookingService>("booking-service");
+            services.AddDefaultEndpoint<ICatalogService>("catalog-service");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                .AsImplementedInterfaces();
             builder.AddRabbitMq();
 
             Container = builder.Build();

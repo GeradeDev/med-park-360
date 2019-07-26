@@ -7,11 +7,11 @@ namespace MedPark.Catalog.Dto
 {
     public class CategoryDto
     {
-        public Guid Id { get; protected set; }
-        public DateTime Modified { get; protected set; }
+        public Guid Id { get; set; }
+        public DateTime Modified { get; set; }
 
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public Guid? ParentCategory { get; private set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Guid? ParentCategory { get; set; }
     }
 }

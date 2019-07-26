@@ -31,7 +31,7 @@ namespace MedPark.Catalog.Handlers.Catalog
         public async Task<CatalogDetailDto> HandleAsync(CatalogQuery query)
         {
             IEnumerable<Category> categories = new List<Category>();
-            List<Product> products = new List<Product>();
+            List<ProductDetailDto> products = new List<ProductDetailDto>();
 
             if(query.ParentCategoryId is null)
             {
@@ -47,18 +47,31 @@ namespace MedPark.Catalog.Handlers.Catalog
                 if (!subCatExists)
                     throw new MedParkException("sub_category_does_not_exist", $"Sub category {query.ParentCategoryId} does not exist.");
 
-                categories = await _categoryRepo.FindAsync(x => x.ParentCategory == query.ParentCategoryId);
+                categories = await _categoryRepo.FindAsync(x => x.Id == query.ParentCategoryId);
             }
 
             products = (from p in await _productsRepo.GetAllAsync()
                         join pc in await _catalogRepo.GetAllAsync() on p.Id equals pc.ProductId
                         where categories.Select(x => x.Id).Contains(pc.CategoryId)
-                        select p).ToList();
+                        select new ProductDetailDto
+                        {
+                            Id = p.Id,
+                            Modified = p.Modified,
+                            Code = p.Code,
+                            Name = p.Name,
+                            Description = p.Description,
+                            AvailableQuantity = p.AvailableQuantity,
+                            NappiCode = p.NappiCode,
+                            CategoryId = pc.CategoryId,
+                            CategoryName = categories.Where(x => x.Id == pc.CategoryId).FirstOrDefault().Name
+                        }).ToList();
+
+            List<CategoryDto> categoryDto = _mapper.Map<List<CategoryDto>>(categories);
 
             return new CatalogDetailDto
             {
-                Categories = _mapper.Map<List<CategoryDto>>(categories),
-                Products = _mapper.Map<List<ProductDetailDto>>(products)
+                Categories = categoryDto,
+                Products = products
             };
         }
     }
