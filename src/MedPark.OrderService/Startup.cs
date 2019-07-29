@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using MedPark.Catalog.Domain;
-using MedPark.Catalog.Dto;
-using MedPark.Catalog.Handlers.Catalog;
-using MedPark.Catalog.Queries;
 using MedPark.Common;
-using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
+using MedPark.OrderService.Domain;
+using MedPark.OrderService.Messages.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,7 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace MedPark.Catalog
+namespace MedPark.OrderService
 {
     public class Startup
     {
@@ -41,7 +38,7 @@ namespace MedPark.Catalog
             services.AddAutoMapper();
 
             //Add DBContext
-            services.AddDbContext<CatalogDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
+            services.AddDbContext<OrderingDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -49,16 +46,16 @@ namespace MedPark.Catalog
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<CatalogDBContext>().As<DbContext>().InstancePerLifetimeScope();
+            builder.RegisterType<OrderingDbContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.Populate(services);
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
-            builder.AddRepository<Product>();
-            builder.AddRepository<Category>();
-            builder.AddRepository<ProductCatalog>();
+            builder.AddRepository<Customer>();
+            builder.AddRepository<CustomerAddress>();
+            builder.AddRepository<Order>();
+            builder.AddRepository<LineItem>();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
@@ -79,7 +76,8 @@ namespace MedPark.Catalog
 
             app.UseHttpsRedirection();
 
-            //app.UseRabbitMq();
+            app.UseRabbitMq()
+                .SubscribeEvent<CustomerCreated>("customers");
 
             app.UseMvcWithDefaultRoute();
         }
