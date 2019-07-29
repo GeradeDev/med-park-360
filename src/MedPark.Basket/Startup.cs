@@ -5,23 +5,25 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using MedPark.API.Gateway.Services;
+using MedPark.Basket.Domain;
+using MedPark.Basket.Messaging.Commands;
+using MedPark.Common;
 using MedPark.Common.RabbitMq;
-using MedPark.Common.RestEase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
-namespace MedPark.API.Gateway
+namespace MedPark.Basket
 {
     public class Startup
     {
-        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
@@ -33,27 +35,26 @@ namespace MedPark.API.Gateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
+            //Add DBContext
+            services.AddDbContext<BasketDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-
-            services.AddDefaultEndpoint<ICustomerService>("customer-service");
-            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
-            services.AddDefaultEndpoint<IBookingService>("booking-service");
-            services.AddDefaultEndpoint<ICatalogService>("catalog-service");
-            services.AddDefaultEndpoint<IBasketService>("basket-service");
-
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<BasketDBContext>().As<DbContext>().InstancePerLifetimeScope();
+
             builder.Populate(services);
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                 .AsImplementedInterfaces();
+            builder.AddDispatchers();
             builder.AddRabbitMq();
+            builder.AddRepository<CustomerBasket>();
+            builder.AddRepository<BasketItem>();
 
             Container = builder.Build();
-
             return new AutofacServiceProvider(Container);
         }
 
@@ -70,12 +71,13 @@ namespace MedPark.API.Gateway
                 app.UseHsts();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());
-
-            app.UseRabbitMq();
-
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRabbitMq()
+                .SubscribeCommand<CreateBasket>()
+                .SubscribeCommand<UpdateBasket>();
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

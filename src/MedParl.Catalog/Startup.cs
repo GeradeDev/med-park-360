@@ -55,7 +55,7 @@ namespace MedPark.Catalog
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                 .AsImplementedInterfaces();
             builder.AddDispatchers();
-            //builder.AddRabbitMq();
+            builder.AddRabbitMq();
             builder.AddRepository<Product>();
             builder.AddRepository<Category>();
             builder.AddRepository<ProductCatalog>();

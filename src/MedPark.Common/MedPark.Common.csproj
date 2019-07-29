@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Configurations>Debug;Release;Console</Configurations>
+    <Description>Common implementations for MedPark 360 project.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Gerade Geldenhuys</Authors>
+    <Company>Gerade Geldenhuys</Company>
+    <RepositoryUrl>https://github.com/GeradeDev/med-park-360</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/GeradeDev/med-park-360/tree/master/src/MedPark.Common</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

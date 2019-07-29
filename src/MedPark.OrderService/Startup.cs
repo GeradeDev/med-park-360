@@ -5,23 +5,25 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using MedPark.API.Gateway.Services;
+using AutoMapper;
+using MedPark.Common;
 using MedPark.Common.RabbitMq;
-using MedPark.Common.RestEase;
+using MedPark.OrderService.Domain;
+using MedPark.OrderService.Messages.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace MedPark.API.Gateway
+namespace MedPark.OrderService
 {
     public class Startup
     {
-        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
@@ -33,27 +35,29 @@ namespace MedPark.API.Gateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
+            //Add DBContext
+            services.AddDbContext<OrderingDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-
-            services.AddDefaultEndpoint<ICustomerService>("customer-service");
-            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
-            services.AddDefaultEndpoint<IBookingService>("booking-service");
-            services.AddDefaultEndpoint<ICatalogService>("catalog-service");
-            services.AddDefaultEndpoint<IBasketService>("basket-service");
+            //SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<OrderingDbContext>().As<DbContext>().InstancePerLifetimeScope();
+
             builder.Populate(services);
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
+            builder.AddDispatchers();
             builder.AddRabbitMq();
+            builder.AddRepository<Customer>();
+            builder.AddRepository<CustomerAddress>();
+            builder.AddRepository<Order>();
+            builder.AddRepository<LineItem>();
 
             Container = builder.Build();
-
             return new AutofacServiceProvider(Container);
         }
 
@@ -70,12 +74,12 @@ namespace MedPark.API.Gateway
                 app.UseHsts();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());
-
-            app.UseRabbitMq();
-
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRabbitMq()
+                .SubscribeEvent<CustomerCreated>("customers");
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
