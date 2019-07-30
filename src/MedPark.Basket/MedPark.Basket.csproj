@@ -18,8 +18,4 @@
     <ProjectReference Include="..\MedPark.Common\MedPark.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Messaging\Events\" />
-  </ItemGroup>
-
 </Project>

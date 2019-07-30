@@ -33,7 +33,7 @@ namespace MedPark.Basket.Handlers.Basket
             {
                 BasketItem bItem = await _basketItemRepo.GetAsync(x => x.BasketId == basket.Id && x.ProductId == item.ProductId);
 
-                bItem.UpdateQuatity(item.Quantity);
+                bItem.UpdateQuantity(item.Quantity);
                 bItem.UpdatedModifiedDate();
 
                 await _basketItemRepo.UpdateAsync(bItem);

@@ -13,17 +13,17 @@ namespace MedPark.Basket.Domain
 
         }
 
-        public Guid BasketId { get; private set; }
-        public Guid ProductId { get; private set; }
-        public string Code { get; private set; }
-        public string Name { get; private set; }
-        public decimal Price { get; private set; }
-        public int Quantity { get; private set; }
+        public Guid BasketId { get; set; }
+        public Guid ProductId { get; set; }
+        public string Code { get; set; }
+        public string Name { get;  set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
 
         public void UpdatedModifiedDate()
             => UpdatedModified();
 
-        public void UpdateQuatity(int quantity)
+        public void UpdateQuantity(int quantity)
         {
             Quantity = quantity;
         }
