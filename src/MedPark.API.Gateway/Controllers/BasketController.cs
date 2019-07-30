@@ -41,9 +41,24 @@ namespace MedPark.API.Gateway.Controllers
             return Accepted();
         }
 
+        [HttpPost("addproduct")]
+        public async Task<IActionResult> UpdateBasket([FromBody] AddProductToBasket command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.Item.Id, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
 
         [HttpPost("updatebasket")]
         public async Task<IActionResult> UpdateBasket([FromBody] UpdateBasket command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
+        }
+
+        [HttpPost("checkout")]
+        public async Task<IActionResult> CheckoutBasket([FromBody] CheckoutBasket command)
         {
             await _busPublisher.SendAsync(command, null);
 

@@ -75,7 +75,9 @@ namespace MedPark.Basket
 
             app.UseRabbitMq()
                 .SubscribeCommand<CreateBasket>()
-                .SubscribeCommand<UpdateBasket>();
+                .SubscribeCommand<AddProductToBasket>()
+                .SubscribeCommand<UpdateBasket>()
+                .SubscribeCommand<CheckoutBasket>();
 
             app.UseMvcWithDefaultRoute();
         }
