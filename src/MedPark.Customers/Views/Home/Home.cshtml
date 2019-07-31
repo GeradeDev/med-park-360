@@ -8,11 +8,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Home</title>
+    <title>Customer Service</title>
     <style>
         html {
             position: relative;
             min-height: 100%;
+            font-family: monospace;
         }
 
         .customer-background {
@@ -25,7 +26,6 @@
             font-size: 3.5rem;
             font-weight: 300;
             line-height: 1.2;
-            font-family: monospace;
             color: white;
         }
 
@@ -33,11 +33,41 @@
             text-align: center !important;
         }
 
+        .text-center {
+            text-align: center !important;
+        }
+
+        
+        .service-details{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .api-details{
+            padding: 20px;
+            border: 4px solid white;
+            border-radius: 25px;
+        }
+
+        .view-api{
+            color: white;
+            font-size: larger;
+            margin-top: 13px;
+            display: flex;
+            justify-content: center;
+        }
+
     </style>
 </head>
 <body class="customer-background">
-    <div class="text-center">
-        <h1 class="display-4">Customer Service</h1>
+    <div class="text-center service-details">
+        <div class="api-details">
+            <h1 class="display-4">MedPark Customer Service</h1>
+            <a class="view-api">View Customer Service API</a>
+        </div>
     </div>
 </body>
 </html>

@@ -70,26 +70,36 @@ namespace MedPark.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl)
         {
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(Request.Form["Username"], Request.Form["Password"], true, false);
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
 
-            if (result.Succeeded)
+            if (Request.Form["Login"].Count > 0)
             {
-                return Redirect(returnUrl);
-            }
-            if (result.RequiresTwoFactor)
-            {
-                //return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberLogin });
-            }
-            if (result.IsLockedOut)
-            {
-                //return View("Lockout");
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(Request.Form["Username"], Request.Form["Password"], true, false);
+
+                if (result.Succeeded)
+                {
+                    return Redirect(context.RedirectUri);
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    //return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberLogin });
+                }
+                if (result.IsLockedOut)
+                {
+                    //return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return Page();
+                //Login canceled
+                return Redirect(context.RedirectUri.Replace("signin-oidc", ""));
             }
 
             return await OnGet(returnUrl);

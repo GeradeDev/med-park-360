@@ -19,52 +19,53 @@
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
             }
 
-            <div class="w-50">
+        <div class="w-50">
 
-                <div class="mb-4 d-flex">
-                    <div class="col-sm-6 p-0 float-left">
-                        <label class="font-weight-bold">Account type:</label>
-                        <select asp-for="Role" class="form-control" placeholder="Role of user" name="role" id="ddlRole">
-                            <option value="Patient">Patient</option>
-                            <option value="Specialist">Specialist</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-5 hidden float-left">
-                        <label class="font-weight-bold">Registration OTP:</label>
-                        <input class="form-control" placeholder="OTP" name="otp" asp-for="SpecialistOTP" type="text" />
-                    </div>
+            <div class="mb-4 d-flex">
+                <div class="col-sm-6 p-0 float-left">
+                    <label class="font-weight-bold">Account type:</label>
+                    <select asp-for="Role" class="form-control" placeholder="Role of user" name="role" id="ddlRole">
+                        <option value="Patient">Patient</option>
+                        <option value="Specialist">Specialist</option>
+                    </select>
                 </div>
-
-                <div class="mb-4 clear reg-field flex-display">
-                    <div class="col-sm-6 p-0 float-left">
-                        <label class="font-weight-bold">First name:</label>
-                        <input asp-for="FirstName" class="form-control" placeholder="First name" name="firstname" />
-                    </div>
-                    <div class="col-sm-6 pr-0 float-left">
-                        <label class="font-weight-bold">Last name:</label>
-                        <input asp-for="LastName" class="form-control" placeholder="Last name" name="lastname" />
-                    </div>
+                <div class="col-sm-5 hidden float-left">
+                    <label class="font-weight-bold">Registration OTP:</label>
+                    <input class="form-control" placeholder="OTP" name="otp" asp-for="SpecialistOTP" type="text" />
                 </div>
-
-                <div class="mb-4 reg-field">
-                    <label class="font-weight-bold">Email:</label>
-                    <input asp-for="Username" class="form-control" placeholder="Username / Email" name="username" />
-                </div>
-
-                <div class="mb-4">
-                    <label class="font-weight-bold">Password:</label>
-                    <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
-                </div>
-
-                <div class="mb-4">
-                    <label class="font-weight-bold">Re-enter password:</label>
-                    <input class="form-control" placeholder="Re-enter Password" type="password" />
-                </div>
-
-                <button class="btn btn-primary">
-                    Register
-                </button>
             </div>
+
+            <div class="mb-4 clear reg-field flex-display">
+                <div class="col-sm-6 p-0 float-left">
+                    <label class="font-weight-bold">First name:</label>
+                    <input asp-for="FirstName" class="form-control" placeholder="First name" name="firstname" />
+                </div>
+                <div class="col-sm-6 pr-0 float-left">
+                    <label class="font-weight-bold">Last name:</label>
+                    <input asp-for="LastName" class="form-control" placeholder="Last name" name="lastname" />
+                </div>
+            </div>
+
+            <div class="mb-4 reg-field">
+                <label class="font-weight-bold">Email:</label>
+                <input asp-for="Username" class="form-control" placeholder="Username / Email" name="username" />
+            </div>
+
+            <div class="mb-4">
+                <label class="font-weight-bold">Password:</label>
+                <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
+            </div>
+
+            <div class="mb-4">
+                <label class="font-weight-bold">Re-enter password:</label>
+                <input class="form-control" placeholder="Re-enter Password" type="password" />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" name="register" value="register">Register</button>
+                <button class="btn btn-default" name="cancel" value="cancel">Cancel</button>
+            </div>
+        </div>
         </div>
     </div>
 

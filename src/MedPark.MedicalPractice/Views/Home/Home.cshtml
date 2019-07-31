@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Home</title>
+    <title>Specialist Service</title>
     <style>
 
         * {
@@ -20,6 +20,7 @@
         body {
             width: 100%;
             height: 100%;
+            font-family: monospace;
         }
 
         .hero {
@@ -45,20 +46,45 @@
             font-size: 3.5rem;
             font-weight: 300;
             line-height: 1.2;
-            font-family: monospace;
             color: black;
         }
 
         .text-center {
             text-align: center !important;
         }
+        
 
+        
+        .service-details{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .api-details{
+            padding: 20px;
+            border: 4px solid black;
+            border-radius: 25px;
+        }
+
+        .view-api{
+            color: black;
+            font-size: larger;
+            margin-top: 13px;
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="med-practice-background">
     <div class="hero">
-        <div class="text-center">
-            <h1 class="display-4">Medical Practice Service</h1>
+        <div class="text-center service-details">
+            <div class="api-details">
+                <h1 class="display-4">MedPark Specialist Service</h1>
+                <a class="view-api">View Specialist Service API</a>
+            </div>
         </div>
     </div>
 </body>
