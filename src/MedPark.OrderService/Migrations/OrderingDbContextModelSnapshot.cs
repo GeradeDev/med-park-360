@@ -58,6 +58,8 @@ namespace MedPark.OrderService.Migrations
 
                     b.Property<Guid>("CustomerId");
 
+                    b.Property<bool?>("IsPickUpLocation");
+
                     b.Property<DateTime>("Modified");
 
                     b.Property<string>("PostalCode");
@@ -94,6 +96,8 @@ namespace MedPark.OrderService.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("LineItem");
                 });
 
@@ -108,7 +112,7 @@ namespace MedPark.OrderService.Migrations
 
                     b.Property<Guid>("CustomerId");
 
-                    b.Property<DateTime>("DatePaid");
+                    b.Property<DateTime?>("DatePaid");
 
                     b.Property<DateTime>("DatePlaced");
 
@@ -120,15 +124,23 @@ namespace MedPark.OrderService.Migrations
 
                     b.Property<decimal>("OrderTotal");
 
-                    b.Property<Guid>("ShippingAddress");
+                    b.Property<Guid?>("ShippingAddress");
 
-                    b.Property<int>("ShippingType");
+                    b.Property<int?>("ShippingType");
 
                     b.Property<decimal>("TotalVat");
 
                     b.HasKey("Id");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("MedPark.OrderService.Domain.LineItem", b =>
+                {
+                    b.HasOne("MedPark.OrderService.Domain.Order")
+                        .WithMany("LineItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

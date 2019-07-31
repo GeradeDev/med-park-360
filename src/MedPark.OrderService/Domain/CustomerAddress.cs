@@ -20,5 +20,6 @@ namespace MedPark.OrderService.Domain
 
         public string PostalCode { get; set; }
         public Guid CustomerId { get; set; }
+        public bool? IsPickUpLocation { get; set; }
     }
 }

@@ -45,6 +45,7 @@ namespace MedPark.API.Gateway
             services.AddDefaultEndpoint<IBookingService>("booking-service");
             services.AddDefaultEndpoint<ICatalogService>("catalog-service");
             services.AddDefaultEndpoint<IBasketService>("basket-service");
+            services.AddDefaultEndpoint<IOrderService>("order-service");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

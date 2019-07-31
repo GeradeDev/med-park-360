@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MedPark.Common
+namespace MedPark.Common.Enums
 {
-    public class MedParkEnums
+    public static class MedParkEnums
     {
         public enum OrderStatus
         {
