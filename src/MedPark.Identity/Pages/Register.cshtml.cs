@@ -64,7 +64,7 @@ namespace MedPark.Identity.Pages
 
         public async Task<IActionResult> OnPost(string returnurl)
         {
-            if (returnurl != null)
+            if (returnurl != null && Request.Form["Register"].Count > 0)
             {
                 PendingRegistrationDto otpDetails = new PendingRegistrationDto();
                 ApplicationUser user;
@@ -133,6 +133,11 @@ namespace MedPark.Identity.Pages
 
                     ReturnURL = returnurl;
                 }
+            }
+            else
+            {
+                //Registration canceled
+                return Redirect(returnurl);
             }
 
             return Page();

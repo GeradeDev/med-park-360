@@ -1,5 +1,7 @@
 ﻿using MedPark.Basket.Domain;
+using MedPark.Basket.Dto;
 using MedPark.Common.Messages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,16 @@ namespace MedPark.Basket.Messaging.Events
     public class BasketCheckedOut : IEvent
     {
         public Guid CustomerId { get; set; }
-        public IEnumerable<BasketItem> Items { get; set; }
+        public IEnumerable<LineItemDto> Items { get; set; }
+        public int ShippingType { get; private set; }
+        public Guid ShippingAddress { get; private set; }
 
-        [JsonContructor]
-        public BasketCheckedOut(Guid buyerId)
+        [JsonConstructor]
+        public BasketCheckedOut(Guid buyerId, int shippingType, Guid shippingAddress)
         {
             CustomerId = buyerId;
+            ShippingType = shippingType;
+            ShippingAddress = shippingAddress;
         }
     }
 }

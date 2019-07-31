@@ -77,7 +77,8 @@ namespace MedPark.OrderService
             app.UseHttpsRedirection();
 
             app.UseRabbitMq()
-                .SubscribeEvent<CustomerCreated>("customers");
+                .SubscribeEvent<CustomerCreated>("customers")
+                .SubscribeEvent<BasketCheckedOut>("basket-service");
 
             app.UseMvcWithDefaultRoute();
         }

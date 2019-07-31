@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using MedPark.Basket.Messaging.Events;
 
 namespace MedPark.Basket
 {
@@ -77,7 +78,8 @@ namespace MedPark.Basket
                 .SubscribeCommand<CreateBasket>()
                 .SubscribeCommand<AddProductToBasket>()
                 .SubscribeCommand<UpdateBasket>()
-                .SubscribeCommand<CheckoutBasket>();
+                .SubscribeCommand<CheckoutBasket>()
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers");
 
             app.UseMvcWithDefaultRoute();
         }

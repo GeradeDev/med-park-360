@@ -21,5 +21,21 @@ namespace MedPark.OrderService.Domain
         public int Markup { get; private set; }
         public decimal Price { get; private set; }
         public string NappiCode { get; private set; }
+
+        public void CreateOrderLineItem(Guid orderId, string prodCode, string prodName, string prodDesc, string nappi, decimal prodPrice)
+        {
+            OrderId = orderId;
+            ProductCode = prodCode;
+            ProductName = prodName;
+            ProductDescription = prodDesc;
+            NappiCode = nappi;
+            Price = prodPrice;
+        }
+
+        public void SetQuantity(int quantity)
+        {
+            Quantity = quantity;
+            UpdatedModified();
+        }
     }
 }

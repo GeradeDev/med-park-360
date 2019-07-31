@@ -6,13 +6,21 @@ namespace MedPark.Common
 {
     public class MedParkEnums
     {
-
-        public enum AddressType
+        public enum OrderStatus
         {
-            Primary = 1,
-            Secondary = 2,
-            Work = 3
+            Placed = 1,
+            Awaiting_Payment = 2,
+            Payment_Received = 3,
+            Awaiting_Shipment = 4,
+            Shipped = 5,
+            Delivered = 6,
+            Completed = 7
         }
 
+        public enum OrderShippingType
+        {
+            Collection = 1,
+            Delivery = 2
+        }
     }
 }

@@ -119,5 +119,10 @@ namespace MedPark.Common
         {
             return String.Join("", fullName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
         }
+
+        public static string GenerateOrderNo(this string orderNo, int orderCount)
+        {
+            return "MPO" + orderCount.ToString().PadLeft(7, '0');
+        }
     }
 }

@@ -39,10 +39,16 @@ namespace MedPark.Basket.Handlers.Basket
                 throw new MedParkException("basket_items_not_valid", $"The basket {command.BasketId} items are not valid to checkout.");
 
 
-            BasketCheckedOut basketCheckedOutEvent = new BasketCheckedOut(basket.CustomerId)
+            BasketCheckedOut basketCheckedOutEvent = new BasketCheckedOut(basket.CustomerId, command.ShippingType, command.ShippingAddress);
+            List<LineItemDto> lineItems = new List<LineItemDto>();
+
+            items.ToList().ForEach(i =>
             {
-                Items = items
-            };
+                LineItemDto lineItem = new LineItemDto { Id = Guid.NewGuid(), ProductCode = i.Code, Price = i.Price, ProductName = i.Name, Quantity = i.Quantity };
+                lineItems.Add(lineItem);
+            });
+
+            basketCheckedOutEvent.Items = lineItems;
 
             //Publish event to start order
             await _busPublisher.PublishAsync(basketCheckedOutEvent, null);
@@ -52,9 +58,6 @@ namespace MedPark.Basket.Handlers.Basket
             {
                 await _basketItemRepo.DeleteAsync(i.Id);
             });
-
-            //Remove Basket
-            await _basketRepo.DeleteAsync(basket.Id);
         }
     }
 }
