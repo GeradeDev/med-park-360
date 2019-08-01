@@ -19,5 +19,7 @@ namespace MedPark.Common
 
         protected virtual void UpdatedModified()
             => Modified = DateTime.UtcNow;
+
+        public virtual void Use() { }
     }
 }
