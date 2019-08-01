@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MedPark.Common;
 using MedPark.Common.RabbitMq;
+using MedPark.Payment.Messages.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -63,7 +64,8 @@ namespace MedPark.Payment
 
             app.UseHttpsRedirection();
 
-
+            app.UseRabbitMq()
+                .SubscribeEvent<OrderPlaced>(@namespace: "order-service");
 
             app.UseMvcWithDefaultRoute();
         }
