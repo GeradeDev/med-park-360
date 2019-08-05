@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedPark.API.Gateway.Messages.Commands.OrderService;
 using MedPark.API.Gateway.Services;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,38 @@ namespace MedPark.API.Gateway.Controllers
             var orderSummary = await _orderService.GetOrderSummary(orderid);
 
             return Ok(orderSummary);
+        }
+
+        [HttpPost("removefromorder")]
+        public async Task<IActionResult> GetOrderSummary(RemoveItemFromOrder command)
+        {
+            await _busPublisher.SendAsync<RemoveItemFromOrder>(command, null);
+
+            return Accepted();
+        }
+
+        [HttpPost("updateitemquantity")]
+        public async Task<IActionResult> UpdateItemQuantity(UpdateOrderItemQuantity command)
+        {
+            await _busPublisher.SendAsync<UpdateOrderItemQuantity>(command, null);
+
+            return Accepted();
+        }
+
+        [HttpPost("updateorderPaymentmethod")]
+        public async Task<IActionResult> UpdateOrderPaymentMethod(UpdateOrderPayment command)
+        {
+            await _busPublisher.SendAsync<UpdateOrderPayment>(command, null);
+
+            return Accepted();
+        }
+
+        [HttpPost("updateordershipping")]
+        public async Task<IActionResult> UpdateOrderShipping(UpdateOrderShipping command)
+        {
+            await _busPublisher.SendAsync<UpdateOrderShipping>(command, null);
+
+            return Accepted();
         }
     }
 }
