@@ -9,6 +9,7 @@ using AutoMapper;
 using MedPark.Common;
 using MedPark.Common.RabbitMq;
 using MedPark.OrderService.Domain;
+using MedPark.OrderService.Messages.Commands;
 using MedPark.OrderService.Messages.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -77,6 +78,10 @@ namespace MedPark.OrderService
             app.UseHttpsRedirection();
 
             app.UseRabbitMq()
+                .SubscribeCommand<RemoveItemFromOrder>()
+                .SubscribeCommand<UpdateOrderItemQuantity>()
+                .SubscribeCommand<UpdateOrderPayment>()
+                .SubscribeCommand<UpdateOrderShipping>()
                 .SubscribeEvent<CustomerCreated>("customers")
                 .SubscribeEvent<BasketCheckedOut>("basket-service");
 

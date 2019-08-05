@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MedPark.Common;
 using MedPark.Common.RabbitMq;
+using MedPark.Payment.Messages.Commands;
 using MedPark.Payment.Messages.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace MedPark.Payment
 
             builder.RegisterType<PaymentDBContext>().As<DbContext>().InstancePerLifetimeScope();
 
+            SeedData.EnsureSeedData(services.BuildServiceProvider());
+
             builder.Populate(services);
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
@@ -65,6 +68,8 @@ namespace MedPark.Payment
             app.UseHttpsRedirection();
 
             app.UseRabbitMq()
+                .SubscribeCommand<AddPaymentMethod>()
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers")
                 .SubscribeEvent<OrderPlaced>(@namespace: "order-service");
 
             app.UseMvcWithDefaultRoute();

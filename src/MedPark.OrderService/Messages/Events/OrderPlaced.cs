@@ -9,14 +9,16 @@ namespace MedPark.OrderService.Messages.Events
 {
     public class OrderPlaced : IEvent
     {
-        public Guid OrderId { get; set; }
-        public Guid BuyerId { get; set; }
+        public Guid OrderId { get; private set; }
+        public Guid BuyerId { get; private set; }
+        public decimal OrderTotal { get; private set; }
 
         [JsonConstructor]
-        public OrderPlaced(Guid orderId, Guid buyerId)
+        public OrderPlaced(Guid orderId, Guid buyerId, decimal orderTotal)
         {
             OrderId = orderId;
             BuyerId = buyerId;
+            OrderTotal = orderTotal;
         }
     }
 }

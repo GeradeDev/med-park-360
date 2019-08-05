@@ -52,7 +52,7 @@ namespace MedPark.OrderService.Handlers.Basket
             });
 
             //Publish Order Placed event
-            await _busPublisher.PublishAsync(new OrderPlaced(newOrder.Id, newOrder.CustomerId ), null);
+            await _busPublisher.PublishAsync(new OrderPlaced(newOrder.Id, newOrder.CustomerId, newOrder.OrderTotal), null);
         }
     }
 }
