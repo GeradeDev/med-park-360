@@ -10,13 +10,13 @@ namespace MedPark.OrderService.Messages.Commands
     {
         public Guid OrderId { get; set; }
         public int PaymentMethod { get; set; }
-        public string PaymentCardType { get; set; }
+        public int PaymentCardType { get; set; }
         public string PaymentCardNumber { get; set; }
         public DateTime PaymentCardExpiry { get; set; }
         public string PaymentCardSecurityCode { get; set; }
 
         [JsonConstructor]
-        public UpdateOrderPayment(Guid orderId, int paymentMethod, string paymentCardType, string paymentCardNumber, DateTime paymentCardExpiry, string paymentCardSecurityCode)
+        public UpdateOrderPayment(Guid orderId, int paymentMethod, int paymentCardType, string paymentCardNumber, DateTime paymentCardExpiry, string paymentCardSecurityCode)
         {
             OrderId = orderId;
         }

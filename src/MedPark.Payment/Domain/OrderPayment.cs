@@ -17,16 +17,20 @@ namespace MedPark.Payment.Domain
 
         public Guid OrderId { get; private set; }
         public Guid CustomerId { get; private set; }
-        public Guid OrderPaymentTypeId { get; private set; }
+        public Guid? OrderPaymentTypeId { get; private set; }
         public decimal OrderTotal { get; private set; }
         public int PaymentStatus { get; private set; }
 
-        public void Create(Guid orderId, Guid customerId, Guid paymentTypeId, decimal total)
+        public void Create(Guid orderId, Guid customerId, decimal total)
         {
             OrderId = orderId;
             CustomerId = customerId;
-            OrderPaymentTypeId = paymentTypeId;
             OrderTotal = total;
+        }
+
+        public void SetPaymentType(Guid paymentTypeId)
+        {
+            OrderPaymentTypeId = paymentTypeId;
         }
 
         public override void Use()
@@ -37,7 +41,7 @@ namespace MedPark.Payment.Domain
             if (CustomerId == Guid.Empty)
                 throw new MedParkException("order_payment_customer_invalid", $"The customer Id may not be empty");
 
-            if (OrderPaymentTypeId == Guid.Empty)
+            if (OrderPaymentTypeId == Guid.Empty && PaymentStatus != (int)OrderPaymentStatus.Awaiting_Confirmation)
                 throw new MedParkException("order_payment_customer_payment_type_invalid", $"The customer payment method Id for this order is not valid.");
 
             if (OrderTotal <= 0)

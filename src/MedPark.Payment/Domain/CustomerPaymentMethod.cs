@@ -17,7 +17,7 @@ namespace MedPark.Payment.Domain
         public Guid CustomerId { get; private set; }
         public Guid PaymentTypeId { get; private set; }
 
-        public string PaymentCardType { get; private set; }
+        public int PaymentCardType { get; private set; }
         public string PaymentCardNumber { get; private set; }
         public DateTime? PaymentCardExpiry { get; private set; }
         public string PaymentCardSecurityCode { get; private set; }
@@ -32,7 +32,7 @@ namespace MedPark.Payment.Domain
             PaymentTypeId = type;
         }
 
-        public void SetOnlinePaymentDetails(string paymentCardType, string paymentCardNumber, DateTime? paymentCardExpiry, string paymentCardSecurityCode)
+        public void SetOnlinePaymentDetails(int paymentCardType, string paymentCardNumber, DateTime? paymentCardExpiry, string paymentCardSecurityCode)
         {
             PaymentCardType = paymentCardType;
             PaymentCardNumber = paymentCardNumber;
@@ -48,7 +48,7 @@ namespace MedPark.Payment.Domain
             if (PaymentTypeId == Guid.Empty)
                 throw new MedParkException("payment_type_invalid_create_payment_method", "The payment type Id may not be empty");
 
-            if (string.IsNullOrEmpty(PaymentCardType) || string.IsNullOrEmpty(PaymentCardNumber) || string.IsNullOrEmpty(PaymentCardSecurityCode))
+            if (PaymentCardType == 0 || string.IsNullOrEmpty(PaymentCardNumber) || string.IsNullOrEmpty(PaymentCardSecurityCode))
                 throw new MedParkException("payment_type_online_details_invalid_create_payment_method", $"Online payment type details is not valid.");
 
             UpdatedModified();
