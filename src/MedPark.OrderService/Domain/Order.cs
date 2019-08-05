@@ -25,7 +25,7 @@ namespace MedPark.OrderService.Domain
         public Guid? ShippingAddress { get; private set; }
         public int OrderStatus { get; private set; }
         public string Comments { get; private set; }
-        public int? PaymentMethod { get; private set; }
+        public Guid? PaymentMethod { get; private set; }
 
         public virtual ICollection<LineItem> LineItems { get; set; }
 
@@ -62,7 +62,7 @@ namespace MedPark.OrderService.Domain
             UpdatedModified();
         }
 
-        public void SetPaymentMethod(int method)
+        public void SetPaymentMethod(Guid method)
         {
             PaymentMethod = method;
         }
