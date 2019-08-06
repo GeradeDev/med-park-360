@@ -1,24 +1,45 @@
 version: "3.5"
 
 services:
-  api:
+  medpark-api:
     image: medpark-api
     ports:
-      - '5000:5000'
+     - 8000:5000
     networks:
       - medpark
       
-  identity-service:
-    image: medpark-identity
+  customers:
+    image: customers
     ports:
-      - '5001:5001'
+      - 8001:5001
     networks:
       - medpark
       
-  customers-service:
-    image: medpark-customers
+  medpark-practice:
+    image: medpark-practice
     ports:
-      - '5002:5002'
+      - 8002:5002
+    networks:
+      - medpark
+      
+  medpark-bookings:
+    image: medpark-bookings
+    ports:
+      - 8003:5003
+    networks:
+      - medpark
+      
+  medpark-catalog:
+    image: medpark-catalog
+    ports:
+      - 8004:5004
+    networks:
+      - medpark
+      
+  medpark-order:
+    image: medpark-order
+    ports:
+      - 8005:5005
     networks:
       - medpark
 
