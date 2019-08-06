@@ -82,8 +82,9 @@ namespace MedPark.OrderService
                 .SubscribeCommand<UpdateOrderItemQuantity>()
                 .SubscribeCommand<UpdateOrderPayment>()
                 .SubscribeCommand<UpdateOrderShipping>()
-                .SubscribeEvent<CustomerCreated>("customers")
-                .SubscribeEvent<BasketCheckedOut>("basket-service");
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers")
+                .SubscribeEvent<AddressCreated>(@namespace: "customers")
+                .SubscribeEvent<BasketCheckedOut>(@namespace: "basket-service");
 
             app.UseMvcWithDefaultRoute();
         }

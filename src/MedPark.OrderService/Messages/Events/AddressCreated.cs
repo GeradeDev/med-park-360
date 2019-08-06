@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.CustomersService.Messages.Events
+namespace MedPark.OrderService.Messages.Events
 {
+    [MessageNamespace("customers")]
     public class AddressCreated : IEvent
     {
         public Guid Id { get;}

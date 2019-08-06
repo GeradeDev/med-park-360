@@ -34,7 +34,7 @@ namespace CustomerService.Tests
 
         private void SetupRepositories()
         {
-            _customersRepo.Setup(s => s.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Customer(Guid.NewGuid(), "")));
+            _customersRepo.Setup(s => s.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(new Customer(Guid.NewGuid())));
            // _addressRepo.Setup(s => s.BrowseAsync(It.IsAny<Expression<Func<Address, bool>>>())).Returns(Task.FromResult(new IEnumerable<Address>() { new Address(Guid.NewGuid(), Guid.NewGuid()) }));
         }
 

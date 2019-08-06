@@ -25,5 +25,8 @@
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <ProjectReference Include="../MedPark.Common/MedPark.Common.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\Events\" />
+  </ItemGroup>
   
 </Project>

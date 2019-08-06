@@ -32,6 +32,8 @@ namespace MedPark.CustomersService.Migrations
 
                     b.Property<int>("AddressType");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<DateTime>("Modified");
 
                     b.Property<string>("PostalCode");
@@ -54,6 +56,8 @@ namespace MedPark.CustomersService.Migrations
 
                     b.Property<DateTime?>("Birthday");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
@@ -61,6 +65,8 @@ namespace MedPark.CustomersService.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Mobile");
+
+                    b.Property<DateTime>("Modified");
 
                     b.HasKey("Id");
 

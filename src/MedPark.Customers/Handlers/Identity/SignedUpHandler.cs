@@ -23,9 +23,11 @@ namespace MedPark.CustomersService.Handlers.Identity
 
         public async Task HandleAsync(SignedUp @event, ICorrelationContext context)
         {
-            Customer customer = new Customer(@event.UserId, @event.Email);
-
+            Customer customer = new Customer(@event.UserId);
             customer.Create(@event.FirstName, @event.AccountType, @event.LastName);
+            customer.SetEmail(@event.Email);
+
+            customer.Use();
 
             await _customerRepo.AddAsync(customer);
 
