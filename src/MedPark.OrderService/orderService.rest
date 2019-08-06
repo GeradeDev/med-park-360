@@ -1,0 +1,58 @@
+@apiUrl = https://localhost:44308/api/order/
+@orderId = ""
+
+
+### Get order by Id
+Get {{apiUrl}}/{{orderId}}
+
+
+### Get Order summary
+Get {{apiUrl}}/{{orderId}}/summary
+
+
+### Remove item from order
+POST {{apiUrl}}/removefromorder
+Content-Type: application/json
+
+{
+  "orderId": "{{orderId}}",
+  "productCode": null
+}
+
+
+### Update order item quantity
+POST {{apiUrl}}/updateitemquantity
+
+Content-Type: application/json
+{
+  "orderId": "{{orderId}}",
+  "productCode": null,
+  "quantity": 0
+}
+
+
+### Update order payment method
+POST {{apiUrl}}/updateorderpaymentmethod
+
+Content-Type: application/json
+{
+  "orderId": "{{orderId}}",
+  "paymentMethodId": "00000000-0000-0000-0000-000000000000"
+}
+
+
+### Update order shipping method/address
+POST {{apiUrl}}/updateordershipping
+
+Content-Type: application/json
+{
+  "orderId": "{{orderId}}",
+  "shippingType": 0,
+  "addressId": "00000000-0000-0000-0000-000000000000"
+}
+
+
+
+
+
+

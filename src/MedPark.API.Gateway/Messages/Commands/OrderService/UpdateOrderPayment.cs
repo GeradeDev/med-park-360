@@ -10,8 +10,8 @@ namespace MedPark.API.Gateway.Messages.Commands.OrderService
     [MessageNamespace("order-service")]
     public class UpdateOrderPayment : ICommand
     {
-        public Guid OrderId { get; set; }
-        public Guid PaymentMethodId { get; set; }
+        public Guid OrderId { get;}
+        public Guid PaymentMethodId { get;}
 
         [JsonConstructor]
         public UpdateOrderPayment(Guid orderId, Guid paymentMethodId)

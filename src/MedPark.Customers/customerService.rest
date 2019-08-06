@@ -1,0 +1,25 @@
+@apiUrl = https://localhost:44308/api/customers/
+@customerId = ""
+
+
+### Get customer by id
+GET {{apiUrl}}/{{customerId}}
+
+
+### Get customer addresses
+GET {{apiUrl}}/GetAddreses/{{customerId}}
+
+
+### Add customer address
+POST {{apiUrl}}/CreateAddress
+Content-Type: application/json
+
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "addressLine1": null,
+  "addressLine2": null,
+  "addressLine3": null,
+  "addressType": 0,
+  "postalCode": null,
+  "userId": "{{customerId}}"
+}

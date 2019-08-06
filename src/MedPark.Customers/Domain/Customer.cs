@@ -1,4 +1,5 @@
 ﻿using MedPark.Common;
+using MedPark.Common.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace MedPark.CustomersService.Domain
 {
-    public class Customer : IIdentifiable
+    public class Customer : BaseIdentifiable
     {
-        public Guid Id { get; set; }
+        public Customer(Guid id) : base(id)
+        {
+        }
 
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -18,18 +21,39 @@ namespace MedPark.CustomersService.Domain
         public string Avatar { get; private set; }
         public string AccountType { get; private set; }
 
-        public Customer(Guid id, string email)
-        {
-            Id = id;
-            Email = email;
-        }
-
-        public void Create(string firstname, string accounttype, string lastname = "", string mobile = "")
+        public void Create(string firstname, string accounttype, string lastname)
         {
             FirstName = firstname;
             LastName = lastname;
-            Mobile = mobile;
             AccountType = accounttype;
+        }
+
+        public void SetEmail(string email)
+        {
+            Email = email;
+        }
+        
+        public void SetCustomerAvatar(string avatar)
+        {
+            Avatar = avatar;
+        }
+
+        public void SetCustomerBirthday(DateTime? birthday)
+        {
+            Birthday = birthday;
+        }
+
+        public void SetCustomerMobile(string mobile)
+        {
+            Mobile = mobile;
+        }
+
+        public override void Use()
+        {
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(Email))
+                throw new MedParkException("customer_invalid","Customer details are invalid");
+
+            UpdatedModified();
         }
     }
 }

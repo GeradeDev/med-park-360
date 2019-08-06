@@ -5,30 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.API.Gateway.Messages.Events
+namespace MedPark.API.Gateway.Messages.Commands.CustomerService
 {
-    public class AddressCreated : IEvent
+    [MessageNamespace("customers")]
+    public class CreateAddress : ICommand
     {
-        public Guid Id { get; set; }
-
+        public Guid Id { get; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string AddressLine3 { get; set; }
         public Int32 AddressType { get; set; }
-        public Guid UserId { get; set; }
-
         public string PostalCode { get; set; }
+        public Guid UserId { get; }
 
         [JsonConstructor]
-        public AddressCreated(Guid id, string line1, string line2, string line3, string postalCode, Int32 type, Guid userId)
+        public CreateAddress(Guid id, string line1, string line2, string line3, string postal, Int32 type, Guid userid)
         {
             Id = id;
             AddressLine1 = line1;
             AddressLine2 = line2;
             AddressLine3 = line3;
-            PostalCode = postalCode;
-            UserId = userId;
+            PostalCode = postal;
             AddressType = type;
+
+            UserId = userid;
         }
     }
 }

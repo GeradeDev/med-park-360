@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedPark.Common;
 using MedPark.Common.RabbitMq;
 using MedPark.Payment.Messages.Commands.PaymentService;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace MedPark.API.Gateway.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Add([FromBody] AddPaymentMethod command)
         {
-            await _busPublisher.SendAsync<AddPaymentMethod>(command, null);
+            await _busPublisher.SendAsync<AddPaymentMethod>(command.BindId(x => x.Id), null);
 
             return Accepted();
         }

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using MedPark.Bookings.Domain;
-using MedPark.Bookings.Dto;
 using MedPark.Catalog.Domain;
 using MedPark.Catalog.Dto;
 using System;

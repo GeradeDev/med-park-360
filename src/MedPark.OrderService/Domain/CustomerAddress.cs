@@ -13,13 +13,41 @@ namespace MedPark.OrderService.Domain
 
         }
 
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string AddressLine3 { get; set; }
-        public Int32 AddressType { get; set; }
+        public string AddressLine1 { get; private set; }
+        public string AddressLine2 { get; private set; }
+        public string AddressLine3 { get; private set; }
+        public Int32 AddressType { get; private set; }
 
-        public string PostalCode { get; set; }
-        public Guid CustomerId { get; set; }
-        public bool? IsPickUpLocation { get; set; }
+        public string PostalCode { get; private set; }
+        public Guid CustomerId { get; private set; }
+        public bool? IsPickUpLocation { get; private set; }
+
+        public void SetCustomer(Guid customerId)
+        {
+            CustomerId = customerId;
+        }
+
+        public void SetAddress(string line1, string line2, string line3, string postalCode)
+        {
+            AddressLine1 = line1;
+            AddressLine2 = line2;
+            AddressLine3 = line3;
+            PostalCode = postalCode;
+        }
+
+        public void SetAddressType(Int32 type)
+        {
+            AddressType = type;
+        }
+
+        public void IsPickupLocation(bool pickupLocation)
+        {
+            IsPickUpLocation = pickupLocation;
+        }
+
+        public override void Use()
+        {
+            UpdatedModified();
+        }
     }
 }

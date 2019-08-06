@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MedPark.CustomersService.Messages.Events
 {
-    [MessageNamespace("gateway")]
     public class AddressCreated : IEvent
     {
         public Guid Id { get;}

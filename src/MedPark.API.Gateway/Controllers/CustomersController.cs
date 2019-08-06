@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MedPark.API.Gateway.Messages.Commands;
-using MedPark.API.Gateway.Messages.Events;
+using MedPark.API.Gateway.Messages.Commands.CustomerService;
 using MedPark.API.Gateway.Services;
+using MedPark.Common;
 using MedPark.Common.Dispatchers;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Http;
@@ -34,13 +35,11 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpPost("CreateAddress")]
-        public async Task<IActionResult> CreateAddress([FromQuery] CreateAddress command)
+        public async Task<IActionResult> CreateAddress([FromBody] CreateAddress command)
         {
             try
             {
-                //Publish message to RabbitMq
-                await _busPublisher.PublishAsync(new AddressCreated(command.Id, command.AddressLine1, command.AddressLine2, command.AddressLine3, command.PostalCode, command.AddressType, command.UserId), CorrelationContext.Empty);
-
+                await _busPublisher.SendAsync(command.BindId(x => x.Id), CorrelationContext.Empty);
             }
             catch (Exception ex) { }
             

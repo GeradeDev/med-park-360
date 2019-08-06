@@ -60,9 +60,6 @@ namespace MedPark.CustomersService
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddScoped(typeof(IQueryHandler<GetCustomer, CustomerDto>), typeof(GetCustomerHandler));
-            services.AddScoped(typeof(IQueryHandler<GetCustomerAddress, List<AddressDto>>), typeof(GetCustomerAddressHandler));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var builder = new ContainerBuilder();
@@ -70,6 +67,7 @@ namespace MedPark.CustomersService
             builder.RegisterType<CustomersDbContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Customer>();
@@ -97,6 +95,7 @@ namespace MedPark.CustomersService
             app.UseStaticFiles();
 
             app.UseRabbitMq()
+                .SubscribeCommand<CreateAddress>()
                 .SubscribeEvent<SignedUp>(@namespace: "identity")
                 .SubscribeEvent<AddressCreated>(@namespace: "gateway");
 

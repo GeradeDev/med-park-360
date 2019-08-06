@@ -30,9 +30,11 @@ namespace MedPark.CustomersService.Handlers.Customers
                 throw new MedParkException("customer_already_exists", $"Customer account was already created for user with id: '{command.Id}'.");
             }
 
-            customer = new Customer(command.Id, command.Email);
-
+            customer = new Customer(command.Id);
             customer.Create(command.FirstName, command.LastName, command.Mobile);
+            customer.SetEmail(command.Email);
+
+            customer.Use();
 
             await _customerRepo.AddAsync(customer);
         }

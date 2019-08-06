@@ -5,17 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedPark.API.Gateway.Messages.Commands
+namespace MedPark.CustomersService.Messages.Commands
 {
-    [MessageNamespace("customers")]
     public class CreateAddress : ICommand
     {
         public Guid Id { get; }
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string AddressLine3 { get; set; }
-        public Int32 AddressType { get; set; }
-        public string PostalCode { get; set; }
+        public string AddressLine1 { get; }
+        public string AddressLine2 { get; }
+        public string AddressLine3 { get; }
+        public Int32 AddressType { get; }
+        public string PostalCode { get; }
         public Guid UserId { get; }
 
         [JsonConstructor]
