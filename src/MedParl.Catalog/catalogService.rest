@@ -1,0 +1,30 @@
+@apiUrl = https://localhost:44308/api/catalog/
+@parentCategoryId = ""
+@categoryId = ""
+@productId = ""
+
+
+### Get the fulle product catalog
+GET {{apiUrl}}/fullcatalog/
+
+
+### Get the the full catalog by category
+GET {{apiUrl}}/catalogByCategory/{{parentCategoryId}}
+
+
+### Get category by id
+GET {{apiUrl}}/category/{{categoryId}}
+
+
+### Get category details by id
+GET {{apiUrl}}/category/{{parentCategoryId}}/details
+
+
+### Get product by id
+GET {{apiUrl}}/product/{{productId}}
+
+
+
+
+
+

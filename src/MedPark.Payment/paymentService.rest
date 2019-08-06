@@ -1,0 +1,19 @@
+@apiUrl = https://localhost:44308/api/payment/
+@buyerId = ""
+@orderId = ""
+
+
+### Create new customer payment method
+POST {{apiUrl}}/create
+
+Content-Type: application/json
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "customerId": "00000000-0000-0000-0000-000000000000",
+  "paymentTypeId": 0,
+  "paymentCardType": 0,
+  "paymentCardNumber": null,
+  "paymentCardExpiry": null,
+  "paymentCardSecurityCode": null
+}
+

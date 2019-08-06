@@ -61,7 +61,7 @@ namespace MedPark.API.Gateway.Controllers
 
 
         [HttpGet("product/{productid}")]
-        public async Task<IActionResult> GetCatalog([FromRoute] Guid productid)
+        public async Task<IActionResult> GetProduct([FromRoute] Guid productid)
         {
             ProductDetailDto product = await _catalogService.GetProductById(productid);
 

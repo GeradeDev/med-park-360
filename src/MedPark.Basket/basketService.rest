@@ -1,0 +1,87 @@
+@apiUrl = https://localhost:44308/api/basket/
+@customerId = ""
+@basketId = ""
+
+
+### Create new customer basket
+POST {{apiUrl}}/createbasket
+
+Content-Type: application/json
+
+{
+  "basketId": "{{basketId}}",
+  "buyerId": "{{customerId}}"
+}
+
+
+### Get the customer's basket
+GET {{apiUrl}}/{{customerId}}
+
+
+### Add product to customer's basket
+POST {{apiUrl}}/addproduct
+
+Content-Type: application/json
+{
+  "basketId": "{{basketId}}",
+  "Item": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "basketId": "{{basketId}}",
+        "productId": "00000000-0000-0000-0000-000000000000",
+        "code": null,
+        "name": null,
+        "price": 0.0,
+        "quantity": 0
+    }
+}
+
+
+### Update basket
+POST {{apiUrl}}/updatebasket
+
+Content-Type: application/json
+{
+  "basketId": "{{basketId}}",
+  "Items":[
+      {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "basketId": "00000000-0000-0000-0000-000000000000",
+        "productId": "00000000-0000-0000-0000-000000000000",
+        "code": null,
+        "name": null,
+        "price": 0.0,
+        "quantity": 0
+      },
+      {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "basketId": "00000000-0000-0000-0000-000000000000",
+        "productId": "00000000-0000-0000-0000-000000000000",
+        "code": null,
+        "name": null,
+        "price": 0.0,
+        "quantity": 0
+      },
+      {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "basketId": "00000000-0000-0000-0000-000000000000",
+        "productId": "00000000-0000-0000-0000-000000000000",
+        "code": null,
+        "name": null,
+        "price": 0.0,
+        "quantity": 0
+      },
+  ]
+}
+
+
+### Checkout basket
+POST {{apiUrl}}/checkout
+
+Content-Type: application/json
+{
+  "basketId": "{{basketId}}"
+}
+
+
+
+
