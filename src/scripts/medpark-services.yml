@@ -3,13 +3,19 @@ version: "3.5"
 services:
   medpark-api:
     image: medpark-api
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.API.Gateway
     ports:
      - 8000:5000
     networks:
       - medpark
       
-  customers:
-    image: customers
+  medpark-customers:
+    image: medpark-customers
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.Customers
     ports:
       - 8001:5001
     networks:
@@ -17,6 +23,9 @@ services:
       
   medpark-practice:
     image: medpark-practice
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.MedicalPractice
     ports:
       - 8002:5002
     networks:
@@ -24,6 +33,9 @@ services:
       
   medpark-bookings:
     image: medpark-bookings
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.Bookings
     ports:
       - 8003:5003
     networks:
@@ -31,6 +43,9 @@ services:
       
   medpark-catalog:
     image: medpark-catalog
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedParl.Catalog
     ports:
       - 8004:5004
     networks:
@@ -38,8 +53,31 @@ services:
       
   medpark-order:
     image: medpark-order
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.OrderService
     ports:
       - 8005:5005
+    networks:
+      - medpark
+      
+  medpark-basket:
+    image: medpark-basket
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.Basket
+    ports:
+      - 8006:5006
+    networks:
+      - medpark
+      
+  medpark-payment:
+    image: medpark-payment
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.Payment
+    ports:
+      - 8007:5007
     networks:
       - medpark
 
