@@ -41,8 +41,6 @@ namespace MedPark.Payment
 
             builder.RegisterType<PaymentDBContext>().As<DbContext>().InstancePerLifetimeScope();
 
-            SeedData.EnsureSeedData(services.BuildServiceProvider());
-
             builder.Populate(services);
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
@@ -53,11 +51,13 @@ namespace MedPark.Payment
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider servProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                SeedData.EnsureSeedData(servProvider);
             }
             else
             {

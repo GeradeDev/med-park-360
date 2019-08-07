@@ -59,10 +59,7 @@ namespace MedPark.MedicalPractice
             services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, List<AppointmentTypeDTO>>), typeof(GetAllAppointmentTypesHandler));
             services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, SpecialistAppointmentTypesDTO>), typeof(GetSpecialistAppointmentTypesHandler));
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
 
@@ -91,11 +88,13 @@ namespace MedPark.MedicalPractice
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                SeedData.EnsureSeedData(serviceProvider);
             }
             else
             {
