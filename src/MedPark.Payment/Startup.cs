@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MedPark.Common;
 using MedPark.Common.RabbitMq;
+using MedPark.Payment.Domain;
 using MedPark.Payment.Messages.Commands;
 using MedPark.Payment.Messages.Events;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,11 @@ namespace MedPark.Payment
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
+            builder.AddRepository<Customer>();
+            builder.AddRepository<CustomerPaymentMethod>();
+            builder.AddRepository<PaymentStatus>();
+            builder.AddRepository<PaymentStatus>();
+            builder.AddRepository<PaymentType>();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
