@@ -1,6 +1,6 @@
-@apiUrl = https://localhost:44308/api/basket/
-@customerId = ""
-@basketId = ""
+@apiUrl = http://localhost:62683/api/basket
+@customerId = 888E9C20-0401-4D6B-BC39-4F5F203C8A5A
+@basketId = 4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1
 
 
 ### Create new customer basket
@@ -20,55 +20,51 @@ GET {{apiUrl}}/{{customerId}}
 
 ### Add product to customer's basket
 POST {{apiUrl}}/addproduct
-
 Content-Type: application/json
+
 {
   "basketId": "{{basketId}}",
   "Item": {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "basketId": "{{basketId}}",
-        "productId": "00000000-0000-0000-0000-000000000000",
-        "code": null,
-        "name": null,
-        "price": 0.0,
-        "quantity": 0
+        "basketId": "4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1",
+        "productId": "F114FF43-022C-46CC-AD34-057D894BE4D0",
+        "code": "PARCETML500MG1000",
+        "name": "Paracetamol 500mg, tablet",
+        "price": 4.92,
+        "quantity": 2
     }
 }
 
 
 ### Update basket
 POST {{apiUrl}}/updatebasket
-
 Content-Type: application/json
+
 {
   "basketId": "{{basketId}}",
   "Items":[
       {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "basketId": "00000000-0000-0000-0000-000000000000",
-        "productId": "00000000-0000-0000-0000-000000000000",
-        "code": null,
-        "name": null,
-        "price": 0.0,
-        "quantity": 0
+        "basketId": "{{basketId}}",
+        "productId": "9FFB4357-884B-4B31-8C21-143418D6D9F1",
+        "code": "NACL1L10",
+        "name": "Sodium chloride 0.9% isotonic IV infusion in 1000ml bag + In",
+        "price": 12.85,
+        "quantity": 4
       },
       {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "basketId": "00000000-0000-0000-0000-000000000000",
-        "productId": "00000000-0000-0000-0000-000000000000",
-        "code": null,
-        "name": null,
-        "price": 0.0,
-        "quantity": 0
+        "basketId": "{{basketId}}",
+        "productId": "0539AFB6-CCF8-4ED5-91E3-1B12367932F0",
+        "code": "RHKIT6A",
+        "name": "ERH Kit 6A - Clinical Delivery Assistance Kit - Reusable Equ",
+        "price": 895.37,
+        "quantity": 1
       },
       {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "basketId": "00000000-0000-0000-0000-000000000000",
-        "productId": "00000000-0000-0000-0000-000000000000",
-        "code": null,
-        "name": null,
-        "price": 0.0,
-        "quantity": 0
+        "basketId": "{{basketId}}",
+        "productId": "4A0C4B07-134E-4CC4-9CC1-26E3B409726E",
+        "code": "ATROPINSULP1MG100",
+        "name": "Atropine sulphate 1mg/ml, injection in 1-ml ampoule",
+        "price": 65.00,
+        "quantity": 3
       },
   ]
 }
@@ -76,8 +72,8 @@ Content-Type: application/json
 
 ### Checkout basket
 POST {{apiUrl}}/checkout
-
 Content-Type: application/json
+
 {
   "basketId": "{{basketId}}"
 }

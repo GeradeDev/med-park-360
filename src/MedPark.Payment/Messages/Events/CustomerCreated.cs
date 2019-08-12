@@ -15,7 +15,7 @@ namespace MedPark.Payment.Messages.Events
         public string LastName { get; }
 
         [JsonConstructor]
-        public CustomerCreated(Guid userid, string firstname, string lastname)
+        public CustomerCreated(Guid userid, string firstname, string lastname, string email, string mobile)
         {
             UserId = userid;
             FirstName = firstname;
