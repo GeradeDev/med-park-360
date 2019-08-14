@@ -6,6 +6,17 @@
     <Configurations>Debug;Release;Console</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\lib\jquery-easing\jquery.easing.compatibility.js" />
+    <None Include="wwwroot\lib\jquery-easing\jquery.easing.js" />
+    <None Include="wwwroot\lib\jquery-easing\jquery.easing.min.js" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="2.5.2" />
@@ -16,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\MedPark.Common\MedPark.Common.csproj" />
+    <ProjectReference Include="..\..\MedPark.Common\MedPark.Common.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="MedPark.Common" Version="1.0.1" />

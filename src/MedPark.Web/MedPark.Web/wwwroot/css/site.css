@@ -47,7 +47,7 @@ body {
 }
 
     body.landing-body {
-        background:url(../images/landing-bg.jpg);
+        background:url(../img/landing-bg.jpg);
         background-repeat:no-repeat;
         background-position:center;
         background-size:cover;
