@@ -5,11 +5,11 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<form asp-route-returnurl="@Model.ReturnURL" method="post">
+<form asp-route-returnurl="@Model.ReturnURL" method="post" id="register-form">
 
     <div class="card w-50 register-card">
         <div class="card-header register-card-hed">
-            <h4 class="card-title login-title bold-text">Sign-up - @Model.ClientName</h4>
+            <h4 class="card-title login-title">Sign-up - @Model.ClientName</h4>
         </div>
         <div class="card-body">
             <p class="card-text">Register a new account below as a medical practice or patient.</p>
@@ -22,48 +22,59 @@
         <div class="w-50">
 
             <div class="mb-4 d-flex">
-                <div class="col-sm-6 p-0 float-left">
+                <div class="col-sm-6 p-0 float-left form-group">
                     <label class="font-weight-bold">Account type:</label>
                     <select asp-for="Role" class="form-control" placeholder="Role of user" name="role" id="ddlRole">
                         <option value="Patient">Patient</option>
                         <option value="Specialist">Specialist</option>
                     </select>
                 </div>
-                <div class="col-sm-5 hidden float-left">
+                <div class="col-sm-5 hidden float-left form-group">
                     <label class="font-weight-bold">Registration OTP:</label>
-                    <input class="form-control" placeholder="OTP" name="otp" asp-for="SpecialistOTP" type="text" />
+                    <input class="form-control" placeholder="OTP" name="otp" asp-for="SpecialistOTP" type="text" data-bv-notempty="true" data-bv-notempty-message="OTP is required and cannot be empty" 
+                            data-bv-stringlength="true"
+                            data-bv-stringlength-min="1"
+                            data-bv-stringlength-max="6"
+                            data-bv-stringlength-message="The OTP must be more than 1 and less than 6 characters long"/>
                 </div>
             </div>
 
             <div class="mb-4 clear reg-field flex-display">
-                <div class="col-sm-6 p-0 float-left">
+                <div class="col-sm-6 p-0 float-left form-group">
                     <label class="font-weight-bold">First name:</label>
-                    <input asp-for="FirstName" class="form-control" placeholder="First name" name="firstname" />
+                    <input asp-for="FirstName" class="form-control" placeholder="First name" name="firstname" data-bv-notempty="true" data-bv-notempty-message="First name is required and cannot be empty" />
                 </div>
-                <div class="col-sm-6 pr-0 float-left">
+                <div class="col-sm-6 pr-0 float-left form-group">
                     <label class="font-weight-bold">Last name:</label>
-                    <input asp-for="LastName" class="form-control" placeholder="Last name" name="lastname" />
+                    <input asp-for="LastName" class="form-control" placeholder="Last name" name="lastname" data-bv-notempty="true" data-bv-notempty-message="Last name is required and cannot be empty" />
                 </div>
             </div>
 
-            <div class="mb-4 reg-field">
+            <div class="mb-4 reg-field form-group">
                 <label class="font-weight-bold">Email:</label>
-                <input asp-for="Username" class="form-control" placeholder="Username / Email" name="username" />
+                <input asp-for="Username" class="form-control" placeholder="Username / Email" name="username" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty" data-bv-emailaddress="true" data-bv-emailaddress-message="Email address is not a valid" />
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 form-group">
                 <label class="font-weight-bold">Password:</label>
-                <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" />
+                <input asp-for="Password" class="form-control" placeholder="Password" name="userpassword" type="password" data-bv-notempty="true" data-bv-notempty-message="Password is required and cannot be empty"
+                    data-bv-stringlength="true"
+                    data-bv-stringlength-min="8"
+                    data-bv-stringlength-message="The password must have at least 8 characters" />
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 form-group">
                 <label class="font-weight-bold">Re-enter password:</label>
-                <input class="form-control" placeholder="Re-enter Password" type="password" />
+                <input class="form-control" placeholder="Re-enter Password" type="password" name="confirm-pass" data-bv-notempty="true" data-bv-notempty-message="Please re-enter your password"
+
+                   data-bv-identical="true"
+                data-bv-identical-field="userpassword"
+                data-bv-identical-message="The password and its confirm are not the same" />
             </div>
 
             <div class="form-group">
                 <button class="btn btn-primary" name="register" value="register">Register</button>
-                <button class="btn btn-default" name="cancel" value="cancel">Cancel</button>
+                <button class="btn btn-default" onclick="cancelRegLogin(); return false;" name="cancel" value="cancel">Cancel</button>
             </div>
         </div>
         </div>

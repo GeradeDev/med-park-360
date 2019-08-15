@@ -17,4 +17,18 @@ $(document).ready(function () {
         }
     });
 
+    $("#register-form, #login-form").bootstrapValidator({
+    }).on("success.form.bv", function (e) {
+
+    });
+
 });
+
+
+function cancelRegLogin() {
+    window.location = new URLSearchParams(location.search).get('returnUrl');
+}
+
+function cancelLogin() {
+    window.location = $("#hdnReturn").val();
+}

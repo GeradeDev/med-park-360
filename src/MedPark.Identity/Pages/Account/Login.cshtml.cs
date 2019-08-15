@@ -37,6 +37,7 @@ namespace MedPark.Identity.Pages.Account
         public string ReturnUrl { get; set; }
         public string Email { get; set; }
         public string ClientName { get; set; }
+        public string ReturnCleintUrl { get; set; }
 
 
 
@@ -51,6 +52,9 @@ namespace MedPark.Identity.Pages.Account
         public async Task<IActionResult> OnGet(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+
+            ReturnCleintUrl = context.RedirectUri.Replace("signin-oidc", "");
+
             if (context?.IdP != null)
             {
                 // if IdP is passed, then bypass showing the login screen

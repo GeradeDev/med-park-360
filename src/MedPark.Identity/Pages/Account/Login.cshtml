@@ -16,22 +16,23 @@
         {
             <div class="card w-50 register-card">
                 <div class="card-header register-card-hed">
-                    <h4 class="card-title login-title bold-text">Login - @Model.ClientName</h4>
+                    <h4 class="card-title login-title">Login - @Model.ClientName</h4>
                 </div>
                 <div class="card-body">
                     <p class="card-text">You may login using your Username and Password below, or use one of our external prodivders to the right</p>
+                    <input type="hidden" value="@Model.ReturnCleintUrl" id="hdnReturn">
 
                     <div class="w-50">
 
-                        <form asp-route="Login" asp-route-returnurl="@Model.ReturnUrl">
+                        <form asp-route="Login" asp-route-returnurl="@Model.ReturnUrl" id="login-form">
                             <fieldset>
                                 <div class="form-group">
                                     <label asp-for="Username" class="font-weight-bold"></label>
-                                    <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                                    <input class="form-control" placeholder="Username" asp-for="Username" autofocus data-bv-notempty="true" data-bv-notempty-message="Username is required and cannot be empty">
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Password" class="font-weight-bold"></label>
-                                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off" data-bv-notempty="true" data-bv-notempty-message="Password is required and cannot be empty">
                                 </div>
                                 @if (Model.AllowRememberLogin)
                                 {
@@ -49,7 +50,7 @@
 
                                 <div class="form-group">
                                     <button class="btn btn-primary" name="login" value="login">Login</button>
-                                    <button class="btn btn-default" name="cancel" value="cancel">Cancel</button>
+                                    <button class="btn btn-default" onclick="cancelLogin(); return false;" name="cancel" value="cancel">Cancel</button>
                                 </div>
                             </fieldset>
                         </form>
