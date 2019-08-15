@@ -72,7 +72,18 @@ body.identity-background{
 }
 
 .register-card-hed {
-    background-color: white;
+   background-color: #212529;
+}
+
+.login-title {
+    color: #fed136;
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.75em;
+    line-height: inherit;
+    white-space: nowrap;
 }
 
 .hidden {

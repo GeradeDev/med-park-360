@@ -40,19 +40,19 @@ namespace MedPark.Web.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
-            var user = _appUserParser.Parse(HttpContext.User);
+            //var user = _appUserParser.Parse(HttpContext.User);
 
-            CustomerDto c = JsonConvert.DeserializeObject<CustomerDto>(await new CustomersService(_httpClient).GetDetails(user.IdentityId));
+            //CustomerDto c = JsonConvert.DeserializeObject<CustomerDto>(await new CustomersService(_httpClient).GetDetails(user.IdentityId));
 
-            FirstName = c.FirstName;
-            LastName = c.LastName;
-            Mobile = c.Mobile;
-            Birthday = c.Birthday;
-            Email = "GeradeGeldenhuys@Gmail.com";
-            Avatar = c.Avatar;
+            //FirstName = c.FirstName;
+            //LastName = c.LastName;
+            //Mobile = c.Mobile;
+            //Birthday = c.Birthday;
+            //Email = "GeradeGeldenhuys@Gmail.com";
+            //Avatar = c.Avatar;
 
-            if (string.IsNullOrEmpty(Avatar))
-                Avatar = Email.GetAvatar();
+            //if (string.IsNullOrEmpty(Avatar))
+            //    Avatar = Email.GetAvatar();
 
             return Page();
         }

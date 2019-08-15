@@ -1,0 +1,100 @@
+// Core variables and mixins
+@import "base/variables.scss";
+@import "base/mixins.scss";
+
+// Global CSS
+@import "base/page.scss";
+
+// Components
+@import "components/buttons.scss";
+@import "components/navbar.scss";
+
+// Layout
+@import "layout/masthead.scss";
+@import "layout/services.scss";
+@import "layout/portfolio.scss";
+@import "layout/timeline.scss";
+@import "layout/team.scss";
+@import "layout/contact.scss";
+@import "layout/footer.scss";
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body.identity-background {
+    background: url(../images/register-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.register-card {
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.register-card-hed {
+    background-color: #212529;
+}
+
+.login-title {
+    color: #fed136;
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.75em;
+    line-height: inherit;
+    white-space: nowrap;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.clear {
+    clear: both;
+}
+
+.alert-danger > ul {
+    margin-bottom: 0pc !important;
+}
+
+.flex-display {
+    display: flex;
+}
+
+
+.service-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.api-details {
+    padding: 20px;
+    border: 4px solid white;
+    border-radius: 25px;
+}
+
+.view-api {
+    color: white;
+    font-size: larger;
+    margin-top: 13px;
+    display: flex;
+    justify-content: center;
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+}
