@@ -5,7 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <UserSecretsId>878128bd-b897-434a-b280-709e43a52500</UserSecretsId>
-    <Configurations>Debug;Release;Console</Configurations>
+    <Configurations>Debug;Release;Console;Debug - Docker</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

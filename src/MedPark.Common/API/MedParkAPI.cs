@@ -9,7 +9,7 @@ namespace MedPark.Common.API
     public class CustomersService
     {
         private readonly IHttpClientFactory _httpClient;
-        private string _baseServiceUrl = "http://localhost:62683/api/customers";
+        private string _baseServiceUrl = "http://localhost:8000/api/customers";
 
         public CustomersService(IHttpClientFactory httpClient)
         {

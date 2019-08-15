@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MedPark.Web
@@ -36,43 +37,11 @@ namespace MedPark.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.Configure<IdentityConfig>(Configuration.GetSection("Identity"));
 
             services.AddTransient<IIdentityParser<ApplicationUser>, IdentityParser>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = "oidc";
-            })
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddOpenIdConnect("oidc", options =>
-            {
-                options.Authority = Globals.Authority;
-                options.ClientId = "medpark-web";
-
-                options.ResponseType = "id_token token";
-
-                options.Scope.Clear();
-
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
-                options.Scope.Add("firstName");
-                options.Scope.Add("identityid");
-                options.Scope.Add("accounttype");
-
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                options.GetClaimsFromUserInfoEndpoint = true;
-                //options.SignedOutRedirectUri = "https://localhost:44356/";
-                options.SaveTokens = true;
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = JwtClaimTypes.Name,
-                    RoleClaimType = JwtClaimTypes.Role,
-                };
-            });
-
+            services.ConfigureIdentity(Configuration.GetSection("Identity").Get<IdentityConfig>());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -98,6 +67,47 @@ namespace MedPark.Web
             app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
+        }
+
+    }
+
+    public static class Extensions
+    {
+        public static void ConfigureIdentity(this IServiceCollection services, IdentityConfig identityConfig)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.RequireHttpsMetadata = identityConfig.RequireHttps;
+                options.Authority = identityConfig.Authority;
+                options.ClientId = identityConfig.ClientId;
+
+                options.ResponseType = "id_token token";
+
+                options.Scope.Clear();
+
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("firstName");
+                options.Scope.Add("identityid");
+                options.Scope.Add("accounttype");
+
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.SaveTokens = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.Name,
+                    RoleClaimType = JwtClaimTypes.Role,
+                };
+            });
         }
     }
 }

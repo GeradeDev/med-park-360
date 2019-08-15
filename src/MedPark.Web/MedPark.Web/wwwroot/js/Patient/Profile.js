@@ -1,10 +1,21 @@
 ﻿
 $(document).ready(function () {
 
-    GetAddresses();
+    $("#customer-details-form").bootstrapValidator({
+    }).on("success.form.bv", function (e) {
+        e.preventDefault();
+    });
 
+    $("#btnUpdateCustomer").click(function () {
+        UpdateCustomerDetails();
+    });
+
+    $('#BirthDate').datepicker({
+
+    });
+
+    //GetAddresses();
 });
-
 
 function GetAddresses(){
 
@@ -14,4 +25,11 @@ function GetAddresses(){
             $("#div1").html(result);
         }
     });
+}
+
+
+function UpdateCustomerDetails() {
+    if ($("#customer-details-form").data("bootstrapValidator").validate()) {
+        var v = "";
+    }
 }
