@@ -1,7 +1,8 @@
 // Global styling for this template
 body {
-  overflow-x: hidden;
-  @include body-font;
+    overflow-x: hidden;
+    @include body-font;
+    background-color: #f2f2f2;
 }
 
 p {

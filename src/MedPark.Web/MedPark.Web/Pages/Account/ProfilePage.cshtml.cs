@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace MedPark.Web.Pages.Account
 {
-    [Authorize]
+    //[Authorize]
     public class ProfilePageModel : PageModel
     {
         private readonly IIdentityParser<ApplicationUser> _appUserParser;

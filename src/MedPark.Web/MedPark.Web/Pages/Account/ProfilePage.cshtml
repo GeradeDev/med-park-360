@@ -24,12 +24,69 @@
                 <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
             </div>
             <div class="col-md-8">
-                <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                </span>
-                <h4 class="service-heading">Responsive Design</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item col-sm-3 pl-0">
+                        <a class="nav-link shadow" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item col-sm-3">
+                        <a class="nav-link shadow" id="calendar-tab" data-toggle="pill" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">Calendar</a>
+                    </li>
+                    <li class="nav-item col-sm-3">
+                        <a class="nav-link shadow" id="orders-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+                    </li>
+                    <li class="nav-item col-sm-3 pr-0">
+                        <a class="nav-link shadow" id="contact-tab" data-toggle="pill" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content shadow" id="myTabContent">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Mobile" name="Mobile" placeholder="Mobile number" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="BirthDate" name="BirthDate" placeholder="Date of Birth" type="text" value="">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Avatar" name="Avatar" placeholder="Avatar" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="NewPassword" name="NewPassword" placeholder="Update Password" type="text" value="">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="ConfirmNewPassword" name="ConfirmNewPassword" placeholder="Confirm Password Update" type="text" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

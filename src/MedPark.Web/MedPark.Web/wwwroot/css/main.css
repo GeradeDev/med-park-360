@@ -1,6 +1,7 @@
 ﻿body {
   overflow-x: hidden;
-  font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; }
+  font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background-color: #f2f2f2; }
 
 p {
   line-height: 1.75; }
@@ -500,3 +501,25 @@ ul.social-buttons {
     background-color: #212529; }
     ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
       background-color: #fed136; }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fed136;
+  background-color: transparent; }
+
+.nav-pills .nav-link {
+  background-color: #fff;
+  font-size: 14px;
+  border-radius: 8px;
+  color: #6c757d; }
+  .nav-pills .nav-link:hover {
+    color: #fed136; }
+  .nav-pills .nav-link.active {
+    color: #fed136;
+    font-weight: bold;
+    background-color: #fff; }
+
+.tab-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px; }

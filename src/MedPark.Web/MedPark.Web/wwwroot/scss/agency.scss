@@ -17,3 +17,32 @@
 @import "layout/team.scss";
 @import "layout/contact.scss";
 @import "layout/footer.scss";
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: $primary;
+    background-color: transparent;
+}
+
+.nav-pills .nav-link {
+    background-color: #fff;
+    font-size: 14px;
+    border-radius: 8px;
+    color: #6c757d;
+
+    &:hover {
+        color: $primary;
+    }
+
+    &.active {
+        color: $primary;
+        font-weight: bold;
+        background-color: #fff;
+    }
+}
+
+.tab-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
