@@ -1,6 +1,16 @@
 # med-park-360
 Sample reference microservice and container based application. Cross-platform on Linux and Windows Docker Containers, powered by .NET Core 2.2 and Docker engine.
 
+## Services / Status
+
+| Basket API   | Catalog API | Identity API | Order API | 
+| ------------- | ------------- | ------------- | ------------- |
+| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master) | [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
+
+| Customer API   | Medical Parctice API | Payment API | Booking API | 
+| ------------- | --------------------- | ------------- | ------------- |
+| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master) | [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
+
 ## Motivation
 
 - Developing independently deployable and scalable micro-services
@@ -18,22 +28,6 @@ Sample cloud native e-commerce application which uses microservices based archit
 
 ## What does it do?
 Med Park 360 is a one stop portal where people can book appointments with medical specialists nearby. Med Park 360 also provides a service to order your prescribed medication right from the portal. The system is composed of 8 microservices, an API gateway, customer portal MVC web application and a client Xamarin application (Coming soon).
-
-## Services / Status
-
-| Basket API   | Catalog API | Identity API | Order API | 
-| ------------- | ------------- | ------------- | ------------- |
-| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master) | 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
-
-| Customer API   | Medical Parctice API | Payment API | Booking API | 
-| ------------- | --------------------- | ------------- | ------------- |
-| [![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master) | 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
-[![Build Status](https://dev.azure.com/GeradeDev/MedPark-360/_apis/build/status/Med-Park-360-Dev?branchName=master)](https://dev.azure.com/GeradeDev/MedPark-360/_build/latest?definitionId=7&branchName=master)| 
 
 ## How to run it?
 You can launch the sample locally on Docker, on a local Docker Swarm, on local Kubernetes.
