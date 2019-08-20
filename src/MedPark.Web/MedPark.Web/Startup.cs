@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityModel;
+using MedPark.Common.RestEase;
 using MedPark.Web.Models;
+using MedPark.Web.Services;
 using MedPark.Web.Utils.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,6 +32,8 @@ namespace MedPark.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+
+            services.AddDefaultEndpoint<ICustomerService>("medpark-api");
 
             services.Configure<CookiePolicyOptions>(options =>
             {
