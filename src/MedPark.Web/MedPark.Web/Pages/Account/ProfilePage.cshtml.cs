@@ -9,6 +9,7 @@ using MedPark.Common;
 using MedPark.Common.API;
 using MedPark.Web.Dto;
 using MedPark.Web.Models;
+using MedPark.Web.Services;
 using MedPark.Web.Utils.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace MedPark.Web.Pages.Account
     public class ProfilePageModel : PageModel
     {
         private readonly IIdentityParser<ApplicationUser> _appUserParser;
-        private readonly IHttpClientFactory _httpClient;
+        private readonly ICustomerService _custoemrServ;
 
         Guid LoggedInGuid { get; set; }
         public string FirstName { get; set; }
@@ -32,27 +33,27 @@ namespace MedPark.Web.Pages.Account
         public string Avatar { get; set; }
 
 
-        public ProfilePageModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser)
+        public ProfilePageModel(IIdentityParser<ApplicationUser> appUserParser, ICustomerService custoemrServ)
         {
-            _httpClient = httpClient;
             _appUserParser = appUserParser;
+            _custoemrServ = custoemrServ;
         }
 
         public async Task<IActionResult> OnGet()
         {
-            //var user = _appUserParser.Parse(HttpContext.User);
+            var user = _appUserParser.Parse(HttpContext.User);
 
-            //CustomerDto c = JsonConvert.DeserializeObject<CustomerDto>(await new CustomersService(_httpClient).GetDetails(user.IdentityId));
+            Customer c = await _custoemrServ.GetCustomer(user.IdentityId);
 
-            //FirstName = c.FirstName;
-            //LastName = c.LastName;
-            //Mobile = c.Mobile;
-            //Birthday = c.Birthday;
-            //Email = "GeradeGeldenhuys@Gmail.com";
-            //Avatar = c.Avatar;
+            FirstName = c.FirstName;
+            LastName = c.LastName;
+            Mobile = c.Mobile;
+            Birthday = c.Birthday;
+            Email = c.Email;
+            Avatar = c.Avatar;
 
-            //if (string.IsNullOrEmpty(Avatar))
-            //    Avatar = Email.GetAvatar();
+            if (string.IsNullOrEmpty(Avatar))
+                Avatar = Email.GetAvatar();
 
             return Page();
         }
