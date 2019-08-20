@@ -76,7 +76,8 @@ namespace MedPark.Payment
             app.UseRabbitMq()
                 .SubscribeCommand<AddPaymentMethod>()
                 .SubscribeEvent<CustomerCreated>(@namespace: "customers")
-                .SubscribeEvent<OrderPlaced>(@namespace: "order-service");
+                .SubscribeEvent<OrderPlaced>(@namespace: "order-service")
+                .SubscribeEvent<CustomerDetailsUpated>(@namespace: "customers");
 
             app.UseMvcWithDefaultRoute();
         }

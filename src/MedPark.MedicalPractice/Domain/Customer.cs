@@ -25,5 +25,26 @@ namespace MedPark.MedicalPractice.Domain
             Email = email;
             Mobile = mobile;
         }
+
+        public void UpdateDetails(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+        }
+
+        public void UpdateMobile(string mobile)
+        {
+            Mobile = mobile;
+        }
+
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        public override void Use()
+        {
+            UpdatedModified();
+        }
     }
 }

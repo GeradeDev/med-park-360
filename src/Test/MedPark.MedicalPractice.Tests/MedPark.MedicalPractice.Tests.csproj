@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>    
-    <ProjectReference Include="..\..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
+    <ProjectReference Include="..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
