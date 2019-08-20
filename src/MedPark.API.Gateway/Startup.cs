@@ -34,10 +34,14 @@ namespace MedPark.API.Gateway
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                            .WithExposedHeaders(Headers));
             });
 
             services.AddDefaultEndpoint<ICustomerService>("customer-service");
@@ -72,8 +76,7 @@ namespace MedPark.API.Gateway
                 app.UseHsts();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());
-
+            app.UseCors("CorsPolicy");
             app.UseRabbitMq();
 
             app.UseHttpsRedirection();

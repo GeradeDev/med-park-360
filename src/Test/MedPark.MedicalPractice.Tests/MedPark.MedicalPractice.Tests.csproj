@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <Configurations>Debug;Release;Console</Configurations>
+    <Configurations>Debug;Release;Console;Debug - Docker</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>    
-    <ProjectReference Include="..\..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
+    <ProjectReference Include="..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">

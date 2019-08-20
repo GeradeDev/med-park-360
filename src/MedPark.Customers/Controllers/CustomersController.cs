@@ -51,7 +51,6 @@ namespace MedPark.CustomersService.Controllers
             var customers = await _customerRepo.GetAsync(x => x.Id == Guid.Parse("55319E5C-1422-4EC4-A85E-181446DF43B5"));
 
             return Ok(_mapper.Map<CustomerDto>(customers));
-        }
-        
+        }        
     }
 }

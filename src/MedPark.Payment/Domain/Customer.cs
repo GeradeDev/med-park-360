@@ -25,6 +25,12 @@ namespace MedPark.Payment.Domain
             LastName = surname;
         }
 
+        public void UpdateDetails(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+        }
+
         public override void Use()
         {
             if (CustomerId == Guid.Empty)

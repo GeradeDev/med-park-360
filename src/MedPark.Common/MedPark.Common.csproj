@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Configurations>Debug;Release;Console</Configurations>
+    <Configurations>Debug;Release;Console;Debug - Docker</Configurations>
     <Description>Common implementations for MedPark 360 project.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Gerade Geldenhuys</Authors>

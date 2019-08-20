@@ -6,6 +6,7 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <Configurations>Debug;Release;Debug - Docker</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

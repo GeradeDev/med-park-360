@@ -21,11 +21,17 @@ namespace MedPark.CustomersService.Domain
         public string Avatar { get; private set; }
         public string AccountType { get; private set; }
 
-        public void Create(string firstname, string accounttype, string lastname)
+        public void Create(string firstname, string lastname, string accounttype)
         {
             FirstName = firstname;
             LastName = lastname;
             AccountType = accounttype;
+        }
+
+        public void SetNames(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
         }
 
         public void SetEmail(string email)

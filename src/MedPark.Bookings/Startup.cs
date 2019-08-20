@@ -84,8 +84,9 @@ namespace MedPark.Bookings
 
             app.UseRabbitMq()
                 .SubscribeCommand<AddAppointment>()
-                .SubscribeEvent<SpecialistSignedUp>("identity")
-                .SubscribeEvent<CustomerCreated>("customers");
+                .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity")
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers")
+                .SubscribeEvent<CustomerDetailsUpated>(@namespace: "customers");
 
             app.UseMvcWithDefaultRoute();
         }

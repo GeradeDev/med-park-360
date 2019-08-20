@@ -120,7 +120,8 @@ namespace MedPark.MedicalPractice
                 .SubscribeCommand<AddQualification>()
                 .SubscribeCommand<RemoveQualification>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity")
-                .SubscribeEvent<CustomerCreated>(@namespace: "customers");
+                .SubscribeEvent<CustomerCreated>(@namespace: "customers")
+                .SubscribeEvent<CustomerDetailsUpated>(@namespace: "customers");
 
             app.UseMvcWithDefaultRoute();
         }

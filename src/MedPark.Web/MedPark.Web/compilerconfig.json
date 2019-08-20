@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/css/main.css",
     "inputFile": "wwwroot/scss/agency.scss"
+  },
+  {
+    "outputFile": "wwwroot/lib/bootstrap/dist/js/bootstrapValidator.min.es5.js",
+    "inputFile": "wwwroot/lib/bootstrap/dist/js/bootstrapValidator.min.js"
   }
 ]

@@ -32,7 +32,6 @@ namespace MedPark.CustomersService
 {
     public class Startup
     {
-        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
@@ -43,17 +42,7 @@ namespace MedPark.CustomersService
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", cors =>
-                        cors.AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials()
-                            .WithExposedHeaders(Headers));
-            });
-            
+        {            
             //Auto Mapper
             services.AddAutoMapper();
 
@@ -61,7 +50,6 @@ namespace MedPark.CustomersService
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             var builder = new ContainerBuilder();
 
             builder.RegisterType<CustomersDbContext>().As<DbContext>().InstancePerLifetimeScope();
@@ -91,11 +79,11 @@ namespace MedPark.CustomersService
             }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
 
             app.UseRabbitMq()
                 .SubscribeCommand<CreateAddress>()
+                .SubscribeCommand<UpdateCustomerDetails>()
                 .SubscribeEvent<SignedUp>(@namespace: "identity")
                 .SubscribeEvent<AddressCreated>(@namespace: "gateway");
 

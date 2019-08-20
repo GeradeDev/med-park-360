@@ -9,19 +9,16 @@
 
 <section class="page-section" id="customer-profile">
     <div class="container">
-        <div class="row">
+        <div class="row m-4">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">@Model.FirstName @Model.LastName</h2>
             </div>
         </div>
         <div class="row text-center">
             <div class="col-md-4">
-                <span class="fa-stack fa-7x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                </span>
-                <h4 class="service-heading">E-Commerce</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="@Model.Avatar" alt="">
+                    <h4>@Model.FirstName @Model.LastName</h4>
+                </div>
             </div>
             <div class="col-md-8">
                 <ul class="nav nav-pills" id="myTab" role="tablist">
@@ -39,53 +36,59 @@
                     </li>
                 </ul>
                 <div class="tab-content shadow" id="myTabContent">
-                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="form-row">
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="">
+                    <form id="customer-details-form">
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.LastName" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
+                                </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="">
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Mobile" name="Mobile" placeholder="Mobile number" type="text" value="@Model.Mobile" data-bv-notempty="true" data-bv-notempty-message="Mobile number is required and cannot be empty">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="BirthDate" name="BirthDate" placeholder="Date of Birth" type="text" value="@Model.Birthday" data-bv-notempty="true" data-bv-notempty-message="Date of Birth is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Avatar" name="Avatar" placeholder="Avatar" type="text" value="@Model.Avatar">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="NewPassword" name="NewPassword" placeholder="Update Password" type="text" value="">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="ConfirmNewPassword" name="ConfirmNewPassword" placeholder="Confirm Password Update" type="text" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-row d-flex justify-content-sm-end">
+                                <a class="btn btn-primary text-uppercase" href="#" id="btnUpdateCustomer">Update</a>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="">
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Mobile" name="Mobile" placeholder="Mobile number" type="text" value="">
-                            </div>
+                        <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+
                         </div>
+                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
 
-                        <div class="form-row">
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="BirthDate" name="BirthDate" placeholder="Date of Birth" type="text" value="">
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Avatar" name="Avatar" placeholder="Avatar" type="text" value="">
-                            </div>
                         </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
-                        <div class="form-row">
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="NewPassword" name="NewPassword" placeholder="Update Password" type="text" value="">
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <input class="form-control form-control-sm border shadow-sm " data-val="true" id="ConfirmNewPassword" name="ConfirmNewPassword" placeholder="Confirm Password Update" type="text" value="">
-                            </div>
                         </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
-
-                    </div>
-                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -141,11 +144,11 @@
 
     </div>
 
-</div>
+</div>*@
 
 <script type="text/javascript">
     var userId = "@Html.Raw(User.Claims.Where(x => x.Type == "identityid").FirstOrDefault().Value)";
-</script>*@
+</script>
 
 <script type="text/javascript" src="~/js/Patient/Profile.js"></script>
 

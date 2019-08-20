@@ -59,5 +59,20 @@ namespace MedPark.API.Gateway.Controllers
 
             return BadRequest();
         }
+
+        [HttpPost("UpdateCustomer")]
+        public async Task<IActionResult> UpdateCustomerDetails([FromBody] UpdateCustomerDetails command)
+        {
+            try
+            {
+                await _busPublisher.SendAsync(command, CorrelationContext.Empty);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Accepted();
+        }
     }
 }

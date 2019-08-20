@@ -80,6 +80,17 @@ services:
       - 8007:5007
     networks:
       - medpark
+      
+  medpark-identity:
+    image: medpark-identity
+    build:
+      dockerfile: Dockerfile.multistage
+      context: ../MedPark.Identity
+    ports:
+      - 8008:5008
+    networks:
+      - medpark
+      
 
 networks:
   medpark:
