@@ -1,9 +1,10 @@
 @apiUrl = https://localhost:44308/api/specialist/
-@specialistId = ""
+@specialistId = "546EF277-41D8-40DB-B14A-E787C382D2CB"
 @PracticeId = ""
 @otp = ""
 @instituteId = ""
 @medicalSchemeId = ""
+@appoitnmentTypeId = "1249FE61-3649-4FEE-BD3F-E756E4010874"
 
 
 ### Get specilaist details by id
@@ -126,4 +127,13 @@ Content-Type: application/json
 
 {
   "id": "00000000-0000-0000-0000-000000000000",
+}
+
+### Link specialist to appointment type
+POST {{apiUrl}}/linkspecialistappointments
+Content-Type: application/json
+
+{
+  "specialistid": "{{specialistId}}",
+  "appointmenttypeid": "{{appoitnmentTypeId}}"
 }

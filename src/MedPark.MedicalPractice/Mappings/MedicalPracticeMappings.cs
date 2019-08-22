@@ -17,6 +17,11 @@ namespace MedPark.MedicalPractice.Mappings
             CreateMap<Practice, PracticeDto>();
             CreateMap<Address, PracticeAddressDTO>();
             CreateMap<OperatingHours, OperatingHoursDTO>();
+            CreateMap<AppointmentType, AppointmentTypeDTO>();
+            CreateMap<Institute, InstituteDTO>();
+            CreateMap<MedicalScheme, MedicalSchemeDTO>();
+            CreateMap<MedicalScheme, MedicalSchemeDTO>();
+            CreateMap<Qualifications, SpecialistQualificationDTO>();
         }
     }
 }

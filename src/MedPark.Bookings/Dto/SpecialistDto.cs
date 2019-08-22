@@ -7,12 +7,12 @@ namespace MedPark.Bookings.Dto
 {
     public class SpecialistDto
     {
-        public Guid Id { get; protected set; }
-        public string Title { get; private set; }
-        public string FirstName { get; private set; }
-        public string Surname { get; private set; }
-        public string Email { get; private set; }
-        public string Cellphone { get; private set; }
-        public Guid PracticeId { get; private set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string Cellphone { get; set; }
+        public Guid PracticeId { get; set; }
     }
 }

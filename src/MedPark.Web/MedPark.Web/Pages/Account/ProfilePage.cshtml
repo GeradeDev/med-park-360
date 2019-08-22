@@ -14,13 +14,13 @@
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="@Model.Avatar" alt="">
                     <h4>@Model.FirstName @Model.LastName</h4>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <ul class="nav nav-pills" id="myTab" role="tablist">
                     <li class="nav-item col-sm-3 pl-0">
                         <a class="nav-link shadow" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
@@ -40,37 +40,37 @@
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.LastName" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Mobile" name="Mobile" placeholder="Mobile number" type="text" value="@Model.Mobile" data-bv-notempty="true" data-bv-notempty-message="Mobile number is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.LastName" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="BirthDate" name="BirthDate" placeholder="Date of Birth" type="text" value="@Model.Birthday" data-bv-notempty="true" data-bv-notempty-message="Date of Birth is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="Avatar" name="Avatar" placeholder="Avatar" type="text" value="@Model.Avatar">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Mobile" name="Mobile" placeholder="Mobile number" type="text" value="@Model.Mobile" data-bv-notempty="true" data-bv-notempty-message="Mobile number is required and cannot be empty">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="NewPassword" name="NewPassword" placeholder="Update Password" type="text" value="">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="BirthDate" name="BirthDate" placeholder="Date of Birth" type="text" value="@Model.Birthday" data-bv-notempty="true" data-bv-notempty-message="Date of Birth is required and cannot be empty">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-sm border shadow-sm " data-val="true" id="ConfirmNewPassword" name="ConfirmNewPassword" placeholder="Confirm Password Update" type="text" value="">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Avatar" name="Avatar" placeholder="Avatar" type="text" value="@Model.Avatar">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="NewPassword" name="NewPassword" placeholder="Update Password" type="text" value="">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="ConfirmNewPassword" name="ConfirmNewPassword" placeholder="Confirm Password Update" type="text" value="">
                                 </div>
                             </div>
 
@@ -80,8 +80,31 @@
                         </div>
 
                         <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+                            <table class="table table-bordered med-park-table">
+                                <thead>
+                                    <tr>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Monday) ? "" : "hide")">Monday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Monday || DateTime.Today.DayOfWeek == DayOfWeek.Tuesday) ? "" : "hide")">Tuesday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Tuesday || DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ? "" : "hide")">Wednesday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Wednesday || DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ? "" : "hide")">Thursday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Thursday || DateTime.Today.DayOfWeek == DayOfWeek.Friday) ? "" : "hide")">Friday</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
+                            <div class="text-center col-md-12">
+                                <a class="btn btn-primary text-uppercase" href="#" id="btnAddAppointment" data-toggle="modal" data-target="#addAppointmentModal">Book Appointment</a>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
 
                         </div>
@@ -92,7 +115,58 @@
                 </div>
             </div>
         </div>
-    </div>
+
+
+        <div class="modal fade" id="addAppointmentModal" tabindex="-1" role="dialog" aria-modal="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="routeModalTitle">Schedule Appointment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <select class="form-control" id="ddlAppointmentType">
+                                    <option value="">Select Speciality</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <select class="form-control">
+                                    <option value="">Select Specialist</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <select class="form-control">
+                                    <option value="">Select Medical Aid Option</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-md border shadow-sm " style="display:none;" id="medAidNo" name="MedAidNo" placeholder="Membership No." type="text" value="" data-bv-notempty="true" data-bv-notempty-message="DMedical aid membership number is required and cannot be empty">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control form-control-md border shadow-sm " data-val="true" id="appointmentDate" name="AppointmentDate" placeholder="Date of Appointment" type="text" value="" data-bv-notempty="true" data-bv-notempty-message="Date of Appointment is required and cannot be empty">
+                            </div>
+                            <div class="form-group col-sm-6">
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <textarea rows="5" class="form-control form-control-md border shadow-sm " id="additionalDetails" name="AdditionalDetails" placeholder="Additional details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>
 
 @*<div class="mt-3">

@@ -22,11 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>    
-    <ProjectReference Include="..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
+    <ProjectReference Include="..\..\MedPark.MedicalPractice\MedPark.MedicalPractice.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\MedPark.Common\MedPark.Common.csproj" />
+    <ProjectReference Include="..\..\MedPark.Common\MedPark.Common.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="MedPark.Common" Version="1.0.1" />

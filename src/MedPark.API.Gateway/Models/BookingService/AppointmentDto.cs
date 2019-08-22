@@ -7,9 +7,9 @@ namespace MedPark.API.Gateway.Models.BookingService
 {
     public class AppointmentDto
     {
-        public DateTime Created { get; protected set; }
-        public DateTime Modified { get; protected set; }
-        public Guid Id { get; protected set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
+        public Guid Id { get;  set; }
         public Guid PatientId { get; set; }
         public Guid SpecialistId { get; set; }
         public string Title { get; set; }
