@@ -1,6 +1,18 @@
 version: "3.5"
 
 services:
+
+  # rabbitmq:
+    # image: rabbitmq:3-management
+    # container_name: rabbitmq
+    # ports:
+      # - 5672:5672
+      # - 15672:15672
+    # networks:
+      # - medpark
+    # volumes: 
+      # - rabbitmq:/var/lib/rabbitmq
+      
   medpark-api:
     image: medpark-api
     build:
@@ -8,6 +20,8 @@ services:
       context: ../MedPark.API.Gateway
     ports:
      - 8000:5000
+    # depends_on:
+      # - rabbitmq
     networks:
       - medpark
       
@@ -18,6 +32,8 @@ services:
       context: ../MedPark.Customers
     ports:
       - 8001:5001
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -28,6 +44,8 @@ services:
       context: ../MedPark.MedicalPractice
     ports:
       - 8002:5002
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -38,6 +56,8 @@ services:
       context: ../MedPark.Bookings
     ports:
       - 8003:5003
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -48,6 +68,8 @@ services:
       context: ../MedParl.Catalog
     ports:
       - 8004:5004
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -58,6 +80,8 @@ services:
       context: ../MedPark.OrderService
     ports:
       - 8005:5005
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -68,6 +92,8 @@ services:
       context: ../MedPark.Basket
     ports:
       - 8006:5006
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -78,6 +104,8 @@ services:
       context: ../MedPark.Payment
     ports:
       - 8007:5007
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -88,6 +116,8 @@ services:
       context: ../MedPark.Identity
     ports:
       - 8008:5008
+    # depends_on:
+      # - medpark-api
     networks:
       - medpark
       
@@ -96,3 +126,7 @@ networks:
   medpark:
     name: medpark-network
     external: true
+
+# volumes:
+  # rabbitmq:
+    # driver: local

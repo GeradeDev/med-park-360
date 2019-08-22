@@ -206,5 +206,13 @@ namespace MedPark.API.Gateway.Controllers
 
             return Ok(appTypes);
         }
+
+        [HttpPost("linkspecialistappointments")]
+        public async Task<IActionResult> LinkSpecialistToAppointmentType(LinkSpecialistAppointmentType command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
+        }
     }
 }

@@ -43,6 +43,56 @@
 .tab-content {
     background-color: #fff;
     border-radius: 8px;
-    padding: 20px;
+    padding: 6px;
     margin-top: 20px;
+
+    > .tab-pane {
+        display: none;
+    }
+
+    > .active {
+        display: block;
+    }
+
+    > form > .tab-pane {
+        display: none;
+    }
+
+    > form > .active {
+        display: block;
+    }
+}
+
+
+.med-park-table {
+    > thead > tr {
+        background-color: #212529;
+        color:$primary;
+    }
+}
+
+.hide{
+    display:none !important;
+}
+
+
+.modal-content .modal-header {
+    border-bottom: none;
+    padding: 24px;
+    background: linear-gradient(60deg,#404040,#404040);
+    box-shadow: 0 12px 20px -10px rgba(126,130,159,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(126,130,159,.2);
+}
+
+.modal-header {
+    background: #212529 !important;
+    color: $primary;
+}
+
+.modal .modal-header .close {
+    color: #fff;
+    font-size: 26px;
+}
+
+.form-control:focus {
+    box-shadow:none !important;
 }

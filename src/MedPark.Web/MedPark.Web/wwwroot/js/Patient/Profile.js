@@ -1,4 +1,6 @@
 ﻿
+var appointmentTypes = [];
+
 $(document).ready(function () {
 
     $("#customer-details-form").bootstrapValidator({
@@ -15,6 +17,10 @@ $(document).ready(function () {
     });
 
     //GetAddresses();
+
+    GetCustomerAppointments();
+
+    LoadAppointmentTypes();
 });
 
 function GetAddresses(){
@@ -52,4 +58,28 @@ function GetCustomerProfileUpdate() {
     this.Mobile = $("#Mobile").val();
     this.DOB = $("#BirthDate").val();
     this.Id = userId;
+}
+
+
+function GetCustomerAppointments() {
+    $.ajax({
+        url: $medpark_api + "bookings/getpatientappointments/" + userId,
+        success: function (result) {
+            
+        }
+    });
+}
+
+function LoadAppointmentTypes() {
+    $.ajax({
+        url: $medpark_api + "specialist/appointmenttypes/",
+        success: function (result) {
+            appointmentTypes = result;
+
+            $.each(appointmentTypes, function (key, value) {
+                $("#ddlAppointmentType").append(new Option(value.name, value.Id));
+            });
+        }
+    });
+    
 }
