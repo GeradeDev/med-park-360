@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MedPark.API.Gateway.Controllers;
 using MedPark.API.Gateway.Services;
 using MedPark.Common.RabbitMq;
 using MedPark.Common.RestEase;
@@ -33,6 +34,23 @@ namespace MedPark.API.Gateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+
+                //Add Conventions
+                options.Conventions.Controller<CustomersController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<AuthenticationController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<MedicalPracticeController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<BookingsController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<BasketController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<CatalogController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<OrderController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<PaymentController>().HasApiVersion(new ApiVersion(1, 0));
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors(options =>
             {
