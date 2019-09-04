@@ -12,7 +12,7 @@ $(document).ready(function () {
         UpdateCustomerDetails();
     });
 
-    $('#BirthDate').datepicker({
+    $('#BirthDate, #appointmentDate').datepicker({
         format: 'mm/dd/yyyy'
     });
 
@@ -21,6 +21,21 @@ $(document).ready(function () {
     GetCustomerAppointments();
 
     LoadAppointmentTypes();
+
+    $("#ddlAppointmentType").change(function () {
+        LoadSpecialistByAppointmentTypes($("#ddlAppointmentType").val());
+    });
+
+    $("#ddlSpecialists").change(function () {
+        GerSpecialistPracticeDetails($("#ddlSpecialists option:selected").attr("prac"));
+    });
+        
+    $("#ddlPracticeSchemes").change(function () {
+        if ($(this).val() === "")
+            $("#MedAidNo").val("").attr("disabled", "disabled");
+        else
+            $("#MedAidNo").removeAttr("disabled");
+    });
 });
 
 function GetAddresses(){
@@ -77,9 +92,51 @@ function LoadAppointmentTypes() {
             appointmentTypes = result;
 
             $.each(appointmentTypes, function (key, value) {
-                $("#ddlAppointmentType").append(new Option(value.name, value.Id));
+                $("#ddlAppointmentType").append(new Option(value.name, value.id));
             });
         }
     });
-    
+}
+
+function LoadSpecialistByAppointmentTypes(appTypeId) {
+    $.ajax({
+        url: $medpark_api + "specialist/specialistsLinkedToAppointmentType/" + appTypeId,
+        success: function (result) {
+
+            $.each(result.specilists, function (key, value) {
+                var o = new Option(value.firstName + " " + value.surname, value.id);
+                o.setAttribute("prac", value.practiceId);
+
+                $("#ddlSpecialists").append(o);
+            });
+        }
+    });
+}
+
+function GerSpecialistPracticeDetails(practiceId) {
+    $.ajax({
+        url: $medpark_api + "specialist/getacceptedschemes/" + practiceId,
+        success: function (result) {
+
+            if (result.length > 0) {
+
+                ShowMedSchemes();
+
+                $.each(result, function (key, value) {
+                    $("#ddlPracticeSchemes").append(new Option(value.schemeName, value.id));
+                });
+            }
+            else {
+                HideMedSchemes();
+            }
+        }
+    });
+}
+
+function ShowMedSchemes() {
+    $("#addSchemeBooking").show();
+}
+
+function HideMedSchemes() {
+    $("#addSchemeBooking").hide();
 }

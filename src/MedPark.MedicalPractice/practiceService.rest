@@ -1,10 +1,10 @@
-@apiUrl = https://localhost:44308/api/specialist/
-@specialistId = "546EF277-41D8-40DB-B14A-E787C382D2CB"
-@PracticeId = ""
+@apiUrl = http://localhost:8000/api/specialist
+@specialistId = 4B4E5886-2BE0-40D9-9DBF-96ED5722CF52
+@PracticeId = d83539f7-0919-40c1-bf69-4f99bf8db13f
 @otp = ""
 @instituteId = ""
 @medicalSchemeId = ""
-@appoitnmentTypeId = "1249FE61-3649-4FEE-BD3F-E756E4010874"
+@appoitnmentTypeId = 1249FE61-3649-4FEE-BD3F-E756E4010874
 
 
 ### Get specilaist details by id
@@ -45,6 +45,9 @@ GET {{apiUrl}}/specialistqualifications/{{specialistId}}
 
 ### Get appointment types
 GET {{apiUrl}}/appointmenttypes
+
+### Get specialists linked to appointment type
+GET {{apiUrl}}/specialistsLinkedToAppointmentType/{{appoitnmentTypeId}}
 
 
 ### Add new registration OTP

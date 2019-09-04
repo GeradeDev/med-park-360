@@ -26,9 +26,9 @@ namespace MedPark.MedicalPractice.Controllers
         {
             try
             {
-                AcceptedMedicalSchemeDTO scheme = await _dispatcher.QueryAsync(ams);
+                List<AcceptedMedicalSchemeDTO> schemes = await _dispatcher.QueryAsync(ams);
 
-                return Ok(scheme);
+                return Ok(schemes);
             }
             catch (Exception ex)
             {

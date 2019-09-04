@@ -29,7 +29,7 @@ namespace MedPark.API.Gateway.Services
 
         //ACCEPTABLE MEDICAL SCHEMES
         [Get("/acceptableschemes/{practiceid}")]
-        Task<AcceptedMedicalSchemeDTO> GetAcceptedSchemesByPracticeId([Path] Guid practiceid);
+        Task<List<AcceptedMedicalSchemeDTO>> GetAcceptedSchemesByPracticeId([Path] Guid practiceid);
 
 
         //Institute
@@ -46,6 +46,9 @@ namespace MedPark.API.Gateway.Services
         [Get("/operatinghours/{practiceid}")]
         Task<OperatingHoursDTO> GetOperatingHoursByPracticeId([Path] Guid practiceid);
 
+        [Get("/operatinghours/{specialistid}/details")]
+        Task<OperatingHoursDetailDTO> GetOperatingHoursDetails([Path] Guid specialistid);
+
 
         //Specialist Qualifications
         [Get("/qualifications/{specialistid}")]
@@ -58,5 +61,8 @@ namespace MedPark.API.Gateway.Services
         
         [Get("/appointmenttype/{specialistid}")]
         Task<SpecialistAppointmentTypesDTO> GetAppointmentTypesBySpecialistId([Path] Guid specialistid);
+
+        [Get("/appointmenttype/getSpecialistByAppointment/{appointmenttypeid}")]
+        Task<AppointmentTypeSpecialistDTO> GetSpecialistByAppointmentType([Path] Guid appointmenttypeid);
     }
 }

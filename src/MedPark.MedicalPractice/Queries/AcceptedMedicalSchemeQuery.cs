@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Queries
 {
-    public class AcceptedMedicalSchemeQuery : IQuery<AcceptedMedicalSchemeDTO>
+    public class AcceptedMedicalSchemeQuery : IQuery<List<AcceptedMedicalSchemeDTO>>
     {
         public Guid PracticeId { get; set; }
     }

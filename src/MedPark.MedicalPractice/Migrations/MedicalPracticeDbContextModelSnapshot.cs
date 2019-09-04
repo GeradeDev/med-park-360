@@ -15,7 +15,7 @@ namespace MedPark.MedicalPractice.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -166,41 +166,43 @@ namespace MedPark.MedicalPractice.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("FridayClose");
+                    b.Property<TimeSpan?>("FridayClose");
 
-                    b.Property<DateTime?>("FridayOpen");
+                    b.Property<TimeSpan?>("FridayOpen");
 
                     b.Property<DateTime>("Modified");
 
-                    b.Property<DateTime?>("MondayClose");
+                    b.Property<TimeSpan?>("MondayClose");
 
-                    b.Property<DateTime?>("MondayOpen");
+                    b.Property<TimeSpan?>("MondayOpen");
 
-                    b.Property<Guid>("PracticeId");
+                    b.Property<Guid?>("PracticeId");
 
-                    b.Property<DateTime?>("PublicHolidayClose");
+                    b.Property<TimeSpan?>("PublicHolidayClose");
 
-                    b.Property<DateTime?>("PublicHolidayOpen");
+                    b.Property<TimeSpan?>("PublicHolidayOpen");
 
-                    b.Property<DateTime?>("SaturdayClose");
+                    b.Property<TimeSpan?>("SaturdayClose");
 
-                    b.Property<DateTime?>("SaturdayOpen");
+                    b.Property<TimeSpan?>("SaturdayOpen");
 
-                    b.Property<DateTime?>("SundayClose");
+                    b.Property<Guid?>("SpecialistId");
 
-                    b.Property<DateTime?>("SundayOpen");
+                    b.Property<TimeSpan?>("SundayClose");
 
-                    b.Property<DateTime?>("ThursdayClose");
+                    b.Property<TimeSpan?>("SundayOpen");
 
-                    b.Property<DateTime?>("ThursdayOpen");
+                    b.Property<TimeSpan?>("ThursdayClose");
 
-                    b.Property<DateTime?>("TuesdayClose");
+                    b.Property<TimeSpan?>("ThursdayOpen");
 
-                    b.Property<DateTime?>("TuesdayOpen");
+                    b.Property<TimeSpan?>("TuesdayClose");
 
-                    b.Property<DateTime?>("WednesdayClose");
+                    b.Property<TimeSpan?>("TuesdayOpen");
 
-                    b.Property<DateTime?>("WednesdayOpen");
+                    b.Property<TimeSpan?>("WednesdayClose");
+
+                    b.Property<TimeSpan?>("WednesdayOpen");
 
                     b.HasKey("Id");
 
@@ -295,6 +297,8 @@ namespace MedPark.MedicalPractice.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Active");
+
+                    b.Property<TimeSpan>("AppointmentDuration");
 
                     b.Property<string>("Avatar");
 
