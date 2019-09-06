@@ -22,7 +22,6 @@ namespace MedPark.MedicalPractice
         public DbSet<Customer> Customer { get; set; }
         public DbSet<AppointmentType> AppointmentType { get; set; }
         public DbSet<AppointmentAccepted> AppointmentAccepted { get; set; }
-        public DbSet<SpecialistAppointmentType> SpecialistAppointmentType { get; set; }
 
         public MedicalPracticeDbContext(DbContextOptions<MedicalPracticeDbContext> options) : base(options)
         {
@@ -46,7 +45,6 @@ namespace MedPark.MedicalPractice
             builder.Entity<Customer>().ToTable("Customer");
             builder.Entity<AppointmentType>().ToTable("AppointmentType");
             builder.Entity<AppointmentAccepted>().ToTable("AppointmentAccepted");
-            builder.Entity<SpecialistAppointmentType>().ToTable("SpecialistAppointmentType");
         }
     }
 }

@@ -58,7 +58,6 @@ namespace MedPark.API.Gateway
                         cors.AllowAnyOrigin()
                             .AllowAnyMethod()
                             .AllowAnyHeader()
-                            .AllowCredentials()
                             .WithExposedHeaders(Headers));
             });
 

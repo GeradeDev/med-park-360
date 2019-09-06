@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#register-form, #login-form").bootstrapValidator({
+    $("#register-form").bootstrapValidator({
     }).on("success.form.bv", function (e) {
 
     });

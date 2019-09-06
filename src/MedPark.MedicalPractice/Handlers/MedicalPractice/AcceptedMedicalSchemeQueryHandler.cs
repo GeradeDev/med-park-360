@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Handlers.MedicalPractice
 {
-    public class AcceptedMedicalSchemeQueryHandler : IQueryHandler<AcceptedMedicalSchemeQuery, AcceptedMedicalSchemeDTO>
+    public class AcceptedMedicalSchemeQueryHandler : IQueryHandler<AcceptedMedicalSchemeQuery, List<AcceptedMedicalSchemeDTO>>
     {
         private IMedParkRepository<AcceptedMedicalScheme> _medSchemeRepo { get; }
         private IMapper _mapper { get; }
@@ -22,11 +22,15 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
             _mapper = mapper;
         }
 
-        public async Task<AcceptedMedicalSchemeDTO> HandleAsync(AcceptedMedicalSchemeQuery query)
+        public async Task<List<AcceptedMedicalSchemeDTO>> HandleAsync(AcceptedMedicalSchemeQuery query)
         {
-            AcceptedMedicalScheme ams = await _medSchemeRepo.GetAsync(query.PracticeId);
+            List<AcceptedMedicalSchemeDTO> result = new List<AcceptedMedicalSchemeDTO>();
 
-            return _mapper.Map<AcceptedMedicalSchemeDTO>(ams);
+            var ams = await _medSchemeRepo.FindAsync(x => x.PracticeId == query.PracticeId);
+
+            result = _mapper.Map<List<AcceptedMedicalSchemeDTO>>(ams.ToList());
+
+            return result;
         }
     }
 }

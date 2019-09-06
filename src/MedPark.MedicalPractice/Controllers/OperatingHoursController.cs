@@ -35,5 +35,20 @@ namespace MedPark.MedicalPractice.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{specialistid}/details")]
+        public async Task<IActionResult> GetOperatingHoursDetail([FromRoute] OperatingHoursDetailQuery hoursQuery)
+        {
+            try
+            {
+                OperatingHoursDetailDTO hours = await _dispatcher.QueryAsync(hoursQuery);
+
+                return Ok(hours);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

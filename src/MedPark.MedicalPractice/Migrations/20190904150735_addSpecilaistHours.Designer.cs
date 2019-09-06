@@ -4,14 +4,16 @@ using MedPark.MedicalPractice;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MedPark.MedicalPractice.Migrations
 {
     [DbContext(typeof(MedicalPracticeDbContext))]
-    partial class MedicalPracticeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190904150735_addSpecilaistHours")]
+    partial class addSpecilaistHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,43 +168,43 @@ namespace MedPark.MedicalPractice.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<TimeSpan?>("FridayClose");
+                    b.Property<DateTime?>("FridayClose");
 
-                    b.Property<TimeSpan?>("FridayOpen");
+                    b.Property<DateTime?>("FridayOpen");
 
                     b.Property<DateTime>("Modified");
 
-                    b.Property<TimeSpan?>("MondayClose");
+                    b.Property<DateTime?>("MondayClose");
 
-                    b.Property<TimeSpan?>("MondayOpen");
+                    b.Property<DateTime?>("MondayOpen");
 
                     b.Property<Guid?>("PracticeId");
 
-                    b.Property<TimeSpan?>("PublicHolidayClose");
+                    b.Property<DateTime?>("PublicHolidayClose");
 
-                    b.Property<TimeSpan?>("PublicHolidayOpen");
+                    b.Property<DateTime?>("PublicHolidayOpen");
 
-                    b.Property<TimeSpan?>("SaturdayClose");
+                    b.Property<DateTime?>("SaturdayClose");
 
-                    b.Property<TimeSpan?>("SaturdayOpen");
+                    b.Property<DateTime?>("SaturdayOpen");
 
                     b.Property<Guid?>("SpecialistId");
 
-                    b.Property<TimeSpan?>("SundayClose");
+                    b.Property<DateTime?>("SundayClose");
 
-                    b.Property<TimeSpan?>("SundayOpen");
+                    b.Property<DateTime?>("SundayOpen");
 
-                    b.Property<TimeSpan?>("ThursdayClose");
+                    b.Property<DateTime?>("ThursdayClose");
 
-                    b.Property<TimeSpan?>("ThursdayOpen");
+                    b.Property<DateTime?>("ThursdayOpen");
 
-                    b.Property<TimeSpan?>("TuesdayClose");
+                    b.Property<DateTime?>("TuesdayClose");
 
-                    b.Property<TimeSpan?>("TuesdayOpen");
+                    b.Property<DateTime?>("TuesdayOpen");
 
-                    b.Property<TimeSpan?>("WednesdayClose");
+                    b.Property<DateTime?>("WednesdayClose");
 
-                    b.Property<TimeSpan?>("WednesdayOpen");
+                    b.Property<DateTime?>("WednesdayOpen");
 
                     b.HasKey("Id");
 

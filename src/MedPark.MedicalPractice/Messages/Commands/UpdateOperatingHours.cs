@@ -11,26 +11,26 @@ namespace MedPark.MedicalPractice.Messages.Commands
     {
         public Guid Id { get; protected set; }
 
-        public DateTime? SundayOpen { get; set; }
-        public DateTime? SundayClose { get; set; }
-        public DateTime? MondayOpen { get; set; }
-        public DateTime? MondayClose { get; set; }
-        public DateTime? TuesdayOpen { get; set; }
-        public DateTime? TuesdayClose { get; set; }
-        public DateTime? WednesdayOpen { get; set; }
-        public DateTime? WednesdayClose { get; set; }
-        public DateTime? ThursdayOpen { get; set; }
-        public DateTime? ThursdayClose { get; set; }
-        public DateTime? FridayOpen { get; set; }
-        public DateTime? FridayClose { get; set; }
-        public DateTime? SaturdayOpen { get; set; }
-        public DateTime? SaturdayClose { get; set; }
+        public TimeSpan? SundayOpen { get; set; }
+        public TimeSpan? SundayClose { get; set; }
+        public TimeSpan? MondayOpen { get; set; }
+        public TimeSpan? MondayClose { get; set; }
+        public TimeSpan? TuesdayOpen { get; set; }
+        public TimeSpan? TuesdayClose { get; set; }
+        public TimeSpan? WednesdayOpen { get; set; }
+        public TimeSpan? WednesdayClose { get; set; }
+        public TimeSpan? ThursdayOpen { get; set; }
+        public TimeSpan? ThursdayClose { get; set; }
+        public TimeSpan? FridayOpen { get; set; }
+        public TimeSpan? FridayClose { get; set; }
+        public TimeSpan? SaturdayOpen { get; set; }
+        public TimeSpan? SaturdayClose { get; set; }
 
-        public DateTime? PublicHolidayOpen { get; set; }
-        public DateTime? PublicHolidayClose { get; set; }
+        public TimeSpan? PublicHolidayOpen { get; set; }
+        public TimeSpan? PublicHolidayClose { get; set; }
 
         [JsonConstructor]
-        public UpdateOperatingHours(Guid id, DateTime? sundayOpen, DateTime? sundayClose, DateTime? mondayOpen, DateTime? mondayClose, DateTime? tuesdayOpen, DateTime? tuesdayClose, DateTime? wednesdayOpen, DateTime? wednesdayClose, DateTime? thursdayOpen, DateTime? thursdayClose, DateTime? fridayOpen, DateTime? fridayClose, DateTime? saturdayOpen, DateTime? saturdayClose, DateTime? publicHolidayOpen, DateTime? publicHolidayClose)
+        public UpdateOperatingHours(Guid id, TimeSpan? sundayOpen, TimeSpan? sundayClose, TimeSpan? mondayOpen, TimeSpan? mondayClose, TimeSpan? tuesdayOpen, TimeSpan? tuesdayClose, TimeSpan? wednesdayOpen, TimeSpan? wednesdayClose, TimeSpan? thursdayOpen, TimeSpan? thursdayClose, TimeSpan? fridayOpen, TimeSpan? fridayClose, TimeSpan? saturdayOpen, TimeSpan? saturdayClose, TimeSpan? publicHolidayOpen, TimeSpan? publicHolidayClose)
         {
             Id = id;
             SundayOpen = sundayOpen;

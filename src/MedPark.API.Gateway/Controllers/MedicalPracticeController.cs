@@ -214,5 +214,21 @@ namespace MedPark.API.Gateway.Controllers
 
             return Accepted();
         }
+
+        [HttpGet("specialistsLinkedToAppointmentType/{appointmenttypeid}")]
+        public async Task<IActionResult> LinkSpecialistToAppointmentType(Guid appointmenttypeid)
+        {
+            var specialists = await _specialistService.GetSpecialistByAppointmentType(appointmenttypeid);
+
+            return Ok(specialists);
+        }
+
+        [HttpGet("specialistOperatingHours/{specialistid}")]
+        public async Task<IActionResult> GetSpecialistOperatingHours(Guid specialistid)
+        {
+            var hours = await _specialistService.GetOperatingHoursDetails(specialistid);
+
+            return Ok(hours);
+        }
     }
 }

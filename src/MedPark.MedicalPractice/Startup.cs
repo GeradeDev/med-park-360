@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -46,19 +47,6 @@ namespace MedPark.MedicalPractice
 
             //Add DBContext
             services.AddDbContext<MedicalPracticeDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
-
-            services.AddScoped(typeof(IQueryHandler<GetSpecialist, SpecialistDto>), typeof(GetSpecialistHandler));
-            services.AddScoped(typeof(IQueryHandler<GetRegistrationOTP, PendingRegistrationDto>), typeof(GetRegistrationOTPHandler));
-            services.AddScoped(typeof(IQueryHandler<PracticeQuery, PracticeDto>), typeof(PracticeQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<PracticeQuery, PracticeDetailDTO>), typeof(PracticeDetailQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<InstituteQuery, InstituteDTO>), typeof(InstituteQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<MedicalSchemeQuery, MedicalSchemeDTO>), typeof(MedicalSchemeQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<OperatingHoursQuery, OperatingHoursDTO>), typeof(OperatingHoursQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<SpecialistQualificationsQuery, SpecialistQualificationDTO>), typeof(SpecialistQualificationsQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<AcceptedMedicalSchemeQuery, AcceptedMedicalSchemeDTO>), typeof(AcceptedMedicalSchemeQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, List<AppointmentTypeDTO>>), typeof(GetAllAppointmentTypesHandler));
-            services.AddScoped(typeof(IQueryHandler<AppointmentTypeQuery, SpecialistAppointmentTypesDTO>), typeof(GetSpecialistAppointmentTypesHandler));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var builder = new ContainerBuilder();
@@ -66,6 +54,7 @@ namespace MedPark.MedicalPractice
             builder.RegisterType<MedicalPracticeDbContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Specialist>();

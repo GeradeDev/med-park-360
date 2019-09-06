@@ -37,6 +37,7 @@
                 </ul>
                 <div class="tab-content shadow" id="myTabContent">
                     <form id="customer-details-form">
+                        <!-- DEAILS TAB -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
@@ -79,6 +80,7 @@
                             </div>
                         </div>
 
+                        <!-- Appointments Tab -->
                         <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
                             <table class="table table-bordered med-park-table">
                                 <thead>
@@ -105,9 +107,12 @@
                             </div>
                         </div>
 
+                        <!-- Orders Tab -->
                         <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
 
                         </div>
+
+                        <!-- Contatc Tab -->
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
                         </div>
@@ -134,34 +139,38 @@
                                 </select>
                             </div>
                             <div class="form-group col-sm-6">
-                                <select class="form-control">
+                                <select class="form-control" id="ddlSpecialists">
                                     <option value="">Select Specialist</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row" id="addSchemeBooking" style="display:none;">
                             <div class="form-group col-sm-6">
-                                <select class="form-control">
+                                <select class="form-control" id="ddlPracticeSchemes">
                                     <option value="">Select Medical Aid Option</option>
-                                    <option value="None">None</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-6">
-                                <input class="form-control form-control-md border shadow-sm " style="display:none;" id="medAidNo" name="MedAidNo" placeholder="Membership No." type="text" value="" data-bv-notempty="true" data-bv-notempty-message="DMedical aid membership number is required and cannot be empty">
+                                <input disabled="disabled" class="form-control form-control-md border shadow-sm" id="medAidNo" name="MedAidNo" placeholder="Membership No." type="text" value="" data-bv-notempty="true" data-bv-notempty-message="DMedical aid membership number is required and cannot be empty">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-sm-6">
                                 <input class="form-control form-control-md border shadow-sm " data-val="true" id="appointmentDate" name="AppointmentDate" placeholder="Date of Appointment" type="text" value="" data-bv-notempty="true" data-bv-notempty-message="Date of Appointment is required and cannot be empty">
                             </div>
-                            <div class="form-group col-sm-6">
-
+                            <div class="form-group col-sm-6" id="bookingTime" style="display:none;">
+                                <select class="form-control" id="ddlAppointmentTime">
+                                    <option value="">Select Appointment Time</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-sm-12">
                                 <textarea rows="5" class="form-control form-control-md border shadow-sm " id="additionalDetails" name="AdditionalDetails" placeholder="Additional details"></textarea>
                             </div>
+                        </div>
+                        <div class="form-row d-flex justify-content-sm-end">
+                            <a class="btn btn-primary text-uppercase" href="#" id="btnSubmitAppointment">Submit</a>
                         </div>
                     </div>
                 </div>

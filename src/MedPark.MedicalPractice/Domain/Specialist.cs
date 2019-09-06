@@ -24,6 +24,7 @@ namespace MedPark.MedicalPractice.Domain
         public Boolean IsAdmin { get; private set; }
         public Boolean IsVerfied { get; private set; }
         public Boolean Active { get; private set; }
+        public TimeSpan AppointmentDuration { get; private set; }
 
         public void Create(string firstname, string surname, string email)
         {
@@ -36,6 +37,13 @@ namespace MedPark.MedicalPractice.Domain
         }
 
         public void SignUp(Guid practiceId, bool isAdmin)
+        {
+            PracticeId = practiceId;
+            IsAdmin = isAdmin;
+            Active = true;
+        }
+
+        public void SetAppointmentDuration(Guid practiceId, bool isAdmin)
         {
             PracticeId = practiceId;
             IsAdmin = isAdmin;

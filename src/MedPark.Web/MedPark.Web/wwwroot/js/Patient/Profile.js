@@ -1,5 +1,6 @@
 ﻿
 var appointmentTypes = [];
+var availableTimes = [];
 
 $(document).ready(function () {
 
@@ -12,8 +13,31 @@ $(document).ready(function () {
         UpdateCustomerDetails();
     });
 
+    $("#btnSubmitAppointment").click(function () {
+        SubmitNewAppointment();
+    });
+
     $('#BirthDate').datepicker({
         format: 'mm/dd/yyyy'
+    });
+
+    $('#appointmentDate').datepicker({
+        format: 'mm/dd/yyyy'
+    }).on('changeDate', function (ev) {
+
+        $("#ddlAppointmentTime").find('option').remove().end();
+
+        var dayName = moment(new Date($(this).val())).format('dddd');
+        var times = _.find(availableTimes, function (d) { return d.dayOfWeek === dayName; });
+
+        if (times.availableTimes.length > 0) {
+
+            $.each(times.availableTimes, function (key, value) {
+                $("#ddlAppointmentTime").append(new Option(value, value));
+            });
+
+            $("#bookingTime").show();
+        }
     });
 
     //GetAddresses();
@@ -21,6 +45,23 @@ $(document).ready(function () {
     GetCustomerAppointments();
 
     LoadAppointmentTypes();
+
+    $("#ddlAppointmentType").change(function () {
+        LoadSpecialistByAppointmentTypes($("#ddlAppointmentType").val());
+    });
+
+    $("#ddlSpecialists").change(function () {
+        GerSpecialistPracticeDetails($("#ddlSpecialists option:selected").attr("prac"));
+
+        LoadSpecialistAvailableTimes($(this).val());
+    });
+        
+    $("#ddlPracticeSchemes").change(function () {
+        if ($(this).val() === "")
+            $("#medAidNo").val("").attr("disabled", "disabled");
+        else
+            $("#medAidNo").removeAttr("disabled");
+    });
 });
 
 function GetAddresses(){
@@ -77,9 +118,86 @@ function LoadAppointmentTypes() {
             appointmentTypes = result;
 
             $.each(appointmentTypes, function (key, value) {
-                $("#ddlAppointmentType").append(new Option(value.name, value.Id));
+                $("#ddlAppointmentType").append(new Option(value.name, value.id));
             });
         }
     });
-    
+}
+
+function LoadSpecialistByAppointmentTypes(appTypeId) {
+    $.ajax({
+        url: $medpark_api + "specialist/specialistsLinkedToAppointmentType/" + appTypeId,
+        success: function (result) {
+
+            $.each(result.specilists, function (key, value) {
+                var o = new Option(value.firstName + " " + value.surname, value.id);
+                o.setAttribute("prac", value.practiceId);
+
+                $("#ddlSpecialists").append(o);
+            });
+        }
+    });
+}
+
+function GerSpecialistPracticeDetails(practiceId) {
+    $.ajax({
+        url: $medpark_api + "specialist/getacceptedschemes/"  + practiceId,
+        success: function (result) {
+            if (result.length > 0) {
+
+                ShowMedSchemes();
+
+                $.each(result, function (key, value) {
+                    $("#ddlPracticeSchemes").append(new Option(value.schemeName, value.id));
+                });
+            }
+            else {
+                HideMedSchemes();
+            }
+        }
+    });
+}
+
+function LoadSpecialistAvailableTimes(specialistId) {
+    $.ajax({
+        url: $medpark_api + "specialist/specialistOperatingHours/" + specialistId,
+        success: function (result) {
+            availableTimes = result.appointmentTimes;
+        }
+    });
+}
+
+
+function SubmitNewAppointment() {
+
+    var details = JSON.stringify(new NewAppointmentRequest());
+
+    $.ajax({
+        url: $medpark_api + "bookings/addappointment/",
+        type: 'POST',
+        contentType: 'application/json',
+        data: details,
+        success: function (result) {
+
+        }
+    });
+}
+
+function NewAppointmentRequest() {
+    this.PatientId = userId;
+    this.SpecialistId = $("#ddlSpecialists").val();
+    this.AppointmentType = $("#ddlAppointmentType").val();
+    this.MedicalAidMembershipNo = $("#medAidNo").val();
+    this.ScheduledDate = moment($("#appointmentDate").val() + " " + $("#ddlAppointmentTime").val()).toDate();
+    this.IsPostponement = false;
+}
+
+
+
+function ShowMedSchemes() {
+    $("#addSchemeBooking").show();
+}
+
+function HideMedSchemes() {
+    $("#addSchemeBooking").hide();
 }

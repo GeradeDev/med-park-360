@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Queries
 {
-    public class AcceptedMedicalSchemeQuery : IQuery<List<AcceptedMedicalSchemeDTO>>
+    public class SpecialistsLinkedToAppointmentTypeQuery : IQuery<AppointmentTypeSpecialistDTO>
     {
-        public Guid PracticeId { get; set; }
+        public Guid AppointmentTypeId { get; set; }
     }
 }

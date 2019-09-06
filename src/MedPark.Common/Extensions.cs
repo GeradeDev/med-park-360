@@ -124,5 +124,19 @@ namespace MedPark.Common
         {
             return "MPO" + orderCount.ToString().PadLeft(7, '0');
         }
+
+        public static List<DayOfWeek> GetWeekDays(this DateTime date)
+        {
+            List<DayOfWeek> days = new List<DayOfWeek>(){
+                                DayOfWeek.Sunday,
+                                DayOfWeek.Monday,
+                                DayOfWeek.Tuesday,
+                                DayOfWeek.Wednesday,
+                                DayOfWeek.Thursday,
+                                DayOfWeek.Friday,
+                                DayOfWeek.Saturday };
+
+            return days;
+        }
     }
 }

@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-$medpark_api = "http://localhost:8000/api/";
+$medpark_api = "http://localhost:62683/api/";
 
 $(document).ready(function() {
 
