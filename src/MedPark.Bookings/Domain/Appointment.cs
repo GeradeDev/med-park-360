@@ -30,7 +30,7 @@ namespace MedPark.Bookings.Domain
         public Guid AppointmentType { get; set; }
 
         public bool HasMedicalAid { get; set; }
-        public Guid? MedicalAidMembershipNo { get; set; }
+        public string MedicalAidMembershipNo { get; set; }
 
         public DateTime ScheduledDate { get; set; }
         public bool IsPostponement { get; set; }
@@ -49,7 +49,7 @@ namespace MedPark.Bookings.Domain
         public void SetSpecialistDetails(string specialistTitle, string specialistInitials, string specialistSurname, string specialistTel, string specialistEmail)
         {
 
-            if (specialistTitle is null || SpecialistInitials is null || specialistSurname is null || specialistTel is null || specialistEmail is null)
+            if (specialistTitle is null || specialistInitials is null || specialistSurname is null || specialistTel is null || specialistEmail is null)
                 throw new MedParkException("add_appointment_specialist_deatils_cannot_be_null", "Specialist details cannot be null.");
 
             Title = specialistTitle;

@@ -9,6 +9,11 @@ namespace MedPark.API.Gateway.Models.MedicalPractice
     {
         public TimeSpan AppointmentDuration { get; set; }
         public OperatingHoursDTO PracticeOperatingHours { get; set; }
-        public List<DateTime> AppointmentTimes { get; set; }
+        public List<AppointmentTimesForDay> AppointmentTimes { get; set; }
+
+        public OperatingHoursDetailDTO()
+        {
+            AppointmentTimes = new List<AppointmentTimesForDay>();
+        }
     }
 }

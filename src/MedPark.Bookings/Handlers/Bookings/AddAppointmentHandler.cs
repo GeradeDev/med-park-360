@@ -39,13 +39,13 @@ namespace MedPark.Bookings.Handlers.Bookings
                 throw new MedParkException("add_appointment_specialist_does_not_exist", $"Specialist {command.SpecialistId} does not exists.");
 
             //Create a new appointment
-            Appointment newAppointment = new Appointment(command.SpecialistId)
+            Appointment newAppointment = new Appointment(command.AppointmentId)
             {
                 PatientId = command.PatientId,
                 SpecialistId = command.SpecialistId,
                 AppointmentType = command.AppointmentType,
                 MedicalAidMembershipNo = command.MedicalAidMembershipNo,
-                HasMedicalAid = (command.MedicalAidMembershipNo.HasValue ? true : false),
+                HasMedicalAid = (!string.IsNullOrEmpty(command.MedicalAidMembershipNo) ? true : false),
                 ScheduledDate = command.ScheduledDate,
                 IsPostponement = command.IsPostponement
             };
@@ -54,7 +54,7 @@ namespace MedPark.Bookings.Handlers.Bookings
             newAppointment.SetPatientDetails(patient.FirstName, patient.LastName, patient.Mobile, patient.Email);
 
             //Set the specialist details for the sappointment
-            newAppointment.SetSpecialistDetails(specialist.Title, (specialist.FirstName + " " + specialist.Surname).GetInitials(), specialist.Surname, specialist.Cellphone, specialist.Email);
+            newAppointment.SetSpecialistDetails(specialist.Title, (specialist.FirstName[0] + " " + specialist.Surname[0]).GetInitials(), specialist.Surname, specialist.Cellphone, specialist.Email);
 
 
             //Save the new appointment

@@ -14,12 +14,12 @@ namespace MedPark.API.Gateway.Messages.Commands.BookingService
         public Guid PatientId { get; }
         public Guid SpecialistId { get; }
         public Guid AppointmentType { get; }
-        public Guid? MedicalAidMembershipNo { get; }
+        public string MedicalAidMembershipNo { get; }
         public DateTime ScheduledDate { get; }
         public bool IsPostponement { get; }
 
         [JsonConstructor]
-        public AddAppointment(Guid appointmentId, Guid patientId, Guid specialistId, Guid appointmentType, Guid? medicalAidMembershipNo, DateTime scheduledDate, Boolean isPostponement)
+        public AddAppointment(Guid appointmentId, Guid patientId, Guid specialistId, Guid appointmentType, string medicalAidMembershipNo, DateTime scheduledDate, Boolean isPostponement)
         {
             AppointmentId = appointmentId;
             PatientId = patientId;

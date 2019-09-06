@@ -30,7 +30,7 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
         {
             OperatingHoursDetailDTO result = new OperatingHoursDetailDTO();
 
-            if(query.SpecialistId != Guid.Empty)
+            if (query.SpecialistId != Guid.Empty)
             {
                 Specialist s = await _specialistRepo.GetAsync(query.SpecialistId.Value);
 
@@ -43,35 +43,35 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
                 days.Add(DateTime.Now.DayOfWeek);
                 days.Add(DateTime.Now.AddDays(1).DayOfWeek);
 
-                days.ForEach(d =>
+                DateTime.Now.GetWeekDays().ForEach(d =>
                 {
                     if (d == DayOfWeek.Sunday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.SundayOpen.Value, sop.SundayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.SundayOpen.Value, sop.SundayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Monday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.MondayOpen.Value, sop.MondayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.MondayOpen.Value, sop.MondayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Tuesday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.TuesdayOpen.Value, sop.TuesdayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.TuesdayOpen.Value, sop.TuesdayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Wednesday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.WednesdayOpen.Value, sop.WednesdayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.WednesdayOpen.Value, sop.WednesdayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Thursday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.ThursdayOpen.Value, sop.ThursdayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.ThursdayOpen.Value, sop.ThursdayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Friday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.FridayOpen.Value, sop.FridayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.FridayOpen.Value, sop.FridayClose.Value, d, s.AppointmentDuration));
                     }
                     else if (d == DayOfWeek.Saturday)
                     {
-                        result.AppointmentTimes.AddRange(GetAvailableHours(sop.SaturdayOpen.Value, sop.SaturdayClose.Value, d, s.AppointmentDuration));
+                        result.AppointmentTimes.Add(GetAvailableHours(sop.SaturdayOpen.Value, sop.SaturdayClose.Value, d, s.AppointmentDuration));
                     }
                 });
             }
@@ -83,16 +83,17 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
             return result;
         }
 
-        public List<DateTime> GetAvailableHours(TimeSpan openTime, TimeSpan closingTime, DayOfWeek day, TimeSpan appDuration)
+        public AppointmentTimesForDay GetAvailableHours(TimeSpan openTime, TimeSpan closingTime, DayOfWeek day, TimeSpan appDuration)
         {
-            List<DateTime> times = new List<DateTime>();
+            AppointmentTimesForDay times = new AppointmentTimesForDay();
+            times.DayOfWeek = day.ToString();
 
             DateTime appTime = (day == DateTime.Today.DayOfWeek ? new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, openTime.Hours, openTime.Minutes, openTime.Seconds) : new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day, openTime.Hours, openTime.Minutes, openTime.Seconds));
 
             while ((appTime.TimeOfDay + appDuration) < closingTime)
             {
                 appTime = (appTime + appDuration);
-                times.Add(appTime);
+                times.AvailableTimes.Add(appTime.TimeOfDay);
             }
 
             return times;

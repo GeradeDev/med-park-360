@@ -9,11 +9,11 @@ namespace MedPark.MedicalPractice.Dto
     {
         public TimeSpan AppointmentDuration { get; set; }
         public OperatingHoursDTO PracticeOperatingHours { get; set; }
-        public List<DateTime> AppointmentTimes { get; set; }
+        public List<AppointmentTimesForDay> AppointmentTimes { get; set; }
 
         public OperatingHoursDetailDTO()
         {
-            AppointmentTimes = new List<DateTime>();
+            AppointmentTimes = new List<AppointmentTimesForDay>();
         }
     }
 }
