@@ -82,7 +82,7 @@
 
                         <!-- Appointments Tab -->
                         <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
-                            <table class="table table-bordered med-park-table">
+                            <table class="table table-bordered med-park-table" id="tblAppointments">
                                 <thead>
                                     <tr>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Monday) ? "" : "hide")">Monday</td>
@@ -90,15 +90,12 @@
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Tuesday || DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ? "" : "hide")">Wednesday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Wednesday || DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ? "" : "hide")">Thursday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Thursday || DateTime.Today.DayOfWeek == DayOfWeek.Friday) ? "" : "hide")">Friday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Friday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday) ? "" : "hide")">Saturday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday) ? "" : "hide")">Sunday</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
 

@@ -46,6 +46,8 @@ $(document).ready(function () {
 
     LoadAppointmentTypes();
 
+    LoadUpcomingAppointments();
+
     $("#ddlAppointmentType").change(function () {
         LoadSpecialistByAppointmentTypes($("#ddlAppointmentType").val());
     });
@@ -130,6 +132,7 @@ function LoadSpecialistByAppointmentTypes(appTypeId) {
         success: function (result) {
 
             $("#ddlSpecialists").find('option').remove().end();
+            $("#ddlSpecialists").append(new Option("Select Specialist","" ));
 
             $.each(result.specilists, function (key, value) {
                 var o = new Option(value.firstName + " " + value.surname, value.id);
@@ -148,6 +151,7 @@ function GerSpecialistPracticeDetails(practiceId) {
             if (result.length > 0) {
 
                 $("#ddlPracticeSchemes").find('option').remove().end();
+                $("#ddlPracticeSchemes").append(new Option("Select Medical Aid Option","" ));
 
                 ShowMedSchemes();
 
@@ -171,6 +175,60 @@ function LoadSpecialistAvailableTimes(specialistId) {
     });
 }
 
+function LoadUpcomingAppointments() {
+    $.ajax({
+        url: $medpark_api + "bookings/getpatientappointments/" + userId,
+        success: function (result) {
+
+            $("#tblAppointments tbody").remove();
+
+            var today = _.filter(result.bookingDetails, function (e) {
+                return moment(e.scheduledDate).format("YYYY MM DD") === moment().format("YYYY MM DD");
+            });
+
+            var tomorrow = _.filter(result.bookingDetails, function (e) {
+                return moment(e.scheduledDate).format("YYYY MM DD") === moment().add(1, 'days').format("YYYY MM DD");
+            });
+
+            if (today.length === 0 && tomorrow.length === 0) {
+                $('#tblAppointments').append($('<tr>')
+                    .append($('<td>').append(NoAppointmentsForDay()))
+                    .append($('<td>').append(NoAppointmentsForDay())));
+            }
+            else if (today.length > 0 && tomorrow.length === 0) {
+                $('#tblAppointments').append($('<tr>')
+                    .append($('<td>').append(CreateAppointmentItem(today)))
+                    .append($('<td>').append(NoAppointmentsForDay())));
+            }
+            else if (today.length === 0 && tomorrow.length > 0) {
+                $('#tblAppointments').append($('<tr>')
+                    .append($('<td>').append(NoAppointmentsForDay()))
+                    .append($('<td>').append(CreateAppointmentItem(tomorrow))));
+            }
+            else {
+                $('#tblAppointments').append($('<tr>')
+                    .append($('<td>').append(CreateAppointmentItem(today)))
+                    .append($('<td>').append(CreateAppointmentItem(tomorrow))));
+            }
+        }
+    });
+}
+
+function CreateAppointmentItem(dayAppointments) {
+    var item = "";
+
+    for (var i = 0; i < dayAppointments.length; i++) {
+        item = '<div class="p-2 shadow-sm rounded d-block mb-2">' + dayAppointments[i].title + " " + dayAppointments[i].specialistInitials + " " + dayAppointments[i].specialistSurname + " - " + moment(moment.utc(dayAppointments[i].scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a') + '</div>';
+    }
+
+    return item;
+}
+
+function NoAppointmentsForDay() {
+    return '<div class="p-2 shadow-sm rounded d-block mb-2">No appointment(s) scheduled for today</div>';
+}
+
+
 
 function SubmitNewAppointment() {
     var details = JSON.stringify(new NewAppointmentRequest());
@@ -181,6 +239,9 @@ function SubmitNewAppointment() {
         contentType: 'application/json',
         data: details,
         success: function (result) {
+
+            LoadUpcomingAppointments();
+
             $("#addAppointmentModal").modal("hide");
             ClearNewAppointment();
         }
