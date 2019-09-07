@@ -169,7 +169,6 @@ function LoadSpecialistAvailableTimes(specialistId) {
 
 
 function SubmitNewAppointment() {
-
     var details = JSON.stringify(new NewAppointmentRequest());
 
     $.ajax({
@@ -178,7 +177,8 @@ function SubmitNewAppointment() {
         contentType: 'application/json',
         data: details,
         success: function (result) {
-
+            $("#addAppointmentModal").modal("hide");
+            ClearNewAppointment();
         }
     });
 }
@@ -189,7 +189,16 @@ function NewAppointmentRequest() {
     this.AppointmentType = $("#ddlAppointmentType").val();
     this.MedicalAidMembershipNo = $("#medAidNo").val();
     this.ScheduledDate = moment($("#appointmentDate").val() + " " + $("#ddlAppointmentTime").val()).toDate();
-    this.IsPostponement = false;
+    this.Comment = $("#additionalDetails").val();
+}
+
+function ClearNewAppointment() {
+    $("#ddlSpecialists").val("");
+    $("#ddlAppointmentType").val("");
+    $("#medAidNo").val("");
+    $("#appointmentDate").val("");
+    $("#ddlAppointmentTime").val("");
+    $("#additionalDetails").val("");
 }
 
 

@@ -14,49 +14,70 @@ namespace MedPark.Bookings.Domain
 
         }
 
-        public Guid PatientId { get; set; }
-        public string PatientName { get; set; }
-        public string PatientSurname { get; set; }
-        public string PatientEmail { get; set; }
-        public string PatientMobile { get; set; }
+        public Guid PatientId { get; private set; }
+        public string PatientName { get; private set; }
+        public string PatientSurname { get; private set; }
+        public string PatientEmail { get; private set; }
+        public string PatientMobile { get; private set; }
 
-        public Guid SpecialistId { get; set; }
-        public string Title { get; set; }
-        public string SpecialistInitials { get; set; }
-        public string SpecialistSurname { get; set; }
-        public string SpecialistTel { get; set; }
-        public string SpecialistEmail { get; set; }
+        public Guid SpecialistId { get; private set; }
+        public string Title { get; private set; }
+        public string SpecialistInitials { get; private set; }
+        public string SpecialistSurname { get; private set; }
+        public string SpecialistTel { get; private set; }
+        public string SpecialistEmail { get; private set; }
 
-        public Guid AppointmentType { get; set; }
+        public Guid AppointmentType { get; private set; }
 
-        public bool HasMedicalAid { get; set; }
-        public string MedicalAidMembershipNo { get; set; }
+        public bool HasMedicalAid { get; private set; }
+        public string MedicalAidMembershipNo { get; private set; }
 
-        public DateTime ScheduledDate { get; set; }
-        public bool IsPostponement { get; set; }
+        public DateTime ScheduledDate { get; private set; }
+        public bool IsPostponement { get; private set; }
+        public string Comment { get; private set; }
 
-        public void SetPatientDetails(string name, string surname, string mobile, string email)
+        public void SetPatientDetails(string name, string surname, string mobile, string email, Guid patientId)
         {
-            if (name is null || surname is null || mobile is null || email is null)
-                throw new MedParkException("add_appointment_customer_deatils_cannot_be_null", "Customer details cannot be null.");
-
             PatientName = name;
             PatientSurname = surname;
             PatientEmail = email;
             PatientMobile = mobile;
+            PatientId = patientId;
         }
 
-        public void SetSpecialistDetails(string specialistTitle, string specialistInitials, string specialistSurname, string specialistTel, string specialistEmail)
+        public void SetSpecialistDetails(string specialistTitle, string specialistInitials, string specialistSurname, string specialistTel, string specialistEmail, Guid specialistId)
         {
-
-            if (specialistTitle is null || specialistInitials is null || specialistSurname is null || specialistTel is null || specialistEmail is null)
-                throw new MedParkException("add_appointment_specialist_deatils_cannot_be_null", "Specialist details cannot be null.");
-
             Title = specialistTitle;
             SpecialistInitials = specialistInitials;
             SpecialistSurname = specialistSurname;
             SpecialistTel = specialistTel;
             SpecialistEmail = specialistEmail;
+            SpecialistId = specialistId;
+        }
+
+        public void SetAppointmentDetails(Guid appType, string medSchemeNo, DateTime date, bool isPostponetment)
+        {
+            AppointmentType = appType;
+            MedicalAidMembershipNo = medSchemeNo;
+            ScheduledDate = date;
+            IsPostponement = IsPostponement;
+            HasMedicalAid = (!string.IsNullOrEmpty(medSchemeNo) ? true : false);
+        }
+
+        public void SetComment(string comment)
+        {
+            Comment = comment;
+        }
+
+        public override void Use()
+        {
+            base.Use();
+
+            if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(SpecialistInitials) || string.IsNullOrEmpty(SpecialistSurname) || string.IsNullOrEmpty(SpecialistTel) || string.IsNullOrEmpty(SpecialistEmail))
+                throw new MedParkException("add_appointment_specialist_deatils_cannot_be_null", "Specialist details cannot be null.");
+
+            if (string.IsNullOrEmpty(PatientName) || string.IsNullOrEmpty(PatientSurname) || string.IsNullOrEmpty(PatientEmail) || string.IsNullOrEmpty(PatientMobile))
+                throw new MedParkException("add_appointment_customer_deatils_cannot_be_null", "Customer details cannot be null.");
         }
     }
 }
