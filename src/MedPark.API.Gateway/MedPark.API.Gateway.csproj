@@ -20,7 +20,7 @@
     <ProjectReference Include="..\MedPark.Common\MedPark.Common.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="MedPark.Common" Version="1.0.1" />
+    <PackageReference Include="MedPark.Common" Version="*" />
   </ItemGroup>
   
   <ItemGroup>
