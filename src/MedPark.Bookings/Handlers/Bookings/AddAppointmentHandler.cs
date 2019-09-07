@@ -39,25 +39,21 @@ namespace MedPark.Bookings.Handlers.Bookings
                 throw new MedParkException("add_appointment_specialist_does_not_exist", $"Specialist {command.SpecialistId} does not exists.");
 
             //Create a new appointment
-            Appointment newAppointment = new Appointment(command.AppointmentId)
-            {
-                PatientId = command.PatientId,
-                SpecialistId = command.SpecialistId,
-                AppointmentType = command.AppointmentType,
-                MedicalAidMembershipNo = command.MedicalAidMembershipNo,
-                HasMedicalAid = (!string.IsNullOrEmpty(command.MedicalAidMembershipNo) ? true : false),
-                ScheduledDate = command.ScheduledDate,
-                IsPostponement = command.IsPostponement
-            };
+            Appointment newAppointment = new Appointment(command.AppointmentId);
+            newAppointment.SetAppointmentDetails(command.AppointmentType, command.MedicalAidMembershipNo, command.ScheduledDate, command.IsPostponement);
 
             //Set the pateint details for the appointment
-            newAppointment.SetPatientDetails(patient.FirstName, patient.LastName, patient.Mobile, patient.Email);
+            newAppointment.SetPatientDetails(patient.FirstName, patient.LastName, patient.Mobile, patient.Email, patient.Id);
 
             //Set the specialist details for the sappointment
-            newAppointment.SetSpecialistDetails(specialist.Title, (specialist.FirstName[0] + " " + specialist.Surname[0]).GetInitials(), specialist.Surname, specialist.Cellphone, specialist.Email);
+            newAppointment.SetSpecialistDetails(specialist.Title, (specialist.FirstName[0] + " " + specialist.Surname[0]).GetInitials(), specialist.Surname, specialist.Cellphone, specialist.Email, specialist.Id);
+
+            //Set Comment
+            newAppointment.SetComment(command.Comment);
 
 
-            //Save the new appointment
+            //Validate before saving
+            newAppointment.Use();
             await _appRepo.AddAsync(newAppointment);
         }
     }

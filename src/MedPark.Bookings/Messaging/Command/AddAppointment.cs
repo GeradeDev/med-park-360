@@ -16,9 +16,10 @@ namespace MedPark.Bookings.Messaging.Command
         public string MedicalAidMembershipNo { get; }
         public DateTime ScheduledDate { get; }
         public bool IsPostponement { get; }
+        public string Comment { get; }
 
         [JsonConstructor]
-        public AddAppointment(Guid appointmentId, Guid patientId, Guid specialistId, Guid appointmentType, string medicalAidMembershipNo, DateTime scheduledDate, Boolean isPostponement)
+        public AddAppointment(Guid appointmentId, Guid patientId, Guid specialistId, Guid appointmentType, string medicalAidMembershipNo, DateTime scheduledDate, Boolean isPostponement, string comment)
         {
             AppointmentId = appointmentId;
             PatientId = patientId;
@@ -27,6 +28,7 @@ namespace MedPark.Bookings.Messaging.Command
             MedicalAidMembershipNo = medicalAidMembershipNo;
             ScheduledDate = scheduledDate;
             IsPostponement = isPostponement;
+            Comment = comment;
         }
     }
 }

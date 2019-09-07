@@ -26,6 +26,8 @@ namespace MedPark.Bookings.Migrations
 
                     b.Property<Guid>("AppointmentType");
 
+                    b.Property<string>("Comment");
+
                     b.Property<DateTime>("Created");
 
                     b.Property<bool>("HasMedicalAid");
