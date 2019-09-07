@@ -129,6 +129,8 @@ function LoadSpecialistByAppointmentTypes(appTypeId) {
         url: $medpark_api + "specialist/specialistsLinkedToAppointmentType/" + appTypeId,
         success: function (result) {
 
+            $("#ddlSpecialists").find('option').remove().end();
+
             $.each(result.specilists, function (key, value) {
                 var o = new Option(value.firstName + " " + value.surname, value.id);
                 o.setAttribute("prac", value.practiceId);
@@ -144,6 +146,8 @@ function GerSpecialistPracticeDetails(practiceId) {
         url: $medpark_api + "specialist/getacceptedschemes/"  + practiceId,
         success: function (result) {
             if (result.length > 0) {
+
+                $("#ddlPracticeSchemes").find('option').remove().end();
 
                 ShowMedSchemes();
 
@@ -190,6 +194,7 @@ function NewAppointmentRequest() {
     this.MedicalAidMembershipNo = $("#medAidNo").val();
     this.ScheduledDate = moment($("#appointmentDate").val() + " " + $("#ddlAppointmentTime").val()).toDate();
     this.Comment = $("#additionalDetails").val();
+    this.MedicalScheme = $("#ddlPracticeSchemes").val();
 }
 
 function ClearNewAppointment() {

@@ -36,6 +36,8 @@ namespace MedPark.Bookings.Migrations
 
                     b.Property<string>("MedicalAidMembershipNo");
 
+                    b.Property<Guid?>("MedicalScheme");
+
                     b.Property<DateTime>("Modified");
 
                     b.Property<string>("PatientEmail");
