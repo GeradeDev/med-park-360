@@ -29,12 +29,15 @@ namespace MedPark.Bookings.Domain
 
         public Guid AppointmentType { get; private set; }
 
+        public Guid? MedicalScheme { get; private set; }
         public bool HasMedicalAid { get; private set; }
         public string MedicalAidMembershipNo { get; private set; }
 
         public DateTime ScheduledDate { get; private set; }
         public bool IsPostponement { get; private set; }
         public string Comment { get; private set; }
+
+
 
         public void SetPatientDetails(string name, string surname, string mobile, string email, Guid patientId)
         {
@@ -55,19 +58,26 @@ namespace MedPark.Bookings.Domain
             SpecialistId = specialistId;
         }
 
-        public void SetAppointmentDetails(Guid appType, string medSchemeNo, DateTime date, bool isPostponetment)
+        public void SetAppointmentDetails(Guid appType, DateTime date, bool isPostponetment)
         {
             AppointmentType = appType;
-            MedicalAidMembershipNo = medSchemeNo;
             ScheduledDate = date;
             IsPostponement = IsPostponement;
-            HasMedicalAid = (!string.IsNullOrEmpty(medSchemeNo) ? true : false);
         }
 
         public void SetComment(string comment)
         {
             Comment = comment;
         }
+
+        public void SetMedicalScheme(Guid medScheme, string medSchemeNo)
+        {
+            MedicalScheme = medScheme;
+            MedicalAidMembershipNo = medSchemeNo;
+            HasMedicalAid = (!string.IsNullOrEmpty(medSchemeNo) ? true : false);
+        }
+
+
 
         public override void Use()
         {
