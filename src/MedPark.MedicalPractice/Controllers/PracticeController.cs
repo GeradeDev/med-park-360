@@ -50,5 +50,35 @@ namespace MedPark.MedicalPractice.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("address/{id}")]
+        public async Task<IActionResult> GetAddressById([FromRoute] AddressQuery id)
+        {
+            try
+            {
+                PracticeAddressDTO practiceAddress = await _dispatcher.QueryAsync<PracticeAddressDTO>(id);
+
+                return Ok(practiceAddress);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("practiceaddress/{practiceid}")]
+        public async Task<IActionResult> GetPracticeAddress([FromRoute] AddressQuery query)
+        {
+            try
+            {
+                PracticeAddressDTO practiceAddress = await _dispatcher.QueryAsync<PracticeAddressDTO>(query);
+
+                return Ok(practiceAddress);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

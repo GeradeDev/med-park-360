@@ -50,5 +50,20 @@ namespace MedPark.Bookings.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{appointmentid}/details")]
+        public async Task<IActionResult> GetCustomerAppointments([FromRoute] AppointmentDetailQuery query)
+        {
+            try
+            {
+                AppointmentDetailDto appointment = await _dispatcher.QueryAsync<AppointmentDetailDto>(query);
+
+                return Ok(appointment);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

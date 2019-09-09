@@ -10,5 +10,6 @@ namespace MedPark.MedicalPractice.Queries
     public class AddressQuery : IQuery<PracticeAddressDTO>
     {
         public Guid Id { get; set; }
+        public Guid PracticeId { get; set; }
     }
 }

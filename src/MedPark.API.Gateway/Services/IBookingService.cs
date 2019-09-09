@@ -15,5 +15,8 @@ namespace MedPark.API.Gateway.Services
 
         [Get("/appointments/getpatientappointments/{customerid}")]
         Task<CustomerAppointmentsDto> GetPatientAppointments([Path] Guid customerid);
+
+        [Get("/appointments/{appointmentid}/details")]
+        Task<AppointmentDetailDto> GetAppointmentDetail([Path] Guid appointmentid);
     }
 }

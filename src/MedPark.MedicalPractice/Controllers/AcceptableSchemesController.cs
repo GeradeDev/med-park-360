@@ -35,5 +35,20 @@ namespace MedPark.MedicalPractice.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("getscheme/{schemeid}")]
+        public async Task<IActionResult> GetSchemeById([FromRoute] AcceptedMedicalSchemeQuery query)
+        {
+            try
+            {
+                var scheme = await _dispatcher.QueryAsync(query);
+
+                return Ok(scheme.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

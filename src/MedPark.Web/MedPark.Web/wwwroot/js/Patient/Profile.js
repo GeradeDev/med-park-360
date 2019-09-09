@@ -64,6 +64,7 @@ $(document).ready(function () {
         else
             $("#medAidNo").removeAttr("disabled");
     });
+
 });
 
 function GetAddresses(){
@@ -210,6 +211,11 @@ function LoadUpcomingAppointments() {
                     .append($('<td>').append(CreateAppointmentItem(today)))
                     .append($('<td>').append(CreateAppointmentItem(tomorrow))));
             }
+
+            $(".booked-app").click(function (sender) {
+                LoadAppointmentDetails($(this).attr("appid"));
+                $("#appointmentDetail").modal("show");
+            });
         }
     });
 }
@@ -218,7 +224,7 @@ function CreateAppointmentItem(dayAppointments) {
     var item = "";
 
     for (var i = 0; i < dayAppointments.length; i++) {
-        item = '<div class="p-2 shadow-sm rounded d-block mb-2">' + dayAppointments[i].title + " " + dayAppointments[i].specialistInitials + " " + dayAppointments[i].specialistSurname + " - " + moment(moment.utc(dayAppointments[i].scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a') + '</div>';
+        item = '<div class="p-2 shadow-sm rounded d-block mb-2 booked-app" appid="' + dayAppointments[i].id +'">' + dayAppointments[i].title + " " + dayAppointments[i].specialistInitials + " " + dayAppointments[i].specialistSurname + " - " + moment(moment.utc(dayAppointments[i].scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a') + '</div>';
     }
 
     return item;
@@ -226,6 +232,28 @@ function CreateAppointmentItem(dayAppointments) {
 
 function NoAppointmentsForDay() {
     return '<div class="p-2 shadow-sm rounded d-block mb-2">No appointment(s) scheduled for today</div>';
+}
+
+
+function LoadAppointmentDetails(appId) {
+    $.ajax({
+        url: $medpark_api + "bookings/" + appId + "/details/",
+        success: function (result) {
+
+            $(".loader").hide();
+            $("#h4SpecialistName").text(result.specialistTitle + " " + result.specialistName + " " + result.specialistSurname);
+
+            $("#lblAppType").text(result.specialistEmail);
+            $("#lblSchemeName").text(result.medicalScheme + " - " + result.medicalAidMembershipNo);
+            $("#lblAppDate").text(moment(moment.utc(result.scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a'));
+            $("#txtAppComments").text(result.comment);
+
+            $("#lblSpecilaistName").text(result.specialistName + " " + result.specialistSurname);
+            $("#lblPracticeName").text(result.practice.practiceName);
+            $("#lblPracticeContactNo").text(result.specialistTel);
+            $("#lblSpecialistEmail").text(result.specialistEmail);
+        }
+    });
 }
 
 
