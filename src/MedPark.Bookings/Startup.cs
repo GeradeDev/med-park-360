@@ -23,6 +23,9 @@ using MedPark.Bookings.Queries;
 using MedPark.Bookings.Handlers.Bookings;
 using MedPark.Bookings.Dto;
 using MedPark.Bookings.Messaging.Command;
+using MedPark.Bookings.Services;
+using MedPark.Common.RestEase;
+using System.Reflection;
 
 namespace MedPark.Bookings
 {
@@ -44,18 +47,16 @@ namespace MedPark.Bookings
             //Add DBContext
             services.AddDbContext<MedParkBookingContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddScoped(typeof(IQueryHandler<AppointmentQuery, SpecialistAppointmentsDto>), typeof(SpecialistAppointmentsQueryHandler));
-            services.AddScoped(typeof(IQueryHandler<AppointmentQuery, CustomerAppointmentsDto>), typeof(CustomerAppointmentsQueryHandler));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDefaultEndpoint<ISpecialistService>("med-practice-service");
 
             SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
 
             builder.RegisterType<MedParkBookingContext>().As<DbContext>().InstancePerLifetimeScope();
-
             builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Customer>();

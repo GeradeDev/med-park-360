@@ -95,7 +95,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
                                 </tbody>
                             </table>
 
@@ -117,7 +116,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="modal fade" id="addAppointmentModal" tabindex="-1" role="dialog" aria-modal="true" data-backdrop="static">
             <div class="modal-dialog modal-lg">
@@ -173,6 +171,91 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="appointmentDetail" tabindex="-1" role="dialog" aria-modal="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="routeModalTitle">Appointment Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <div class="team-member appointment-detail">
+                                    <img class="mx-auto rounded-circle" src="~/img/placeholder-avatar.png" alt="">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Appointment Type</label>
+                                        <label class="d-block" id="lblAppType"></label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Medical Scheme</label>
+                                        <label class="d-block" id="lblSchemeName"></label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Scheduled Date</label>
+                                        <label class="d-block" id="lblAppDate"></label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Is Postponement?</label>
+                                        <label class="d-block" id="lblIsPostponed"></label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12">
+                                        <label class="font-weight-bold mb-0">Notes</label>
+                                        <textarea rows="3" class="form-control form-control-md border shadow-sm " id="txtAppComments" name="txtAppComments" placeholder="Additional details"></textarea>
+                                    </div>
+                                </div>
+
+                                <h5 class="modal-title divider-hed mb-3">Specialist Detail</h5>
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12">
+                                        <label class="font-weight-bold mb-0">Specialist Name</label>
+                                        <label class="d-block" id="lblSpecilaistName"></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Practice Name</label>
+                                        <label class="d-block" id="lblPracticeName"></label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Contact Number</label>
+                                        <label class="d-block" id="lblPracticeContactNo"></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0">Specilaist Email</label>
+                                        <label class="d-block" id="lblSpecialistEmail"></label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label class="font-weight-bold mb-0"></label>
+                                        <label class="d-block" id="lbl"></label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </section>
 
 @*<div class="mt-3">

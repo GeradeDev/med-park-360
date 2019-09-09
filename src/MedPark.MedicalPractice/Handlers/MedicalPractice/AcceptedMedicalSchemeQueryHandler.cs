@@ -26,9 +26,19 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
         {
             List<AcceptedMedicalSchemeDTO> result = new List<AcceptedMedicalSchemeDTO>();
 
-            var ams = await _medSchemeRepo.FindAsync(x => x.PracticeId == query.PracticeId);
+            if (query.PracticeId != Guid.Empty)
+            {
+                var ams = await _medSchemeRepo.FindAsync(x => x.PracticeId == query.PracticeId);
 
-            result = _mapper.Map<List<AcceptedMedicalSchemeDTO>>(ams.ToList());
+                result = _mapper.Map<List<AcceptedMedicalSchemeDTO>>(ams.ToList());
+            }
+            else
+            {
+                var scheme = await _medSchemeRepo.GetAsync(query.SchemeId);
+                var schemeDto = _mapper.Map<AcceptedMedicalSchemeDTO>(scheme);
+
+                result.Add(schemeDto);
+            }
 
             return result;
         }

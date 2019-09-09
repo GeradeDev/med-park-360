@@ -10,5 +10,6 @@ namespace MedPark.MedicalPractice.Queries
     public class AcceptedMedicalSchemeQuery : IQuery<List<AcceptedMedicalSchemeDTO>>
     {
         public Guid PracticeId { get; set; }
+        public Guid SchemeId { get; set; }
     }
 }

@@ -37,6 +37,14 @@ namespace MedPark.API.Gateway.Controllers
             return Ok(patientAppointments);
         }
 
+        [HttpGet("{appointmentid}/details")]
+        public async Task<IActionResult> GetAppointmentDetails([FromRoute] Guid appointmentid)
+        {
+            var appointmentDetail = await _bookingService.GetAppointmentDetail(appointmentid);
+
+            return Ok(appointmentDetail);
+        }
+
         [HttpPost("addappointment")]
         public async Task<IActionResult> AddNewAppointment([FromBody] AddAppointment command)
         {

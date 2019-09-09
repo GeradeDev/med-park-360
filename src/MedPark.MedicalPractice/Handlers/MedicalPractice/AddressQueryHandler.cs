@@ -24,7 +24,14 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
 
         public async Task<PracticeAddressDTO> HandleAsync(AddressQuery query)
         {
-            Address addr = await _practiceAddressRepo.GetAsync(query.Id);
+            Address addr = null;
+
+            if (query.Id != Guid.Empty)
+                addr = await _practiceAddressRepo.GetAsync(query.Id);
+            else
+            {
+                addr = await _practiceAddressRepo.GetAsync(x => x.PracticeId == query.PracticeId);
+            }
 
             return _mapper.Map<PracticeAddressDTO>(addr);
         }
