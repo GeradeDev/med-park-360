@@ -34,6 +34,7 @@ namespace MedPark.Web
             services.AddHttpClient();
 
             services.AddDefaultEndpoint<ICustomerService>("medpark-api");
+            services.AddDefaultEndpoint<IMedParcticeService>("medpark-api");
 
             services.Configure<CookiePolicyOptions>(options =>
             {

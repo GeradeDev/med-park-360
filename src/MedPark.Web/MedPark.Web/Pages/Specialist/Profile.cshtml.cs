@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MedPark.Common;
 using MedPark.Common.API;
 using MedPark.Web.Dto;
+using MedPark.Web.Services;
 using MedPark.Web.Utils.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,6 +16,8 @@ namespace MedPark.Web.Pages.Specialist
 {
     public class ProfileModel : BasePageModel
     {
+        private IMedParcticeService _medPracServ { get; }
+
         Guid LoggedInGuid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,37 +26,38 @@ namespace MedPark.Web.Pages.Specialist
         public string Email { get; set; }
         public string Avatar { get; set; }
 
-        public ProfileModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser) : base(httpClient, appUserParser)
+        public string PracticeName { get; set; }
+        public string PracticeEmail { get; set; }
+        public string PracticeTel { get; set; }
+
+        public ProfileModel(IHttpClientFactory httpClient, IIdentityParser<ApplicationUser> appUserParser, IMedParcticeService medPracServ) : base(httpClient, appUserParser)
         {
+            _medPracServ = medPracServ;
         }
 
         public async Task<IActionResult> OnGet()
         {
             var user = _appUserParser.Parse(HttpContext.User);
 
-            var specialist = JsonConvert.DeserializeObject<SpecialistDto>(await new SpecilaistService(_httpClient).GetDetails(user.IdentityId));
+            SpecialistDto specialist = await _medPracServ.GetSpecialistDetails(user.IdentityId);
 
-            var isProfileComplete = specialist.GetType().GetProperties().All(x => x.GetValue(specialist) != null);
+            FirstName = specialist.FirstName;
+            LastName = specialist.Surname;
+            Email = specialist.Email;
+            Avatar = specialist.Avatar;
+            Mobile = specialist.Cellphone;
 
-            if (!isProfileComplete)
-                ModelState.AddModelError("incomplete_profile", "Your profile has not been completed. Your profile will only be visible once it has been completed.");
+            if (string.IsNullOrEmpty(Avatar))
+                Avatar = Email.GetAvatar();
 
-            BuildPageModel(specialist);
+            PracticeDto practice = await _medPracServ.GetPracticeDetails(specialist.PracticeId);
+
+            PracticeName = practice.PracticeName;
+            PracticeEmail = practice.Email;
+            PracticeTel = practice.TelephonePrimary;
 
             return Page();
         }
 
-        public void BuildPageModel(SpecialistDto dto)
-        {
-            LoggedInGuid = _appUserParser.Parse(HttpContext.User).IdentityId;
-            FirstName = dto.FirstName;
-            LastName = dto.Surname;
-            Email = dto.Email;
-            Mobile = dto.Cellphone;
-            Avatar = dto.Avatar;
-
-            if (string.IsNullOrEmpty(Avatar))
-                Avatar = Email.GetAvatar();
-        }
     }
 }

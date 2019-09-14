@@ -13,7 +13,7 @@ namespace MedPark.API.Gateway.Services
     {
         //PRACTICE
         [Get("/practice/{id}")]
-        Task<SpecialistDto> GetPracticeById([Path] Guid id);
+        Task<PracticeDto> GetPracticeById([Path] Guid id);
 
         [Get("/practice/getPracticeDetails/{id}")]
         Task<PracticeDetailDTO> GetPracticeDetailById([Path] Guid id);
