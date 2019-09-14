@@ -12,14 +12,14 @@ namespace MedPark.Web.Dto
         public DateTime Modified { get; set; }
 
         public string PracticeName { get; set; }
-        public string Slogan { get; private set; }
-        public string Email { get; private set; }
-        public string TelephonePrimary { get; private set; }
-        public string TelephoneSecondary { get; private set; }
-        public string Avatar { get; private set; }
-        public string Website { get; private set; }
+        public string Slogan { get; set; }
+        public string Email { get; set; }
+        public string TelephonePrimary { get; set; }
+        public string TelephoneSecondary { get; set; }
+        public string Avatar { get; set; }
+        public string Website { get; set; }
 
-        public string LocationLongitude { get; private set; }
-        public string LocationLatitude { get; private set; }
+        public string LocationLongitude { get; set; }
+        public string LocationLatitude { get; set; }
     }
 }

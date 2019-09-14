@@ -87,7 +87,8 @@ namespace MedPark.Bookings
                 .SubscribeCommand<AddAppointment>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity")
                 .SubscribeEvent<CustomerCreated>(@namespace: "customers")
-                .SubscribeEvent<CustomerDetailsUpated>(@namespace: "customers");
+                .SubscribeEvent<CustomerDetailsUpated>(@namespace: "customers")
+                .SubscribeEvent<SpecialistDetailsUpdated>(@namespace: "medical-practice");
 
             app.UseMvcWithDefaultRoute();
         }

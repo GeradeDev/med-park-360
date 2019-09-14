@@ -6,75 +6,132 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<div class="mt-3">
-
-    <partial name="MedParkNotificationBanner" />
-
-    <div class="w-25 float-left user-details-container">
-
-        <div class="avatar-container">
-            <img class="img-avatar" src="@(!string.IsNullOrEmpty(Model.Avatar) ? Model.Avatar.ToLower() : "~/img/placeholder-avatar.png")" />
+<section class="page-section" id="customer-profile">
+    <div class="container">
+        <div class="row m-4">
+            <div class="col-lg-12 text-center">
+            </div>
         </div>
-
-        <div class="mt-4 user-details-container">
-
-            <h1>@Model.FirstName @Model.LastName</h1>
-
-            <div class="read-only-profile">
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <i class="fa fa-envelope mr-2"></i>
-                        <span>@Model.Email</span>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="@Model.Avatar" alt="">
+                    <h4>@Model.FirstName @Model.LastName</h4>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item col-sm-3 pl-0 text-center">
+                        <a class="nav-link shadow" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
                     </li>
-                    <li class="mb-2">
-                        <i class="fa fa-calendar mr-2"></i>
-                        <span>@(Model.Birthday.HasValue ? Model.Birthday.Value.ToShortDateString() : "")</span>
+                    <li class="nav-item col-sm-3 text-center">
+                        <a class="nav-link shadow" id="calendar-tab" data-toggle="pill" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">Calendar</a>
+                    </li>
+                    <li class="nav-item col-sm-3 text-center">
+                        <a class="nav-link shadow" id="orders-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+                    </li>
+                    <li class="nav-item col-sm-3 pr-0 text-center">
+                        <a class="nav-link shadow" id="contact-tab" data-toggle="pill" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
                     </li>
                 </ul>
+                <div class="tab-content shadow" id="myTabContent">
+                    <form id="customer-details-form">
+                        <!-- DEAILS TAB -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <h5 class="modal-title details-dividerd mb-3 text-center">Specialist Details</h5>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.LastName" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="SpecilaistCell" name="SpecilaistCell" placeholder="Cellphone Number" type="text" value="@Model.Mobile" data-bv-notempty="true" data-bv-notempty-message="Cellphone is required and cannot be empty">
+                                </div>
+                            </div>
+
+                            <div class="form-row d-flex justify-content-sm-end mr-3">
+                                <a class="btn btn-primary text-uppercase" href="#" id="btnUpdateSpecialist">Update</a>
+                            </div>
+
+                            <hr class="ml-5 mr-5" />
+
+                            <h5 class="modal-title details-dividerd mb-3 text-center">Practice Information</h5>
+                            <p>
+                                Below you are the details of the practice(s) you are linked to.
+                            </p>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <table class="table table-bordered med-park-table">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:45%">
+                                                    @Model.PracticeName
+                                                </td>
+                                                <td style="width:20%">
+                                                    @Model.PracticeTel
+                                                </td>
+                                                <td style="width:33%">
+                                                    <a href="mailto:@Model.PracticeEmail" target="_blank">@Model.PracticeEmail</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Appointments Tab -->
+                        <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+                            <table class="table table-bordered med-park-table" id="tblAppointments">
+                                <thead>
+                                    <tr>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Monday) ? "" : "hide")">Monday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Monday || DateTime.Today.DayOfWeek == DayOfWeek.Tuesday) ? "" : "hide")">Tuesday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Tuesday || DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ? "" : "hide")">Wednesday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Wednesday || DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ? "" : "hide")">Thursday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Thursday || DateTime.Today.DayOfWeek == DayOfWeek.Friday) ? "" : "hide")">Friday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Friday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday) ? "" : "hide")">Saturday</td>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday) ? "" : "hide")">Sunday</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                            <div class="text-center col-md-12">
+                                <a class="btn btn-primary text-uppercase" href="#" id="btnAddAppointment" data-toggle="modal" data-target="#addAppointmentModal">Book Appointment</a>
+                            </div>
+                        </div>
+
+                        <!-- Orders Tab -->
+                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+
+                        </div>
+
+                        <!-- Contatc Tab -->
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="edit-profile" style="display:none">
-                <ul class="list-unstyled list-details">
-                    <li class="mb-3">
-                        <i class="fa fa-user mr-2 float-left"></i>
-                        <input class="form-control" type="text" value="@Model.FirstName" placeholder="First Name" />
-                    </li>
-                    <li class="mb-3">
-                        <i class="fa fa-user mr-2 float-left"></i>
-                        <input class="form-control" type="text" value="@Model.LastName" placeholder="Last Name" />
-                    </li>
-                    <li class="mb-3">
-                        <i class="fa fa-envelope mr-2 float-left"></i>
-                        <input class="form-control" type="text" value="@Model.Email" placeholder="Email" />
-                    </li>
-                    <li class="mb-3">
-                        <i class="fa fa-calendar mr-2 float-left"></i>
-                        <input class="form-control" type="text" value="@(Model.Birthday.HasValue ? Model.Birthday.Value.ToShortDateString() : "")" placeholder="Date of Birth" />
-                    </li>
-                </ul>
-
-                <button class="btn btn-success mr-3" id="btnSaveProfile">Save</button>
-                <button class="btn btn-info" id="btnCancelSave">Cancel</button>
-            </div>
-
-            <button class="btn btn-primary" id="btnShowEdit">Edit</button>
-
         </div>
-
-        <br />
-
-        <div class="clearfix mt-4 user-details-container">
-
-            <h4>Addresses:</h4>
-
-        </div>
-
     </div>
+</section>
 
-    <div class="w-75 float-left'">
-        &nbsp;
+<script type="text/javascript">
+    var specialistId = "@Html.Raw(User.Claims.Where(x => x.Type == "identityid").FirstOrDefault().Value)";
+</script>
 
-    </div>
-
-</div>
-
+<script type="text/javascript" src="~/js/Specialist/profile.js"></script>

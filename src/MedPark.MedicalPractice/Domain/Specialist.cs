@@ -26,14 +26,17 @@ namespace MedPark.MedicalPractice.Domain
         public Boolean Active { get; private set; }
         public TimeSpan AppointmentDuration { get; private set; }
 
-        public void Create(string firstname, string surname, string email)
+        public void Create(string firstname, string surname, string email, string title = "Dr")
         {
-            Created = DateTime.Now;
-            Modified = DateTime.Now;
             FirstName = firstname;
             Surname = surname;
             Email = email;
-            Title = "Dr";
+            Title = title;
+        }
+
+        public void SetCellphone(string cell)
+        {
+            Cellphone = cell;
         }
 
         public void SignUp(Guid practiceId, bool isAdmin)

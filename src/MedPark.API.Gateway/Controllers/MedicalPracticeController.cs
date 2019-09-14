@@ -31,6 +31,14 @@ namespace MedPark.API.Gateway.Controllers
             return Ok(specialist);
         }
 
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateSpecialistDetails(UpdateSpecialistDetails command)
+        {
+            await _busPublisher.SendAsync(command, null);
+
+            return Accepted();
+        }
+
         [HttpGet("getregistrationotp/{otp}")]
         public async Task<IActionResult> GetRegistrationOtp(Int32 otp)
         {

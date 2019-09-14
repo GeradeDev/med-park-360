@@ -108,6 +108,7 @@ namespace MedPark.MedicalPractice
                 .SubscribeCommand<UpdatePendingRegistration>()
                 .SubscribeCommand<AddQualification>()
                 .SubscribeCommand<RemoveQualification>()
+                .SubscribeCommand<UpdateSpecialistDetails>()
                 .SubscribeCommand<LinkSpecialistAppointmentType>()
                 .SubscribeEvent<SpecialistSignedUp>(@namespace: "identity")
                 .SubscribeEvent<CustomerCreated>(@namespace: "customers")

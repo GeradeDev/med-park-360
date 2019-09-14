@@ -20,12 +20,12 @@ namespace MedPark.Bookings.Domain
         public string Cellphone { get; private set; }
         public Guid PracticeId { get; private set; }
 
-        public void Create(string firstname, string surname, string email)
+        public void Create(string firstname, string surname, string email, string title = "Dr")
         {
             FirstName = firstname;
             Surname = surname;
             Email = email;
-            Title = "Dr";
+            Title = title;
         }
 
         public void SignUp(Guid practiceId)
