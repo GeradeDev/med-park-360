@@ -5,6 +5,8 @@ $(document).ready(function () {
     $("#btnUpdateSpecialist").click(function () {
         UpdateSpecialistDetails();
     });
+
+    GetSpecialistAppointments();
 });
 
 
@@ -22,6 +24,65 @@ function UpdateSpecialistDetails() {
         }
     });
 }
+
+function GetSpecialistAppointments() {
+    $.ajax({
+        url: $medpark_api + "bookings/getspecialistappointments/" + specialistId,
+        success: function (result) {
+
+            $("#tblSpecialistBookings tbody").remove();
+
+            var today = _.filter(result.bookingDetails, function (e) {
+                return moment(e.scheduledDate).format("YYYY MM DD") === moment().format("YYYY MM DD");
+            });
+
+            var tomorrow = _.filter(result.bookingDetails, function (e) {
+                return moment(e.scheduledDate).format("YYYY MM DD") === moment().add(1, 'days').format("YYYY MM DD");
+            });
+
+            if (today.length === 0 && tomorrow.length === 0) {
+                $('#tblSpecialistBookings').append($('<tr>')
+                    .append($('<td>').append(NoAppointmentsForDay()))
+                    .append($('<td>').append(NoAppointmentsForDay())));
+            }
+            else if (today.length > 0 && tomorrow.length === 0) {
+                $('#tblSpecialistBookings').append($('<tr>')
+                    .append($('<td>').append(CreateAppointmentItem(today)))
+                    .append($('<td>').append(NoAppointmentsForDay())));
+            }
+            else if (today.length === 0 && tomorrow.length > 0) {
+                $('#tblSpecialistBookings').append($('<tr>')
+                    .append($('<td>').append(NoAppointmentsForDay()))
+                    .append($('<td>').append(CreateAppointmentItem(tomorrow))));
+            }
+            else {
+                $('#tblSpecialistBookings').append($('<tr>')
+                    .append($('<td>').append(CreateAppointmentItem(today)))
+                    .append($('<td>').append(CreateAppointmentItem(tomorrow))));
+            }
+
+            $(".booked-app").click(function (sender) {
+                LoadAppointmentDetails($(this).attr("appid"));
+                $("#tblSpecialistBookings").modal("show");
+            });
+        }
+    });
+}
+
+function CreateAppointmentItem(dayAppointments) {
+    var item = "";
+
+    for (var i = 0; i < dayAppointments.length; i++) {
+        item = '<div class="p-2 shadow-sm rounded d-block mb-2 booked-app" appid="' + dayAppointments[i].id + '">' + dayAppointments[i].firstName + " " + dayAppointments[i].lastName + " - " + moment(moment.utc(dayAppointments[i].scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a') + '</div>';
+    }
+
+    return item;
+}
+
+function NoAppointmentsForDay() {
+    return '<div class="p-2 shadow-sm rounded d-block mb-2">No appointment(s) scheduled for today</div>';
+}
+
 
 function SpecialistDetails() {
     this.Id = specialistId;

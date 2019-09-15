@@ -16,27 +16,39 @@ namespace MedPark.Bookings.Handlers.Bookings
     {
         private IMedParkRepository<Appointment> _bookingsRepo;
         private IMedParkRepository<Specialist> _specialistRepo;
+        private IMedParkRepository<Customer> _patientRepo;
         private IMapper _mapper;
 
-        public SpecialistAppointmentsQueryHandler(IMedParkRepository<Appointment> bookingsRepo, IMedParkRepository<Specialist> specialistRepo, IMapper mapper)
+        public SpecialistAppointmentsQueryHandler(IMedParkRepository<Appointment> bookingsRepo, IMedParkRepository<Specialist> specialistRepo, IMapper mapper, IMedParkRepository<Customer> patientRepo)
         {
             _bookingsRepo = bookingsRepo;
             _specialistRepo = specialistRepo;
             _mapper = mapper;
+            _patientRepo = patientRepo;
         }
 
         public async Task<SpecialistAppointmentsDto> HandleAsync(AppointmentQuery query)
         {
             Specialist doctor = await _specialistRepo.GetAsync(query.SpecialistId);
-            IEnumerable<Appointment> bookings = await _bookingsRepo.FindAsync(x => x.PatientId == query.SpecialistId);
 
             if (doctor is null)
                 throw new MedParkException("bookings_specialist_does_not_exist", $"Specialist with Id {query.SpecialistId} does not exist.");
 
-            SpecialistAppointmentsDto result = new SpecialistAppointmentsDto()
+            IEnumerable<Appointment> bookings = await _bookingsRepo.FindAsync(x => x.SpecialistId == query.SpecialistId && x.ScheduledDate >= DateTime.Today.Date);
+
+            SpecialistAppointmentsDto result = new SpecialistAppointmentsDto();
+            result.SpecialisttDetails = _mapper.Map<SpecialistDto>(doctor);
+
+
+            foreach (var b in bookings)
             {
-                SpecialisttDetails = _mapper.Map<SpecialistDto>(doctor),
-                BookingDetails = _mapper.Map<List<AppointmentDto>>(bookings)
+                Customer patient = await _patientRepo.GetAsync(b.PatientId);
+
+                SpecialistAppointmentDto app = _mapper.Map<SpecialistAppointmentDto>(patient);
+                app.PatientId = patient.Id;
+                app.ScheduledDate = b.ScheduledDate;
+
+                result.BookingDetails.Add(app);
             };
 
             return result;
