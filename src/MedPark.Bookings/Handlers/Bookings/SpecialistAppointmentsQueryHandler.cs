@@ -34,7 +34,7 @@ namespace MedPark.Bookings.Handlers.Bookings
             if (doctor is null)
                 throw new MedParkException("bookings_specialist_does_not_exist", $"Specialist with Id {query.SpecialistId} does not exist.");
 
-            IEnumerable<Appointment> bookings = await _bookingsRepo.FindAsync(x => x.SpecialistId == query.SpecialistId && x.ScheduledDate >= DateTime.Today.Date);
+            IEnumerable<Appointment> bookings = await _bookingsRepo.FindAsync(x => x.SpecialistId == query.SpecialistId && x.ScheduledDate >= DateTime.Today);
 
             SpecialistAppointmentsDto result = new SpecialistAppointmentsDto();
             result.SpecialisttDetails = _mapper.Map<SpecialistDto>(doctor);
@@ -45,6 +45,7 @@ namespace MedPark.Bookings.Handlers.Bookings
                 Customer patient = await _patientRepo.GetAsync(b.PatientId);
 
                 SpecialistAppointmentDto app = _mapper.Map<SpecialistAppointmentDto>(patient);
+                app.Id = b.Id;
                 app.PatientId = patient.Id;
                 app.ScheduledDate = b.ScheduledDate;
 

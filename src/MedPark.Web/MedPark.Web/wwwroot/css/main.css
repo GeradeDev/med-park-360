@@ -577,3 +577,6 @@ ul.social-buttons {
 
 .details-divider {
   color: #212529; }
+
+.modal-xl {
+  max-width: 65% !important; }

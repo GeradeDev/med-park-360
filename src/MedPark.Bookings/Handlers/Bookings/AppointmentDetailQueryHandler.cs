@@ -48,6 +48,7 @@ namespace MedPark.Bookings.Handlers.Bookings
 
             PracticeDto practDetails = await _specialistServ.GetPracticeDetails(specialist.PracticeId);
             PracticeAddressDTO practiceAddr = await _specialistServ.GetSpecialistAddress(specialist.PracticeId);
+            SpecialistAppointmentTypesDTO appType = await _specialistServ.GetAppointmentTypeDetails(app.AppointmentType);
 
             result = _mapper.Map<AppointmentDetailDto>(app);
 
@@ -55,6 +56,8 @@ namespace MedPark.Bookings.Handlers.Bookings
             result.Address = practiceAddr;
             result.SpecialistName = specialist.FirstName + " " + specialist.Surname;
             result.SpecialistTitle = specialist.Title;
+
+            result.AppointmentType = (appType.TypesLinkedToSpecilaist.Count > 0 ? appType.TypesLinkedToSpecilaist.FirstOrDefault().Name : "");
 
             //Get Medcical scheme details for appointment
             AcceptedMedicalSchemeDTO scheme;
@@ -65,8 +68,6 @@ namespace MedPark.Bookings.Handlers.Bookings
                 result.MedicalScheme = scheme.SchemeName;
                 result.MedicalAidMembershipNo = app.MedicalAidMembershipNo;
             }
-
-
 
             return result;
         }

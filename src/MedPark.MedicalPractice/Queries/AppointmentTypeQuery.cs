@@ -10,5 +10,6 @@ namespace MedPark.MedicalPractice.Queries
     public class AppointmentTypeQuery : IQuery<List<AppointmentTypeDTO>>, IQuery<SpecialistAppointmentTypesDTO>
     {
         public Guid SpecialistId { get; set; }
+        public Guid AppointmentTypeId { get; set; }
     }
 }
