@@ -34,6 +34,12 @@ namespace MedPark.MedicalPractice.Controllers
             return Ok(await _dispatcher.QueryAsync<SpecialistAppointmentTypesDTO>(query));
         }
 
+        [HttpGet("getbyid/{appointmenttypeid}")]
+        public async Task<IActionResult> GetById([FromRoute] AppointmentTypeQuery query)
+        {
+            return Ok(await _dispatcher.QueryAsync<SpecialistAppointmentTypesDTO>(query));
+        }
+
         [HttpGet("getSpecialistByAppointment/{appointmenttypeid}")]
         public async Task<IActionResult> GetSpecialistByAppointmentType([FromRoute] SpecialistsLinkedToAppointmentTypeQuery query)
         {

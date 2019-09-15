@@ -243,7 +243,7 @@ function LoadAppointmentDetails(appId) {
             $(".loader").hide();
             $("#h4SpecialistName").text(result.specialistTitle + " " + result.specialistName + " " + result.specialistSurname);
 
-            $("#lblAppType").text(result.specialistEmail);
+            $("#lblAppType").text(result.appointmentType);
             $("#lblSchemeName").text(result.medicalScheme + " - " + result.medicalAidMembershipNo);
             $("#lblAppDate").text(moment(moment.utc(result.scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a'));
             $("#txtAppComments").text(result.comment);

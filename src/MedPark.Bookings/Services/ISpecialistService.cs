@@ -19,5 +19,8 @@ namespace MedPark.Bookings.Services
         [Get("/practice/{id}")]
         Task<PracticeDto> GetPracticeDetails([Path] Guid id);
 
+        [Get("/appointmenttype/getbyid/{appointmenttypeid}")]
+        Task<SpecialistAppointmentTypesDTO> GetAppointmentTypeDetails([Path] Guid appointmenttypeid);
+
     }
 }

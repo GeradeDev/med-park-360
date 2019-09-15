@@ -63,7 +63,7 @@ function GetSpecialistAppointments() {
 
             $(".booked-app").click(function (sender) {
                 LoadAppointmentDetails($(this).attr("appid"));
-                $("#tblSpecialistBookings").modal("show");
+                $("#appointmentDetail").modal("show");
             });
         }
     });
@@ -81,6 +81,27 @@ function CreateAppointmentItem(dayAppointments) {
 
 function NoAppointmentsForDay() {
     return '<div class="p-2 shadow-sm rounded d-block mb-2">No appointment(s) scheduled for today</div>';
+}
+
+function LoadAppointmentDetails(appId) {
+    $.ajax({
+        url: $medpark_api + "bookings/" + appId + "/details/",
+        success: function (result) {
+
+            $(".loader").hide();
+            $("#h4SpecialistName").text(result.specialistTitle + " " + result.specialistName + " " + result.specialistSurname);
+
+            $("#lblAppType").text(result.appointmentType);
+            $("#lblSchemeName").text(result.medicalScheme + " - " + result.medicalAidMembershipNo);
+            $("#lblAppDate").text(moment(moment.utc(result.scheduledDate).toDate()).format('MMMM Do YYYY, h:mm:ss a'));
+            $("#txtAppComments").text(result.comment);
+
+            $("#lblSpecilaistName").text(result.specialistName + " " + result.specialistSurname);
+            $("#lblPracticeName").text(result.practice.practiceName);
+            $("#lblPracticeContactNo").text(result.specialistTel);
+            $("#lblSpecialistEmail").text(result.specialistEmail);
+        }
+    });
 }
 
 

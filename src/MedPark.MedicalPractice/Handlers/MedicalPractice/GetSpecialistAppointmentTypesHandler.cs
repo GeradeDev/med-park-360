@@ -29,23 +29,33 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
 
         public async Task<SpecialistAppointmentTypesDTO> HandleAsync(AppointmentTypeQuery query)
         {
-            var linkedAppointmentTypes = await _acceptedAppointmentTypeRepo.FindAsync(x => x.SpecialistId == query.SpecialistId);
+            SpecialistAppointmentTypesDTO dto = new SpecialistAppointmentTypesDTO();
 
-            var specialist = await _specialistRepo.GetAsync(query.SpecialistId);
-
-            if (specialist is null)
-                throw new MedParkException("specialist_does_not_Exist", $"The specialist {query.SpecialistId} does not exists.");
-
-            SpecialistAppointmentTypesDTO dto = new SpecialistAppointmentTypesDTO
+            if (query.SpecialistId != Guid.Empty)
             {
-                SpecialistId = query.SpecialistId,
-                SpecialistName = specialist.FirstName + " " + specialist.Surname,
-            };
 
-            var ids = linkedAppointmentTypes.ToList().Select(x => x.Id).ToList();
-            IEnumerable<AppointmentType> appTypes = await _appointmentTypeRepo.FindAsync(x => ids.Contains(x.Id));
+                var linkedAppointmentTypes = await _acceptedAppointmentTypeRepo.FindAsync(x => x.SpecialistId == query.SpecialistId);
 
-            dto.TypesLinkedToSpecilaist.AddRange(_mapper.Map<List<AppointmentTypeDTO>>(appTypes));
+                var specialist = await _specialistRepo.GetAsync(query.SpecialistId);
+
+                if (specialist is null)
+                    throw new MedParkException("specialist_does_not_Exist", $"The specialist {query.SpecialistId} does not exists.");
+
+
+                dto.SpecialistId = query.SpecialistId;
+                dto.SpecialistName = specialist.FirstName + " " + specialist.Surname;
+
+                var ids = linkedAppointmentTypes.ToList().Select(x => x.Id).ToList();
+                IEnumerable<AppointmentType> appTypes = await _appointmentTypeRepo.FindAsync(x => ids.Contains(x.Id));
+
+                dto.TypesLinkedToSpecilaist.AddRange(_mapper.Map<List<AppointmentTypeDTO>>(appTypes));
+            }
+            else if (query.AppointmentTypeId != Guid.Empty)
+            {
+                AppointmentType appType = await _appointmentTypeRepo.GetAsync(x => x.Id == query.AppointmentTypeId);
+
+                dto.TypesLinkedToSpecilaist.Add(_mapper.Map<AppointmentTypeDTO>(appType));
+            }
 
             return dto;
         }
