@@ -93,25 +93,21 @@
 
                         <!-- Appointments Tab -->
                         <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
-                            <table class="table table-bordered med-park-table" id="tblAppointments">
+                            <table class="table table-bordered med-park-table" id="tblSpecialistBookings">
                                 <thead>
                                     <tr>
+                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday) ? "" : "hide")">Sunday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Monday) ? "" : "hide")">Monday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Monday || DateTime.Today.DayOfWeek == DayOfWeek.Tuesday) ? "" : "hide")">Tuesday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Tuesday || DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ? "" : "hide")">Wednesday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Wednesday || DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ? "" : "hide")">Thursday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Thursday || DateTime.Today.DayOfWeek == DayOfWeek.Friday) ? "" : "hide")">Friday</td>
                                         <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Friday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday) ? "" : "hide")">Saturday</td>
-                                        <td class="width: 50% @((DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday) ? "" : "hide")">Sunday</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
-
-                            <div class="text-center col-md-12">
-                                <a class="btn btn-primary text-uppercase" href="#" id="btnAddAppointment" data-toggle="modal" data-target="#addAppointmentModal">Book Appointment</a>
-                            </div>
                         </div>
 
                         <!-- Orders Tab -->
