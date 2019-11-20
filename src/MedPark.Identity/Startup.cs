@@ -82,7 +82,7 @@ namespace MedPark.Identity
              .AddDeveloperSigningCredential(true);
 
 
-            SeedData.EnsureSeedData(services.BuildServiceProvider());
+            //SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

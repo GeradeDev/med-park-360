@@ -45,7 +45,7 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
                 dto.SpecialistId = query.SpecialistId;
                 dto.SpecialistName = specialist.FirstName + " " + specialist.Surname;
 
-                var ids = linkedAppointmentTypes.ToList().Select(x => x.Id).ToList();
+                var ids = linkedAppointmentTypes.ToList().Select(x => x.AppointmentTypeId).ToList();
                 IEnumerable<AppointmentType> appTypes = await _appointmentTypeRepo.FindAsync(x => ids.Contains(x.Id));
 
                 dto.TypesLinkedToSpecilaist.AddRange(_mapper.Map<List<AppointmentTypeDTO>>(appTypes));

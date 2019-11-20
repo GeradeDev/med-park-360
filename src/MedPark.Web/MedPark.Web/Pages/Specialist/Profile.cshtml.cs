@@ -19,12 +19,8 @@ namespace MedPark.Web.Pages.Specialist
         private IMedParcticeService _medPracServ { get; }
 
         Guid LoggedInGuid { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Mobile { get; set; }
-        public DateTime? Birthday { get; set; }
-        public string Email { get; set; }
-        public string Avatar { get; set; }
+
+        public SpecialistDto SpecialistDetails { get; set; }
 
         public string PracticeName { get; set; }
         public string PracticeEmail { get; set; }
@@ -39,18 +35,12 @@ namespace MedPark.Web.Pages.Specialist
         {
             var user = _appUserParser.Parse(HttpContext.User);
 
-            SpecialistDto specialist = await _medPracServ.GetSpecialistDetails(user.IdentityId);
+            SpecialistDetails = await _medPracServ.GetSpecialistDetails(user.IdentityId);
 
-            FirstName = specialist.FirstName;
-            LastName = specialist.Surname;
-            Email = specialist.Email;
-            Avatar = specialist.Avatar;
-            Mobile = specialist.Cellphone;
+            if (string.IsNullOrEmpty(SpecialistDetails.Avatar))
+                SpecialistDetails.Avatar = SpecialistDetails.Email.GetAvatar();
 
-            if (string.IsNullOrEmpty(Avatar))
-                Avatar = Email.GetAvatar();
-
-            PracticeDto practice = await _medPracServ.GetPracticeDetails(specialist.PracticeId);
+            PracticeDto practice = await _medPracServ.GetPracticeDetails(SpecialistDetails.PracticeId);
 
             PracticeName = practice.PracticeName;
             PracticeEmail = practice.Email;

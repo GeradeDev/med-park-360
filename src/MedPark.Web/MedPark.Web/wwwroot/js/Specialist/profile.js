@@ -6,6 +6,8 @@ $(document).ready(function () {
         UpdateSpecialistDetails();
     });
 
+    LoadAppointmentTypes();
+
     GetSpecialistAppointments();
 });
 
@@ -104,6 +106,30 @@ function LoadAppointmentDetails(appId) {
     });
 }
 
+function LoadAppointmentTypes() {
+    $.ajax({
+        url: $medpark_api + "specialist/appointmenttypes/",
+        success: function (result) {
+            appointmentTypes = result;
+
+            $.each(appointmentTypes, function (key, value) {
+                $("#ddlAppointmentType").append(new Option(value.name, value.id));
+            });
+
+            LoadLinkedAppointmentTypes();
+        }
+    });
+}
+
+function LoadLinkedAppointmentTypes() {
+    $.ajax({
+        url: $medpark_api + "specialist/appointmenttypes/" + specialistId,
+        success: function (result) {
+            if (result.typesLinkedToSpecilaist.length > 0)
+                $("#ddlAppointmentType").val(result.typesLinkedToSpecilaist[0].id);
+        }
+    });
+}
 
 function SpecialistDetails() {
     this.Id = specialistId;
@@ -111,4 +137,5 @@ function SpecialistDetails() {
     this.Surname = $("#LastName").val();
     this.Email = $("#Email").val();
     this.Cellphone = $("#SpecilaistCell").val();
+    this.Title = $("#Title").val();
 }

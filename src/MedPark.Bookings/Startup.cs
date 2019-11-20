@@ -50,7 +50,7 @@ namespace MedPark.Bookings
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDefaultEndpoint<ISpecialistService>("med-practice-service");
 
-            SeedData.EnsureSeedData(services.BuildServiceProvider());
+            //SeedData.EnsureSeedData(services.BuildServiceProvider());
 
             var builder = new ContainerBuilder();
 

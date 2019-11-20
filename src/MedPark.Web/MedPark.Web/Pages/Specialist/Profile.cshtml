@@ -15,8 +15,8 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="@Model.Avatar" alt="">
-                    <h4>@Model.FirstName @Model.LastName</h4>
+                    <img class="mx-auto rounded-circle" src="@Model.SpecialistDetails.Avatar" alt="">
+                    <h4>@Model.SpecialistDetails.FirstName @Model.SpecialistDetails.Surname</h4>
                 </div>
             </div>
             <div class="col-md-9">
@@ -42,19 +42,30 @@
 
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Title" name="Title" placeholder="Title" type="text" value="@Model.SpecialistDetails.Title" data-bv-notempty="true" data-bv-notempty-message="Specialist title is required and cannot be empty">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.LastName" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
+                                    <select class="form-control" id="ddlAppointmentType">
+                                        <option value="">Select Speciality</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="FirstName" name="FirstName" placeholder="First name" type="text" value="@Model.SpecialistDetails.FirstName" data-bv-notempty="true" data-bv-notempty-message="First Name is required and cannot be empty">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="SpecilaistCell" name="SpecilaistCell" placeholder="Cellphone Number" type="text" value="@Model.Mobile" data-bv-notempty="true" data-bv-notempty-message="Cellphone is required and cannot be empty">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="LastName" name="LastName" placeholder="Last name" type="text" value="@Model.SpecialistDetails.Surname" data-bv-notempty="true" data-bv-notempty-message="Last Name is required and cannot be empty">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="Email" name="Email" placeholder="Email address" type="text" value="@Model.SpecialistDetails.Email" data-bv-notempty="true" data-bv-notempty-message="Email is required and cannot be empty">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input class="form-control form-control-md border shadow-sm " data-val="true" id="SpecilaistCell" name="SpecilaistCell" placeholder="Cellphone Number" type="text" value="@Model.SpecialistDetails.Cellphone" data-bv-notempty="true" data-bv-notempty-message="Cellphone is required and cannot be empty">
                                 </div>
                             </div>
 

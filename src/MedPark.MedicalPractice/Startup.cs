@@ -83,7 +83,7 @@ namespace MedPark.MedicalPractice
             {
                 app.UseDeveloperExceptionPage();
 
-                SeedData.EnsureSeedData(serviceProvider);
+                //SeedData.EnsureSeedData(serviceProvider);
             }
             else
             {

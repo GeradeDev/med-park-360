@@ -63,7 +63,7 @@ namespace MedPark.Payment
             {
                 app.UseDeveloperExceptionPage();
 
-                SeedData.EnsureSeedData(servProvider);
+                //SeedData.EnsureSeedData(servProvider);
             }
             else
             {

@@ -83,11 +83,8 @@ namespace MedPark.Bookings.Domain
         {
             base.Use();
 
-            if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(SpecialistInitials) || string.IsNullOrEmpty(SpecialistSurname) || string.IsNullOrEmpty(SpecialistTel) || string.IsNullOrEmpty(SpecialistEmail))
+            if (string.IsNullOrEmpty(SpecialistId.ToString()) || string.IsNullOrEmpty(PatientId.ToString()))
                 throw new MedParkException("add_appointment_specialist_deatils_cannot_be_null", "Specialist details cannot be null.");
-
-            if (string.IsNullOrEmpty(PatientName) || string.IsNullOrEmpty(PatientSurname) || string.IsNullOrEmpty(PatientEmail) || string.IsNullOrEmpty(PatientMobile))
-                throw new MedParkException("add_appointment_customer_deatils_cannot_be_null", "Customer details cannot be null.");
         }
     }
 }

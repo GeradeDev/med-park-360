@@ -59,7 +59,7 @@ namespace MedPark.API.Gateway.Services
         [Get("/appointmenttype/")]
         Task<List<AppointmentTypeDTO>> GetAllAppointmentTypes();
         
-        [Get("/appointmenttype/{specialistid}")]
+        [Get("/appointmenttype/getBySpecialist/{specialistid}")]
         Task<SpecialistAppointmentTypesDTO> GetAppointmentTypesBySpecialistId([Path] Guid specialistid);
 
         [Get("/appointmenttype/getSpecialistByAppointment/{appointmenttypeid}")]
