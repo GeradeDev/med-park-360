@@ -21,6 +21,7 @@ namespace MedPark.Web.Pages.Specialist
         Guid LoggedInGuid { get; set; }
 
         public SpecialistDto SpecialistDetails { get; set; }
+        public PracticeDto PracticeDetails { get; set; }
 
         public string PracticeName { get; set; }
         public string PracticeEmail { get; set; }
@@ -40,11 +41,7 @@ namespace MedPark.Web.Pages.Specialist
             if (string.IsNullOrEmpty(SpecialistDetails.Avatar))
                 SpecialistDetails.Avatar = SpecialistDetails.Email.GetAvatar();
 
-            PracticeDto practice = await _medPracServ.GetPracticeDetails(SpecialistDetails.PracticeId);
-
-            PracticeName = practice.PracticeName;
-            PracticeEmail = practice.Email;
-            PracticeTel = practice.TelephonePrimary;
+            PracticeDetails = await _medPracServ.GetPracticeDetails(SpecialistDetails.PracticeId);
 
             return Page();
         }

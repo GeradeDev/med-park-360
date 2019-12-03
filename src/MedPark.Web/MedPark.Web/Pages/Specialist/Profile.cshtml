@@ -86,13 +86,20 @@
                                         <tbody>
                                             <tr>
                                                 <td style="width:45%">
-                                                    @Model.PracticeName
+                                                    @if (Model.SpecialistDetails.IsAdmin)
+                                                    {
+                                                        <a class="prac-details" data-target="#practiceDetail" data-toggle="modal" href="#" practice-id="@Model.PracticeDetails.Id">@Model.PracticeDetails.PracticeName</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        @Model.PracticeDetails.PracticeName
+                                                    }
                                                 </td>
                                                 <td style="width:20%">
-                                                    @Model.PracticeTel
+                                                    @Model.PracticeDetails.TelephonePrimary
                                                 </td>
                                                 <td style="width:33%">
-                                                    <a href="mailto:@Model.PracticeEmail" target="_blank">@Model.PracticeEmail</a>
+                                                    <a href="mailto:@Model.PracticeDetails.Email" target="_blank">@Model.PracticeDetails.Email</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -211,7 +218,129 @@
             </div>
         </div>
 
-    </div>
+        <div class="modal fade" id="practiceDetail" tabindex="-1" role="dialog" aria-modal="true" data-backdrop="static">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="routeModalTitle">Practice Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <div class="team-member appointment-detail">
+                                    <img class="mx-auto rounded-circle" src="~/img/placeholder-avatar.png" alt="">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <input class="form-control form-control-md border shadow-sm " data-val="true" id="PracName" name="PracName" placeholder="Practice Name" type="text" data-bv-notempty="true" data-bv-notempty-message="Practice Name is required and cannot be empty">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <input class="form-control form-control-md border shadow-sm " data-val="true" id="PracEmail" name="PracEmail" placeholder="Email" type="text" data-bv-notempty="true" data-bv-notempty-message="Practice email is required and cannot be empty">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <input class="form-control form-control-md border shadow-sm " data-val="true" id="PPhone" name="PPhone" placeholder="Primary Contact" type="text" data-bv-notempty="true" data-bv-notempty-message="Primary contact is required and cannot be empty">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <input class="form-control form-control-md border shadow-sm " id="SPhone" name="SPhone" placeholder="Secondary Contact" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <input class="form-control form-control-md border shadow-sm " id="Website" name="Website" placeholder="Website" type="text">
+                                    </div>
+                                </div>
+
+                                <h5 class="modal-title details-dividerd mb-3">Practice Operating Hours</h5>
+
+                                <div class="hours-container">
+
+                                </div>
+                                <div class="update-hours">
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-6 monday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Monday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsMonOpen" name="HrsMonOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 monday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Monday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsMonClose" name="HrsMonClose" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 tuesday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Tuesday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsTueOpen" name="HrsTueOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 tuesday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Tuesday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsTueClose" name="HrsTueClose" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 wednesday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Wednesday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsWedOpen" name="HrsWedOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 wednesday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Wednesday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsWedClose" name="HrsWedClosen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 thursday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Thursday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsThuOpen" name="HrsThuOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 thursday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Thursday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsThuClose" name="HrsThuClose" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 friday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Friday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsFriOpen" name="HrsFriOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 friday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Friday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsFriClose" name="HrsFriClose" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 saturday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Saturday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsSatnOpen" name="HrsSatnOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 saturday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Saturday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsSatClose" name="HrsSatClose" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 sunday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Sunday Open</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsSunOpen" name="HrsSunOpen" type="time">
+                                        </div>
+                                        <div class="form-group col-sm-6 sunday-hours hide">
+                                            <label class="font-weight-bold set-operating-hour">Sunday Close</label>
+                                            <input class="form-control form-control-md border shadow-sm" id="hrsSunClose" name="HrsSunClose" type="time">
+                                        </div>
+                                    </div>
+                                    <div class="form-row d-flex justify-content-sm-end mr-3">
+                                        <a class="btn btn-primary text-uppercase" href="#" id="btnDoneHourUpdate" style="display:none;">Done</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-row d-flex justify-content-sm-end mt-3 mr-3">
+                                    <a class="btn btn-primary text-uppercase" href="#" id="btnSubmitPracticeUpdate">Submit Update</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 </section>
 
 <script type="text/javascript">

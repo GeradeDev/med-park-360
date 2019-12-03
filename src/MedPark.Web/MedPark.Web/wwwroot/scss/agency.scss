@@ -130,3 +130,21 @@
 .modal-xl {
     max-width: 65% !important;
 }
+
+.operating-hour {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #0056b3;
+    font-size: 10px;
+
+    &:hover, &:focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        color: #0056b3;
+        font-size: 10px;
+    }
+}
+
+.set-operating-hour{
+    font-size:11px !important;
+}
