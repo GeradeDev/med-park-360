@@ -26,7 +26,7 @@ steps:
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
-    script: 'dotnet tool install --global dotnet-ef'
+    script: 'dotnet tool install --global dotnet-ef --version 2.2.2'
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
