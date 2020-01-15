@@ -61,6 +61,7 @@ steps:
     repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile.multistage'
+    tags: 'dev'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
