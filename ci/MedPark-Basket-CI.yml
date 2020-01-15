@@ -42,7 +42,13 @@ steps:
     command: 'build'
     projects: '$(basket-proj-path)'
     arguments: '-c Release'
-    
+  enabled: false
+
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile.multistage'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
