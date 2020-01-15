@@ -25,7 +25,7 @@ steps:
   displayName: 'Generate DB migration script for MedPark.Basket'
   inputs:
     command: custom
-    custom: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)\sql\MedPark.Basket_DB_Migrations.sql'
+    custom: 'ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)\sql\MedPark.Basket_DB_Migrations.sql'
 
 - task: DotNetCoreCLI@2
   inputs:
