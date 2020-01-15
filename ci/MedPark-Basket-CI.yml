@@ -33,3 +33,9 @@ steps:
     command: 'build'
     projects: '$(basket-proj-path)'
     arguments: '-c Release'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)
+    publishLocation: 
