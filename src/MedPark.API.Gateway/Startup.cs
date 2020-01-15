@@ -22,17 +22,92 @@ namespace MedPark.API.Gateway
 {
     public class Startup
     {
-        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
+        IHostingEnvironment _env;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            services.AddCustomAPIVersioning()
+                    .AddCustomCors()
+                    .AddRestEaseServices();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var builder = new ContainerBuilder();
+
+            builder.Populate(services);
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
+            builder.AddServiceBus(_env);
+
+            Container = builder.Build();
+
+            return new AutofacServiceProvider(Container);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseRabbitMq();
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseRabbitMq();
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseCors("CorsPolicy");
+
+            app.UseHttpsRedirection();
+            app.UseMvc();
+        }
+    }
+
+
+
+    static class CustomExtensionsMethods
+    {
+        private static readonly string[] Headers = new[] { "X-Operation", "X-Resource", "X-Total-Count" };
+
+        public static IServiceCollection AddRestEaseServices(this IServiceCollection services)
+        {
+            services.AddDefaultEndpoint<ICustomerService>("customer-service");
+            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
+            services.AddDefaultEndpoint<IBookingService>("booking-service");
+            services.AddDefaultEndpoint<ICatalogService>("catalog-service");
+            services.AddDefaultEndpoint<IBasketService>("basket-service");
+            services.AddDefaultEndpoint<IOrderService>("order-service");
+            services.AddDefaultEndpoint<IPaymentService>("payment-service");
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .WithExposedHeaders(Headers));
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomAPIVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
             {
@@ -51,53 +126,23 @@ namespace MedPark.API.Gateway
                 options.Conventions.Controller<PaymentController>().HasApiVersion(new ApiVersion(1, 0));
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", cors =>
-                        cors.AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .WithExposedHeaders(Headers));
-            });
-
-            services.AddDefaultEndpoint<ICustomerService>("customer-service");
-            services.AddDefaultEndpoint<IMedicalPracticeService>("med-practice-service");
-            services.AddDefaultEndpoint<IBookingService>("booking-service");
-            services.AddDefaultEndpoint<ICatalogService>("catalog-service");
-            services.AddDefaultEndpoint<IBasketService>("basket-service");
-            services.AddDefaultEndpoint<IOrderService>("order-service");
-            services.AddDefaultEndpoint<IPaymentService>("payment-service");
-
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
-            builder.AddRabbitMq();
-
-            Container = builder.Build();
-
-            return new AutofacServiceProvider(Container);
+            return services;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public static void AddServiceBus(this ContainerBuilder builder, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //Use RabbitMq for messaging in development
+                builder.AddRabbitMq();
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //Use RabbitMq for messaging in development
+                builder.AddRabbitMq();
             }
-
-            app.UseCors("CorsPolicy");
-            app.UseRabbitMq();
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
         }
+
+
     }
 }

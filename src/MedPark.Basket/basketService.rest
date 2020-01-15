@@ -1,16 +1,15 @@
-@apiUrl = http://localhost:62683/api/basket
+@apiUrl = https://localhost:44308/api/basket
 @customerId = 888E9C20-0401-4D6B-BC39-4F5F203C8A5A
 @basketId = 4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1
 
 
 ### Create new customer basket
 POST {{apiUrl}}/createbasket
-
 Content-Type: application/json
 
 {
-  "basketId": "{{basketId}}",
-  "buyerId": "{{customerId}}"
+  "basketId": "888E9C20-0401-4D6B-BC39-4F5F203C8A5A",
+  "buyerId": "4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1"
 }
 
 

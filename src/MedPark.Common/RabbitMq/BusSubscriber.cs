@@ -184,6 +184,10 @@ namespace MedPark.Common.RabbitMq
 
             var separatedNamespace = string.IsNullOrWhiteSpace(@namespace) ? string.Empty : $"{@namespace}.";
 
+            string nm = (string.IsNullOrWhiteSpace(name)
+                ? $"{Assembly.GetEntryAssembly().GetName().Name}/{separatedNamespace}{typeof(T).Name.Underscore()}"
+                : $"{name}/{separatedNamespace}{typeof(T).Name.Underscore()}").ToLowerInvariant();
+
             return (string.IsNullOrWhiteSpace(name)
                 ? $"{Assembly.GetEntryAssembly().GetName().Name}/{separatedNamespace}{typeof(T).Name.Underscore()}"
                 : $"{name}/{separatedNamespace}{typeof(T).Name.Underscore()}").ToLowerInvariant();
