@@ -28,11 +28,13 @@ steps:
   displayName: 'Restore NuGet packages for project'
   inputs:
     restoreSolution: '$(basket-proj-path)'
+  enabled: false
 
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
     script: 'dotnet tool install --global dotnet-ef --version 2.2.0'
+  enabled: false
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
@@ -61,7 +63,7 @@ steps:
     containerRegistry: 'docker-hub-connection'
     repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile.multistage'
+    Dockerfile: '**/src/MedPark.Basket/Dockerfile.multistage'
     tags: 'dev'
 
 - task: PublishBuildArtifacts@1
