@@ -46,6 +46,8 @@ steps:
 
 - task: Docker@2
   inputs:
+    containerRegistry: 'docker-hub-connection'
+    repository: 'medpark-basket'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile.multistage'
 
