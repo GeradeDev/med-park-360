@@ -25,4 +25,4 @@ steps:
   inputs:
     command: 'build'
     projects: '$(basket-proj-path)'
-    arguments: '$(buildConfiguration)'
+    arguments: '-c Release'
