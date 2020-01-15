@@ -52,6 +52,7 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
+    arguments: '-u geradedev -p ODEduhM6SERp1OzeCvgL'
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
