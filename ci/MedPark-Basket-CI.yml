@@ -60,7 +60,6 @@ steps:
     repository: 'medpark-basket'
     command: 'buildAndPush'
     Dockerfile: 'src\MedPark.Basket\Dockerfile.multistage'
-    buildContext: 'src\MedPark.Basket\'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
