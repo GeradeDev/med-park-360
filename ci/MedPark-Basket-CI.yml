@@ -42,7 +42,6 @@ steps:
     command: 'build'
     projects: '$(basket-proj-path)'
     arguments: '-c Release'
-  enabled: false
     
 - task: PublishBuildArtifacts@1
   inputs:
