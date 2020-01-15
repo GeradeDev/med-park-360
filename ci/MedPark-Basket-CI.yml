@@ -23,11 +23,10 @@ steps:
     restoreSolution: '$(basket-proj-path)'
   enabled: false
 
-- task: DotNetCoreCLI@2
+- task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
-    command: custom
-    custom: 'tool install --global dotnet-ef'
+    script: 'dotnet tool install --global dotnet-ef'
 
 - task: DotNetCoreCLI@2
   displayName: 'Generate DB migration script for MedPark.Basket'
