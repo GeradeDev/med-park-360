@@ -16,28 +16,32 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  enabled: false
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(basket-proj-path)'
+  enabled: false
 
 - task: DotNetCoreCLI@2
   displayName: 'Install Dotnet Tools'
   inputs:
     command: custom
-    custom: 'dotnet tool install --global dotnet-ef'
+    custom: 'tool install --global dotnet-ef'
 
 - task: DotNetCoreCLI@2
   displayName: 'Generate DB migration script for MedPark.Basket'
   inputs:
     command: custom
     custom: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)\sql\MedPark.Basket_DB_Migrations.sql'
+  enabled: false
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '$(basket-proj-path)'
     arguments: '-c Release'
+  enabled: false
     
 - task: PublishBuildArtifacts@1
   inputs:
