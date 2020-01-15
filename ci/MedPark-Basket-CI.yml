@@ -59,7 +59,7 @@ steps:
     containerRegistry: 'docker-hub-connection'
     repository: 'medpark-basket'
     command: 'buildAndPush'
-    Dockerfile: 'Dockerfile.multistage'
+    Dockerfile: 'src\MedPark.Basket\Dockerfile.multistage'
     buildContext: 'src\MedPark.Basket\'
 
 - task: PublishBuildArtifacts@1
