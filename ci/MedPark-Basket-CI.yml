@@ -18,6 +18,12 @@ steps:
 - task: NuGetToolInstaller@1
   enabled: false
 
+- task: UseDotNet@2
+  displayName: 'Set pipeline to use DotNet Core 2.x'
+  inputs:
+    version: '2.2.x'
+    includePreviewVersions: false
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(basket-proj-path)'
@@ -26,7 +32,7 @@ steps:
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
-    script: 'dotnet tool install --global dotnet-ef --version 2.2.2'
+    script: 'dotnet tool install --global dotnet-ef'
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
