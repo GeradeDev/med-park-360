@@ -38,5 +38,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-    PathtoPublish: $(build.artifactstagingdirectory)
   enabled: false
