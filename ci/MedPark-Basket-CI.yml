@@ -34,13 +34,13 @@ steps:
   displayName: 'Install Dotnet Tools'
   inputs:
     script: 'dotnet tool install --global dotnet-ef --version 2.2.0'
-  enabled: false
+  enabled: true
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
   inputs:
     script: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)\sql\MedPark.Basket_DB_Migrations.sql'
-  enabled: false
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
