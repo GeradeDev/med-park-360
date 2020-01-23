@@ -27,4 +27,4 @@ steps:
     command: 'build'
     projects: '$(project)'
     arguments: '-c Release'
-  enabled: false
+  enabled: true
