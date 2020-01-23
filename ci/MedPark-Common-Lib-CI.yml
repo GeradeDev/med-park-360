@@ -28,31 +28,36 @@ steps:
   enabled: true
 
 - task: NuGetCommand@2
+  displayName: 'Restore Nuget packages'
   inputs:
     restoreSolution: '$(project)'
+  enabled: false
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build project'
+  displayName: 'Build Library'
   inputs:
     command: 'build'
     projects: '$(project)'
     arguments: '-c Release'
-  enabled: true
+  enabled: false
 
 - task: NuGetAuthenticate@0
   displayName: 'Authnticate with Nuget'
   inputs:
     nuGetServiceConnections: 'MedParkNuGetFeed'
-  enabled: false
+  enabled: true
 
 - task: NuGetCommand@2
+  displayName: 'Package Library to publish to NuGet'
   inputs:
     command: pack
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
     versionEnvVar: packageVersion
+  enabled: false
 
 - task: NuGetCommand@2
+  displayName: 'Publish Library to NuGet feed (Only if the build was triggered by master branch)'
   condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: push
@@ -60,6 +65,7 @@ steps:
   enabled: false
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish artifcats'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
