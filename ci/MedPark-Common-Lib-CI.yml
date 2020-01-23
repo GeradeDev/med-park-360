@@ -42,6 +42,7 @@ steps:
   displayName: 'Authnticate with Nuget'
   inputs:
     nuGetServiceConnections: 'MedParkNuGetFeed'
+  enabled: false
 
 - task: NuGetCommand@2
   inputs:
