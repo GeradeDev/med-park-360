@@ -37,3 +37,29 @@ steps:
     projects: '$(project)'
     arguments: '-c Release'
   enabled: true
+
+- task: NuGetAuthenticate@0
+  displayName: 'Authnticate with Nuget'
+  inputs:
+    nuGetServiceConnections: 'MedParkNuGetFeed'
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '$(project)'
+    majorVersion: 1
+    minorVersion: 5
+    patchVersion: 0
+
+- task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    command: push
+    nuGetFeedType: external
+  enabled: false
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
