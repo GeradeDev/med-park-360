@@ -15,7 +15,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   project: 'src/MedPark.Common/MedPark.Common.csproj'
-  packageVersion: '1.5.0'
+  packageVersion: '1.6.0'
 
 steps:
 - task: NuGetToolInstaller@1
