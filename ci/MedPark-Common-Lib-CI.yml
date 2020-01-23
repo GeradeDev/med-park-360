@@ -15,9 +15,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   project: 'src/MedPark.Common/MedPark.Common.csproj'
-  Major: '1'
-  Minor: '5'
-  Patch: '0'
+  packageVersion: '1.5.0'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -52,9 +50,7 @@ steps:
     command: pack
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
-    majorVersion: '$(Major)'
-    minorVersion: '$(Minor)'
-    patchVersion: '$(Patch)'
+    versionEnvVar: '$(packageVersion)'
 
 - task: NuGetCommand@2
   condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
