@@ -12,7 +12,7 @@ pool:
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  project: '/src/MedPark.Common/MedPark.Common.csproj'
+  project: 'src/MedPark.Common/MedPark.Common.csproj'
 
 steps:
 - task: NuGetToolInstaller@1
