@@ -19,7 +19,7 @@ steps:
   displayName: 'Install NuGet'
 
 - task: UseDotNet@2
-  displayName: 'Set pipeline to use DotNet Core 3.0'
+  displayName: 'Set pipeline to use DotNet Core 3.1'
   inputs:
     version: '3.1.x'
     includePreviewVersions: false
