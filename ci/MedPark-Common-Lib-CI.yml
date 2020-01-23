@@ -10,7 +10,6 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   project: '/src/MedPark.Common/MedPark.Common.csproj'
@@ -22,9 +21,10 @@ steps:
   inputs:
     restoreSolution: '$(project)'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
+  displayName: 'Build project'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: '$(project)'
+    arguments: '-c Release'
+  enabled: false
