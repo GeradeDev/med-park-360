@@ -51,6 +51,7 @@ steps:
   inputs:
     command: pack
     packagesToPack: '$(project)'
+    versioningScheme: byEnvVar
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
