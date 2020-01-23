@@ -62,7 +62,7 @@ steps:
     command: custom
     custom: nuget
     arguments: >
-      push $(Build.ArtifactStagingDirectory)/MedPark.Common.{$(packageVersion)}.nupkg
+      push $(Build.ArtifactStagingDirectory)/MedPark.Common.$(packageVersion).nupkg
       -s $(NugetFeedUrl)
       -k $(NugetMedParkAPIKey)
 
