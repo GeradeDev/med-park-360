@@ -53,7 +53,7 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-  enabled: false
+  enabled: true
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
