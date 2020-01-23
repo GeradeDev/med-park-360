@@ -22,6 +22,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MedPark.Common.RestEase;
 using MedPark.Identity.Services;
+using Microsoft.Extensions.Hosting;
 
 namespace MedPark.Identity
 {
@@ -37,21 +38,15 @@ namespace MedPark.Identity
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddHttpClient();
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-            services.AddDbContext<ApplicationUserContext>(options =>
-               options.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"]));
-
-            services.AddDbContext<MedParkContext>(options =>
-                options.UseSqlServer(
-                    Configuration["MedPark360IdentityStore:ConnectionString"],
-                    b => b.MigrationsAssembly(migrationsAssembly)
-                )
-            );
+            services.AddDbContext<ApplicationUserContext>(options => options.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"]));
+            services.AddDbContext<MedParkContext>(options => options.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"]));
 
             services.AddTransient<IProfileService, DefaultProfileService>();
             services.AddTransient<IClientStore, ClientStore>();
@@ -83,20 +78,15 @@ namespace MedPark.Identity
 
 
             //SeedData.EnsureSeedData(services.BuildServiceProvider());
+        }
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
             builder.AddRabbitMq();
-
-            Container = builder.Build();
-
-            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

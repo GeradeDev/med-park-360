@@ -29,8 +29,6 @@ namespace MedPark.Common.RestEase
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
-            services.Configure<RestEaseOptions>(configuration.GetSection("restEase"));
-
             return configuration.GetOptions<RestEaseOptions>("restEase");
         }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MedPark.Common;
-using MedPark.Common.API;
 using MedPark.Web.Dto;
 using MedPark.Web.Services;
 using MedPark.Web.Utils.Identity;

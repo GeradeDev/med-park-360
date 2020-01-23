@@ -10,3 +10,5 @@
 /src/MedPark.Identity/obj/*
 netcoreapp2.2
 obj
+/src/MedPark.API/Gateway/obj/*
+Debug

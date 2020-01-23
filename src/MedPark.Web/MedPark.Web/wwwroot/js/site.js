@@ -3,9 +3,11 @@
 
 // Write your JavaScript code.
 
-$medpark_api = "http://localhost:8000/api/";
+$medpark_api = "http://localhost:62683/api/";
 
 $(document).ready(function() {
+
+    GetApiEndpoint();
 
     NavScrolling();
 
@@ -22,6 +24,20 @@ $(document).ready(function() {
     });
 
 });
+
+function GetApiEndpoint() {
+    $.ajax({
+        url: $medpark_api.replace("/api/", ""),
+        success: function(result) {
+            if (result.length !== "") {
+                console.log("API is up");
+            }
+
+        }, error: function() {
+            $medpark_api = 'http://localhost:62683/';
+        }
+    });
+}
 
 function NavScrolling() {
 

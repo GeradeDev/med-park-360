@@ -26,6 +26,7 @@ using MedPark.Bookings.Messaging.Command;
 using MedPark.Bookings.Services;
 using MedPark.Common.RestEase;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 
 namespace MedPark.Bookings
 {
@@ -40,36 +41,29 @@ namespace MedPark.Bookings
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             //Add DBContext
             services.AddDbContext<MedParkBookingContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDefaultEndpoint<ISpecialistService>("med-practice-service");
+            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        }
 
-            //SeedData.EnsureSeedData(services.BuildServiceProvider());
-
-            var builder = new ContainerBuilder();
-
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
             builder.RegisterType<MedParkBookingContext>().As<DbContext>().InstancePerLifetimeScope();
-            builder.Populate(services);
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Customer>();
             builder.AddRepository<Specialist>();
             builder.AddRepository<Appointment>();
-
-
-            Container = builder.Build();
-            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

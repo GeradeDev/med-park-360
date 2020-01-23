@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
 using MedPark.Basket.Messaging.Events;
+using Microsoft.Extensions.Hosting;
 
 namespace MedPark.Basket
 {
@@ -34,33 +35,28 @@ namespace MedPark.Basket
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             //Add DBContext
             services.AddDbContext<BasketDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        }
 
-            var builder = new ContainerBuilder();
-
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
             builder.RegisterType<BasketDBContext>().As<DbContext>().InstancePerLifetimeScope();
-
-            builder.Populate(services);
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<CustomerBasket>();
             builder.AddRepository<BasketItem>();
-
-            Container = builder.Build();
-            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

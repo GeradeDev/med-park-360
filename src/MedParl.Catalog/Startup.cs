@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -36,36 +37,29 @@ namespace MedPark.Catalog
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             //Add DBContext
             services.AddDbContext<CatalogDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        }
 
-            //SeedData.EnsureSeedData(services.BuildServiceProvider());
-
-            var builder = new ContainerBuilder();
-
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
             builder.RegisterType<CatalogDBContext>().As<DbContext>().InstancePerLifetimeScope();
-
-            builder.Populate(services);
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Product>();
             builder.AddRepository<Category>();
             builder.AddRepository<ProductCatalog>();
-
-            Container = builder.Build();
-            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -79,7 +73,7 @@ namespace MedPark.Catalog
 
             app.UseHttpsRedirection();
 
-            //app.UseRabbitMq();
+            app.UseRabbitMq();
 
             app.UseMvcWithDefaultRoute();
         }

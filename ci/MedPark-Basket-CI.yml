@@ -7,7 +7,7 @@ trigger:
 - dev
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
@@ -23,24 +23,22 @@ steps:
   inputs:
     version: '2.2.x'
     includePreviewVersions: false
+  enabled: false
 
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
   inputs:
     restoreSolution: '$(basket-proj-path)'
-  enabled: false
 
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
-    script: 'dotnet tool install --global dotnet-ef --version 2.2.0'
-  enabled: true
+    script: 'dotnet tool install --global dotnet-ef'
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
   inputs:
-    script: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)/sql/MedPark.Basket_DB_Migrations.sql'
-  enabled: true
+    script: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)\sql\MedPark.Basket_DB_Migrations.sql'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
@@ -55,17 +53,15 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-    arguments: '-u geradedev -p ODEduhM6SERp1OzeCvgL'
   enabled: false
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
   inputs:
     containerRegistry: 'docker-hub-connection'
-    repository: 'geradedev/medpark-basket'
+    repository: 'medpark-basket'
     command: 'buildAndPush'
-    Dockerfile: '**/src/MedPark.Basket/Dockerfile.multistage'
-    tags: 'dev'
+    Dockerfile: 'src\MedPark.Basket\Dockerfile.multistage'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'

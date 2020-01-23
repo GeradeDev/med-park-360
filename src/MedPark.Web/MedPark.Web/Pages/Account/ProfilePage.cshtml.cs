@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MedPark.Common;
-using MedPark.Common.API;
 using MedPark.Web.Dto;
 using MedPark.Web.Models;
 using MedPark.Web.Services;
