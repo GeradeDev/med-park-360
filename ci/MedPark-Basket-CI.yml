@@ -59,7 +59,7 @@ steps:
   displayName: 'Build and Push docker image'
   inputs:
     containerRegistry: 'docker-hub-connection'
-    repository: 'medpark-basket'
+    repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
     Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
     tags: 'latest'
