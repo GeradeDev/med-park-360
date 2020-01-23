@@ -31,7 +31,7 @@ steps:
   displayName: 'Restore Nuget packages'
   inputs:
     restoreSolution: '$(project)'
-  enabled: false
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: 'Build Library'
@@ -39,13 +39,13 @@ steps:
     command: 'build'
     projects: '$(project)'
     arguments: '-c Release'
-  enabled: false
+  enabled: true
 
 - task: NuGetAuthenticate@0
-  displayName: 'Authnticate with Nuget'
+  displayName: 'Authenticate with Nuget'
   inputs:
     nuGetServiceConnections: 'MedParkNuGetFeed'
-  enabled: true
+  enabled: false
 
 - task: NuGetCommand@2
   displayName: 'Package Library to publish to NuGet'
@@ -54,15 +54,17 @@ steps:
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
     versionEnvVar: packageVersion
-  enabled: false
+  enabled: true
 
-- task: NuGetCommand@2
-  displayName: 'Publish Library to NuGet feed (Only if the build was triggered by master branch)'
-  condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
+- task: DotNetCoreCLI@2
+  displayName: Publish Library to NuGet feed (Only if the build was triggered by master branch)
   inputs:
-    command: push
-    nuGetFeedType: external
-  enabled: false
+    command: custom
+    custom: nuget
+    arguments: >
+      push $(Build.ArtifactStagingDirectory)/*.nupkg
+      -s $(NugetFeedUrl)
+      -k $(NugetMedParkAPIKey)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifcats'
