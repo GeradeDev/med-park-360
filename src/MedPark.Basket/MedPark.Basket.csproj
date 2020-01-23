@@ -20,5 +20,6 @@
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="MedPark.Common" Version="*" />
   </ItemGroup>
+  
 
 </Project>
