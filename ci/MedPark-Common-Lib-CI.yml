@@ -50,7 +50,7 @@ steps:
     command: pack
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
-    versionEnvVar: '$(packageVersion)'
+    versionEnvVar: packageVersion
 
 - task: NuGetCommand@2
   condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
