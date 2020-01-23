@@ -19,11 +19,11 @@ steps:
   displayName: 'Install NuGet'
 
 - task: UseDotNet@2
-  displayName: 'Set pipeline to use DotNet Core 2.x'
+  displayName: 'Set pipeline to use DotNet Core 3.0'
   inputs:
-    version: '2.2.x'
+    version: '3.1.x'
     includePreviewVersions: false
-  enabled: false
+  enabled: true
 
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
