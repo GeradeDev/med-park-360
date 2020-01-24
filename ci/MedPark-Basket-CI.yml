@@ -15,7 +15,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  imageTag: ''
 
 steps:
 - task: NuGetToolInstaller@1
@@ -60,7 +59,7 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-  enabled: false
+  enabled: true
 
 - powershell: |
     $currentBranch = "$(build.SourceBranch)"
@@ -72,8 +71,6 @@ steps:
     } else {
       Write-Host "Current Branch is dev/feature"
       Write-Host ##vso[task.setvariable variable=imageTag]dev
-      Write-Host "Docker image tag has been set to - $(imageTag)"
-      Write-Host "Docker image tag has been set to - $env:imageTag"
     }
   displayName: 'Set Docker image tag based on branch'
   enabled: true
@@ -85,8 +82,8 @@ steps:
     repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
     Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
-    tags: 'latest'
-  enabled: false
+    tags: '$(imageTag)'
+  enabled: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
