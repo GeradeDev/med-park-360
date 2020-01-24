@@ -67,13 +67,12 @@ steps:
     Write-Host "Current Branch is: $currentBranch"
 
     if ($currentBranch -eq 'refs/heads/master') {
-
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
-      Write-Host "New tag - $env:imageTag"
       Write-Host "New tag - $env:imageTag"
     } else {
       Write-Host "Current Branch is dev/feature"
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]dev
+      Write-Host "D ocker image tag has been set to - $env:imageTag"
     }
   displayName: 'Set Docker image tag based on branch'
   enabled: true
