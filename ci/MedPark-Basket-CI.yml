@@ -82,7 +82,7 @@ steps:
     repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
     Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
-    tags: '$(imageTag)'
+    tags: $(imageTag)
   enabled: true
 
 - task: PublishBuildArtifacts@1
