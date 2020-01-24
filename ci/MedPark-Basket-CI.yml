@@ -63,7 +63,7 @@ steps:
   enabled: false
 
 - powershell: |
-    $currentBranch = $(build.SourceBranch)
+    $currentBranch = "$(build.SourceBranch)"
     Write-Host "Currentbranch is: $currentBranch"
 
     if ($currentBranch -eq 'refs/heads/master') {
