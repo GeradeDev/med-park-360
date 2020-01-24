@@ -60,7 +60,7 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-  enabled: fals
+  enabled: false
 
 - powershell: |
     if ($env:Build_SourceBranchName -eq 'master') {
