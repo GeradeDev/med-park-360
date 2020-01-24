@@ -15,32 +15,37 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  imageTag: ''
 
 steps:
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
+  enabled: false
 
 - task: UseDotNet@2
   displayName: 'Set pipeline to use DotNet Core 3.1'
   inputs:
     version: '3.1.x'
     includePreviewVersions: false
-  enabled: true
+  enabled: false
 
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
   inputs:
     restoreSolution: '$(basket-proj-path)'
+  enabled: false
 
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
   inputs:
     script: 'dotnet tool install --global dotnet-ef'
+  enabled: false
 
 - task: CmdLine@2
   displayName: 'Generate DB migration script for MedPark.Basket'
   inputs:
     script: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)/sql/MedPark.Basket_DB_Migrations.sql'
+  enabled: false
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
@@ -55,6 +60,16 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
+  enabled: fals
+
+- powershell: |
+    if ($env:Build_SourceBranchName -eq 'master') {
+      Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
+      return
+    } else {
+      Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]dev
+    }
+  displayName: 'Set Docker image tag based on branch'
   enabled: true
 
 - task: Docker@2
@@ -65,6 +80,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
     tags: 'latest'
+  enabled: false
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
@@ -72,3 +88,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  enabled: false
