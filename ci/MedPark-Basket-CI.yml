@@ -63,7 +63,7 @@ steps:
   enabled: false
 
 - powershell: |
-    Write-Host "variables['build.SourceBranch']"
+    Write-Host "$env:Build_SourceBranchName"
     if ($env:Build_SourceBranchName -eq 'master') {
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
       return
