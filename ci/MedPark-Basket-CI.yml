@@ -72,7 +72,7 @@ steps:
     } else {
       Write-Host "Current Branch is dev/feature"
       Write-Host ##vso[task.setvariable variable=imageTag]dev
-      Write-Host "Docker image tag has been set to - $env:imageTag"
+      Write-Host "Docker image tag has been set to - $(imageTag)"
       Write-Host "Docker image tag has been set to - $env:imageTag"
     }
   displayName: 'Set Docker image tag based on branch'
