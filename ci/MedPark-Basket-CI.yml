@@ -64,8 +64,10 @@ steps:
 
 - powershell: |
     Write-Host "$(build.SourceBranch)"
-    if ($env:Build_SourceBranchName -eq 'master') {
+    if ($(build.SourceBranch) -eq 'refs/heads/master') {
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
+      Write-Host "New tag - $env:imageTag"
+      Write-Host "New tag - $env:imageTag"
       return
     } else {
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]dev
