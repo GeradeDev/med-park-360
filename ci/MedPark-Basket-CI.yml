@@ -73,7 +73,7 @@ steps:
       Write-Host ##vso[task.setvariable variable=imageTag]dev
     }
   displayName: 'Set Docker image tag based on branch'
-  enabled: true
+  enabled: false
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
@@ -82,7 +82,7 @@ steps:
     repository: 'geradedev/medpark-basket'
     command: 'buildAndPush'
     Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
-    tags: "$(imageTag)"
+    tags: dev
   enabled: true
 
 - task: PublishBuildArtifacts@1
