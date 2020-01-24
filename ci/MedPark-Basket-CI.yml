@@ -64,14 +64,15 @@ steps:
 
 - powershell: |
     $currentBranch = "$(build.SourceBranch)"
-    Write-Host "Currentbranch is: $currentBranch"
+    Write-Host "Current Branch is: $currentBranch"
 
     if ($currentBranch -eq 'refs/heads/master') {
+
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
       Write-Host "New tag - $env:imageTag"
       Write-Host "New tag - $env:imageTag"
-      return
     } else {
+      Write-Host "Current Branch is dev/feature"
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]dev
     }
   displayName: 'Set Docker image tag based on branch'
