@@ -63,7 +63,7 @@ steps:
   enabled: false
 
 - powershell: |
-    Write-Host "$env:Build_SourceBranchName"
+    Write-Host "$(build.artifactstagingdirectory)"
     if ($env:Build_SourceBranchName -eq 'master') {
       Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
       return
