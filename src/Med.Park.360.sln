@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.MedicalPractice.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Bookings", "MedPark.Bookings\MedPark.Bookings.csproj", "{2572AB69-0790-48CE-B729-C64C26CD8AFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Catalog", "MedParl.Catalog\MedPark.Catalog.csproj", "{4F215AEB-84B9-4191-A52C-35A002177049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Catalog", "MedPark.Catalog\MedPark.Catalog.csproj", "{4F215AEB-84B9-4191-A52C-35A002177049}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.OrderService", "MedPark.OrderService\MedPark.OrderService.csproj", "{F8918587-635E-46FD-9860-C12A95D29B70}"
 EndProject

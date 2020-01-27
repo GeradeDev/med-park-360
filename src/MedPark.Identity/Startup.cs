@@ -66,9 +66,7 @@ namespace MedPark.Identity
             .AddProfileService<DefaultProfileService>()
             .AddOperationalStore(options =>
              {
-                 options.ConfigureDbContext = b =>
-                     b.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"],
-                         sql => sql.MigrationsAssembly(migrationsAssembly));
+                 options.ConfigureDbContext = b => b.UseSqlServer(Configuration["MedPark360IdentityStore:ConnectionString"]);
 
                  // this enables automatic token cleanup. this is optional.
                  //options.EnableTokenCleanup = true;
