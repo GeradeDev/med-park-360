@@ -12,3 +12,4 @@ netcoreapp2.2
 obj
 /src/MedPark.API/Gateway/obj/*
 Debug
+netcoreapp3.1
