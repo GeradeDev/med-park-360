@@ -15,6 +15,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  proj-dir: "src/MedPark.Customers/"
 
 steps:
 - task: NuGetToolInstaller@1
@@ -31,7 +32,7 @@ steps:
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
   inputs:
-    restoreSolution: '$(basket-proj-path)'
+    restoreSolution: '$(proj-dir)/MedPark.CustomersService.csproj'
   enabled: true
 
 - task: CmdLine@2
@@ -41,16 +42,16 @@ steps:
   enabled: true
 
 - task: CmdLine@2
-  displayName: 'Generate DB migration script for MedPark.Basket'
+  displayName: 'Generate DB migration script for MedPark.CustomersService'
   inputs:
-    script: 'dotnet ef migrations script --project $(basket-proj-path) -i -o $(build.artifactstagingdirectory)/sql/MedPark.Basket_DB_Migrations.sql'
+    script: 'dotnet ef migrations script --project $(proj-dir)/MedPark.CustomersService.csproj -i -o $(build.artifactstagingdirectory)/sql/MedPark.Customers_DB_Migrations.sql'
   enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
   inputs:
     command: 'build'
-    projects: '$(basket-proj-path)'
+    projects: '$(proj-dir)/MedPark.CustomersService.csproj'
     arguments: '-c Release'
   enabled: false
 
@@ -61,27 +62,13 @@ steps:
     command: 'login'
   enabled: true
 
-- powershell: |
-    $currentBranch = "$(build.SourceBranch)"
-    Write-Host "Current Branch is: $currentBranch"
-
-    if ($currentBranch -eq 'refs/heads/master') {
-      Write-Host ##vso[task.setvariable variable=imageTag;isOutput=true]latest
-      Write-Host "New tag - $env:imageTag"
-    } else {
-      Write-Host "Current Branch is dev/feature"
-      Write-Host ##vso[task.setvariable variable=imageTag]dev
-    }
-  displayName: 'Set Docker image tag based on branch'
-  enabled: false
-
 - task: Docker@2
   displayName: 'Build and Push docker image'
   inputs:
     containerRegistry: 'docker-hub-connection'
-    repository: 'geradedev/medpark-basket'
+    repository: 'geradedev/medpark-customers'
     command: 'buildAndPush'
-    Dockerfile: 'src/MedPark.Basket/Dockerfile.multistage'
+    Dockerfile: '$(proj-dir)/Dockerfile.multistage'
     tags: dev
   enabled: true
 
