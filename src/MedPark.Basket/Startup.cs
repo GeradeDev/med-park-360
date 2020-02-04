@@ -29,9 +29,9 @@ namespace MedPark.Basket
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder().AddJsonFile($"appsettings.{env.EnvironmentName}.json", true).AddEnvironmentVariables().Build();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

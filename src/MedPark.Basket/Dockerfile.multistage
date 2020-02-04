@@ -7,6 +7,6 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:5006
-ENV ASPNETCORE_ENVIRONMENT docker
+ENV ASPNETCORE_ENVIRONMENT azure
 EXPOSE 8006
 ENTRYPOINT dotnet MedPark.Basket.dll

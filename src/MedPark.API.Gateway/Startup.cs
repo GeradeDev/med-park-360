@@ -29,7 +29,7 @@ namespace MedPark.API.Gateway
 
         public Startup(IConfiguration configuration, IHostEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder().AddJsonFile($"appsettings.{env.EnvironmentName}.json", true).AddEnvironmentVariables().Build();
             _env = env;
         }
 
