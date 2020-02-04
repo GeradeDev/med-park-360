@@ -179,7 +179,7 @@ function LoadPracticeDetails(practiceid) {
 
 function LoadPracticeOperatingHours(practiceid) {
     $.ajax({
-        url: $medpark_api + "specialist/getpracticeoperatinghours/" + practiceid,
+        url: $medpark_api + "specialist/specialistpracticeHours/" + practiceid + "/" + specialistId,
         success: function (result) {
 
             $(".hours-container").append("<a class='btn btn-primary text-uppercase operating-hour mr-3 col-sm-2' href='#' id='MondayHours' onClick='ShowOperatingHoursUpdate(\"monday\")'>Monday : " + (result !== undefined ? result.mondayOpen : '--') + " - " + (result !== undefined ? result.mondayClose : '--') + "</a>");

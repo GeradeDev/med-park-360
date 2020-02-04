@@ -238,5 +238,13 @@ namespace MedPark.API.Gateway.Controllers
 
             return Ok(hours);
         }
+
+        [HttpGet("specialistpracticeHours/{practiceid}/{specialistid}")]
+        public async Task<IActionResult> GetSpecialistOperatingHours(Guid practiceid, Guid specialistid)
+        {
+            var hours = await _specialistService.GetSpecialistPracticeHoursDetails(practiceid, specialistid);
+
+            return Ok(hours);
+        }
     }
 }

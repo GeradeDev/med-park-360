@@ -30,18 +30,20 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
         {
             OperatingHoursDetailDTO result = new OperatingHoursDetailDTO();
 
-            if (query.SpecialistId != Guid.Empty)
+            Specialist s = await _specialistRepo.GetAsync(query.SpecialistId.Value);
+            Practice p = await _practiceRepo.GetAsync(query.PracticeId.Value);
+
+            OperatingHours sop = await _hoursRepo.GetAsync(x => x.SpecialistId == s.Id && x.PracticeId == p.Id);
+
+            result.AppointmentDuration = s.AppointmentDuration.ToString();
+
+            var days = new List<DayOfWeek>();
+            days.Add(DateTime.Now.DayOfWeek);
+            days.Add(DateTime.Now.AddDays(1).DayOfWeek);
+
+            if (sop != null)
             {
-                Specialist s = await _specialistRepo.GetAsync(query.SpecialistId.Value);
-
-                OperatingHours sop = await _hoursRepo.GetAsync(x => x.SpecialistId == s.Id);
-
-                result.AppointmentDuration = s.AppointmentDuration;
                 result.PracticeOperatingHours = _mapper.Map<OperatingHoursDTO>(sop);
-
-                var days = new List<DayOfWeek>();
-                days.Add(DateTime.Now.DayOfWeek);
-                days.Add(DateTime.Now.AddDays(1).DayOfWeek);
 
                 DateTime.Now.GetWeekDays().ForEach(d =>
                 {
@@ -75,11 +77,7 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
                     }
                 });
             }
-            else
-            {
 
-            }
-            
             return result;
         }
 
