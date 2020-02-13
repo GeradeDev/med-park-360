@@ -9,7 +9,7 @@ trigger:
 - feature/*
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'windows-latest'
 
 variables:
   buildPlatform: 'Any CPU'
