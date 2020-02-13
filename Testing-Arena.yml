@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows'
+  vmImage: 'windows-latest'
 
 steps:
 - task: NugetVersionUpdater@1
