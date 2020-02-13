@@ -15,7 +15,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   project: 'src/MedPark.Common/MedPark.Common.csproj'
-  packageVersion: ''
+  packageVersion: 0
 
 steps:
 - task: NuGetToolInstaller@1
@@ -59,7 +59,7 @@ steps:
     command: pack
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
-    versionEnvVar: $(packageVersion)
+    versionEnvVar: packageVersion
   enabled: true
 
 - task: DotNetCoreCLI@2
