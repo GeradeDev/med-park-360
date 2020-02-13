@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  newPkgVersion: ""
+  newPkgVersion: "--------"
 
 steps:
 - task: NugetVersionUpdater@1
