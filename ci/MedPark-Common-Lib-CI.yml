@@ -59,7 +59,7 @@ steps:
     command: pack
     packagesToPack: '$(project)'
     versioningScheme: byEnvVar
-    versionEnvVar: packageVersion
+    versionEnvVar: 'packageVersion'
   enabled: true
 
 - task: DotNetCoreCLI@2
