@@ -15,7 +15,8 @@ variables:
 steps:
 - task: NugetVersionUpdater@1
   inputs:
+    packageName: 'MedPark.Common'
     maxIncrement: 10
-    packageName: "MedPark.Common"
+    pipelineVariable: 'newPkgVersion'
 
 
