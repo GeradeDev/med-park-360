@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  newVersion: ""
+
 steps:
 - task: NugetVersionUpdater@1
   inputs:
