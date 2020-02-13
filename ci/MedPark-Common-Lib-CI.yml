@@ -15,7 +15,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   project: 'src/MedPark.Common/MedPark.Common.csproj'
-  packageVersion: '1.6.0'
+  packageVersion: ''
 
 steps:
 - task: NuGetToolInstaller@1
@@ -46,6 +46,12 @@ steps:
   inputs:
     nuGetServiceConnections: 'MedParkNuGetFeed'
   enabled: false
+
+- task: NugetVersionUpdater@1
+  inputs:
+    maxIncrement: 10
+    packageName: "MedPark.Common"
+    pipelineVariable: 'packageVersion'
 
 - task: NuGetCommand@2
   displayName: 'Package Library to publish to NuGet'
