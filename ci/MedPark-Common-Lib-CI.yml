@@ -53,6 +53,9 @@ steps:
     packageName: "MedPark.Common"
     pipelineVariable: 'packageVersion'
 
+- bash: |
+      echo "$(packageVersion)"
+
 - task: NuGetCommand@2
   displayName: 'Package Library to publish to NuGet'
   inputs:
