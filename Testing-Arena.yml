@@ -13,10 +13,19 @@ variables:
   newPkgVersion: "--------"
 
 steps:
+- bash: |
+    FOO="some value"
+    echo "##vso[task.setvariable variable=newPkgVersion]$FOO"
+
+  # Using the $() syntax, the value is replaced inside Azure Pipelines before being submitted to the script task
+- bash: |
+    echo "$(newPkgVersion)"
+
 - task: NugetVersionUpdater@1
   inputs:
     packageName: 'MedPark.Common'
     maxIncrement: 10
     pipelineVariable: 'newPkgVersion'
+  enabled: false
 
 
