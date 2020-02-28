@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Basket", "MedPark.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedPark.Payment", "MedPark.Payment\MedPark.Payment.csproj", "{BB66DBCE-E8CF-48B5-A134-72AAE352FA5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedPark.Notifications", "MedPark.Notifications\MedPark.Notifications.csproj", "{CF551192-013F-42EB-94AB-74F0A2389E19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Console|Any CPU = Console|Any CPU
@@ -125,6 +127,12 @@ Global
 		{BB66DBCE-E8CF-48B5-A134-72AAE352FA5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB66DBCE-E8CF-48B5-A134-72AAE352FA5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB66DBCE-E8CF-48B5-A134-72AAE352FA5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Console|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Console|Any CPU.Build.0 = Debug|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF551192-013F-42EB-94AB-74F0A2389E19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +152,7 @@ Global
 		{F8918587-635E-46FD-9860-C12A95D29B70} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 		{BCD8D41B-8228-489A-9238-31108E877353} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 		{BB66DBCE-E8CF-48B5-A134-72AAE352FA5D} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
+		{CF551192-013F-42EB-94AB-74F0A2389E19} = {B2A28CF7-1CE6-4BAF-94A8-D536B70A4628}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39740E51-064A-4FD5-9C8A-A5A257825D44}
