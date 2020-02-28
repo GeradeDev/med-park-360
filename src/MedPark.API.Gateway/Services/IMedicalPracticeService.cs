@@ -43,14 +43,8 @@ namespace MedPark.API.Gateway.Services
 
 
         //Operating Hours
-        [Get("/operatinghours/{practiceid}")]
-        Task<OperatingHoursDTO> GetOperatingHoursByPracticeId([Path] Guid practiceid);
-
-        [Get("/operatinghours/{specialistid}/details")]
-        Task<OperatingHoursDetailDTO> GetOperatingHoursDetails([Path] Guid specialistid);
-
         [Get("/operatinghours/specialistpracticehours/{practiceid}/{specialistid}")]
-        Task<OperatingHoursDetailDTO> GetSpecialistPracticeHoursDetails([Path] Guid practiceid, [Path] Guid specialistid);
+        Task<OperatingHoursDTO> GetSpecialistPracticeHoursDetails([Path] Guid practiceid, [Path] Guid specialistid);
 
 
         //Specialist Qualifications

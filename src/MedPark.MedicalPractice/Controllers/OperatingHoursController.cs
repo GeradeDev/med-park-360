@@ -21,42 +21,12 @@ namespace MedPark.MedicalPractice.Controllers
             _dispatcher = dispatcher;
         }
 
-        [HttpGet("{practiceid}")]
-        public async Task<IActionResult> Get([FromRoute] OperatingHoursQuery hoursQuery)
+        [HttpGet("specialistpracticehours/{practiceid}/{specialistid}")]
+        public async Task<IActionResult> GetSpecialistPracticeHoursDetails([FromRoute] SpecialistOperatingHoursQuery hoursQuery)
         {
             try
             {
                 OperatingHoursDTO hours = await _dispatcher.QueryAsync(hoursQuery);
-
-                return Ok(hours);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("{specialistid}/details")]
-        public async Task<IActionResult> GetOperatingHoursDetail([FromRoute] OperatingHoursDetailQuery hoursQuery)
-        {
-            try
-            {
-                OperatingHoursDetailDTO hours = await _dispatcher.QueryAsync(hoursQuery);
-
-                return Ok(hours);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("specialistpracticehours/{practiceid}/{specialistid}")]
-        public async Task<IActionResult> GetSpecialistPracticeHoursDetails([FromRoute] OperatingHoursDetailQuery hoursQuery)
-        {
-            try
-            {
-                OperatingHoursDetailDTO hours = await _dispatcher.QueryAsync(hoursQuery);
 
                 return Ok(hours);
             }

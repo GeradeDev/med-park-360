@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MedPark.MedicalPractice.Queries
 {
-    public class OperatingHoursQuery : IQuery<OperatingHoursDTO>
+    public class SpecialistOperatingHoursQuery : IQuery<OperatingHoursDTO>
     {
         public Guid PracticeId { get; set; }
+        public Guid SpecialistId { get; set; }
     }
 }

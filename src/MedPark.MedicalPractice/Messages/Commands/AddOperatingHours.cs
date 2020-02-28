@@ -11,6 +11,7 @@ namespace MedPark.MedicalPractice.Messages.Commands
     {
         public Guid Id { get; protected set; }
         public Guid PracticeId { get; set; }
+        public Guid SpecialistId { get; set; }
 
         public TimeSpan? SundayOpen { get; set; }
         public TimeSpan? SundayClose { get; set; }
@@ -31,7 +32,7 @@ namespace MedPark.MedicalPractice.Messages.Commands
         public TimeSpan? PublicHolidayClose { get; set; }
 
         [JsonConstructor]
-        public AddOperatingHours(Guid id, Guid practiceId, TimeSpan? sundayOpen, TimeSpan? sundayClose, TimeSpan? mondayOpen, TimeSpan? mondayClose, TimeSpan? tuesdayOpen, TimeSpan? tuesdayClose, TimeSpan? wednesdayOpen, TimeSpan? wednesdayClose, TimeSpan? thursdayOpen, TimeSpan? thursdayClose, TimeSpan? fridayOpen, TimeSpan? fridayClose, TimeSpan? saturdayOpen, TimeSpan? saturdayClose, TimeSpan? publicHolidayOpen, TimeSpan? publicHolidayClose)
+        public AddOperatingHours(Guid id, Guid practiceId, TimeSpan? sundayOpen, TimeSpan? sundayClose, TimeSpan? mondayOpen, TimeSpan? mondayClose, TimeSpan? tuesdayOpen, TimeSpan? tuesdayClose, TimeSpan? wednesdayOpen, TimeSpan? wednesdayClose, TimeSpan? thursdayOpen, TimeSpan? thursdayClose, TimeSpan? fridayOpen, TimeSpan? fridayClose, TimeSpan? saturdayOpen, TimeSpan? saturdayClose, TimeSpan? publicHolidayOpen, TimeSpan? publicHolidayClose, Guid specialistId)
         {
             Id = id;
             PracticeId = practiceId;
@@ -51,6 +52,7 @@ namespace MedPark.MedicalPractice.Messages.Commands
             SaturdayClose = saturdayClose;
             PublicHolidayOpen = publicHolidayOpen;
             PublicHolidayClose = publicHolidayClose;
+            SpecialistId = specialistId;
         }
     }
 }

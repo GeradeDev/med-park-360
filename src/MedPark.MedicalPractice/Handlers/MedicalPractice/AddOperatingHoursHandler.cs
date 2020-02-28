@@ -22,31 +22,39 @@ namespace MedPark.MedicalPractice.Handlers.MedicalPractice
 
         public async Task HandleAsync(AddOperatingHours command, ICorrelationContext context)
         {
-            OperatingHours practiceHours = await _hoursRepo.GetAsync(x => x.PracticeId == command.PracticeId);
-            if (practiceHours != null)
-                throw new MedParkException("practice_operating_hours_already_exists", $"The operating hours for practice {command.PracticeId} already exists.");
-
-            practiceHours = new OperatingHours(command.Id)
+            try
             {
-                SundayOpen = command.SundayOpen,
-                SundayClose = command.SundayClose,
-                MondayOpen = command.MondayOpen,
-                MondayClose = command.MondayClose,
-                TuesdayOpen = command.TuesdayOpen,
-                TuesdayClose = command.TuesdayClose,
-                WednesdayOpen = command.WednesdayOpen,
-                WednesdayClose = command.WednesdayClose,
-                ThursdayOpen = command.ThursdayOpen,
-                ThursdayClose = command.ThursdayClose,
-                FridayOpen = command.FridayOpen,
-                FridayClose = command.FridayClose,
-                SaturdayOpen = command.SaturdayOpen,
-                SaturdayClose = command.SaturdayClose,
-                PublicHolidayOpen = command.PublicHolidayOpen,
-                PublicHolidayClose = command.PublicHolidayClose
-            };
+                OperatingHours practiceHours = await _hoursRepo.GetAsync(x => x.PracticeId == command.PracticeId && x.SpecialistId == command.SpecialistId);
 
-            await _hoursRepo.AddAsync(practiceHours);
+                if (practiceHours != null)
+                    throw new MedParkException("practice_operating_hours_already_exists", $"The operating hours for practice {command.PracticeId} already exists.");
+
+                practiceHours = new OperatingHours(command.Id)
+                {
+                    SundayOpen = command.SundayOpen,
+                    SundayClose = command.SundayClose,
+                    MondayOpen = command.MondayOpen,
+                    MondayClose = command.MondayClose,
+                    TuesdayOpen = command.TuesdayOpen,
+                    TuesdayClose = command.TuesdayClose,
+                    WednesdayOpen = command.WednesdayOpen,
+                    WednesdayClose = command.WednesdayClose,
+                    ThursdayOpen = command.ThursdayOpen,
+                    ThursdayClose = command.ThursdayClose,
+                    FridayOpen = command.FridayOpen,
+                    FridayClose = command.FridayClose,
+                    SaturdayOpen = command.SaturdayOpen,
+                    SaturdayClose = command.SaturdayClose,
+                    PublicHolidayOpen = command.PublicHolidayOpen,
+                    PublicHolidayClose = command.PublicHolidayClose,
+                    PracticeId = command.PracticeId,
+                    SpecialistId = command.SpecialistId
+                };
+
+                await _hoursRepo.AddAsync(practiceHours);
+
+            }
+            catch (Exception ex) { }
         }
     }
 }

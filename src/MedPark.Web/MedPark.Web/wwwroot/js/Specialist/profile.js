@@ -239,6 +239,7 @@ function SetDayOperatingHours(day) {
 function GetOperatingHoursUpdate(pid) {
     this.Id = selectedPracticeHoursId;
     this.PracticeId = pid;
+    this.SpecialistId = specialistId;
 
     this.MondayOpen = $("#hrsMonOpen").val();
     this.MondayClose = $("#hrsMonClose").val();
