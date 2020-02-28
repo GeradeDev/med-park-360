@@ -1,0 +1,81 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- dev
+- master
+- feature/*
+
+pool:
+  vmImage: 'Ubuntu-16.04' 
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  proj-dir: "src/MedPark.Notifications/"
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+  enabled: true
+
+- task: UseDotNet@2
+  displayName: 'Set pipeline to use DotNet Core 3.1'
+  inputs:
+    version: '3.1.x'
+    includePreviewVersions: false
+  enabled: true
+
+- task: NuGetCommand@2
+  displayName: 'Restore NuGet packages for project'
+  inputs:
+    restoreSolution: '$(proj-dir)/MedPark.Notifications.csproj'
+  enabled: true
+
+- task: CmdLine@2
+  displayName: 'Install Dotnet Tools'
+  inputs:
+    script: 'dotnet tool install --global dotnet-ef'
+  enabled: true
+
+- task: CmdLine@2
+  displayName: 'Generate DB migration script for MedPark.Notifications'
+  inputs:
+    script: 'dotnet ef migrations script --project $(proj-dir)/MedPark.Notifications.csproj -i -o $(build.artifactstagingdirectory)/sql/MedPark.Notifications_DB_Migrations.sql'
+  enabled: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build project'
+  inputs:
+    command: 'build'
+    projects: '$(proj-dir)/MedPark.Notifications.csproj'
+    arguments: '-c Release'
+  enabled: false
+
+- task: Docker@2
+  displayName: 'Login to Docker Hub'
+  inputs:
+    containerRegistry: 'docker-hub-connection'
+    command: 'login'
+  enabled: true
+
+- task: Docker@2
+  displayName: 'Build and Push docker image'
+  inputs:
+    containerRegistry: 'docker-hub-connection'
+    repository: 'geradedev/medpark-notifications'
+    command: 'buildAndPush'
+    Dockerfile: '$(proj-dir)/Dockerfile.multistage'
+    tags: dev
+  enabled: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+  enabled: true
