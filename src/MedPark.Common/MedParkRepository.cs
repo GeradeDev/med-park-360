@@ -19,8 +19,8 @@ namespace MedPark.Common
 
         public async Task AddAsync(TEntity entity)
         {
-            await _context.Set<TEntity>().AddAsync(entity);
-            _context.SaveChanges();
+            _context.Set<TEntity>().Add(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> BrowseAsync(Expression<Func<TEntity, bool>> predicate)

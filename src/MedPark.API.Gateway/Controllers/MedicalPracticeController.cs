@@ -150,15 +150,7 @@ namespace MedPark.API.Gateway.Controllers
 
             return Accepted();
         }
-
-        [HttpGet("getpracticeoperatinghours/{practiceid}")]
-        public async Task<IActionResult> GetOperatingHours(Guid practiceid)
-        {
-            var operatingHours = await _specialistService.GetOperatingHoursByPracticeId(practiceid);
-
-            return Ok(operatingHours);
-        }
-
+        
         [HttpPost("setpracticeoperatinghours")]
         public async Task<IActionResult> SetPracticeHours(AddOperatingHours command)
         {
@@ -230,11 +222,11 @@ namespace MedPark.API.Gateway.Controllers
 
             return Ok(specialists);
         }
-
-        [HttpGet("specialistOperatingHours/{specialistid}")]
-        public async Task<IActionResult> GetSpecialistOperatingHours(Guid specialistid)
+        
+        [HttpGet("specialistpracticeHours/{practiceid}/{specialistid}")]
+        public async Task<IActionResult> GetSpecialistOperatingHours(Guid practiceid, Guid specialistid)
         {
-            var hours = await _specialistService.GetOperatingHoursDetails(specialistid);
+            var hours = await _specialistService.GetSpecialistPracticeHoursDetails(practiceid, specialistid);
 
             return Ok(hours);
         }

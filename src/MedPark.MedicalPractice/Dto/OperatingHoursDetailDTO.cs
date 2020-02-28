@@ -7,7 +7,7 @@ namespace MedPark.MedicalPractice.Dto
 {
     public class OperatingHoursDetailDTO
     {
-        public TimeSpan AppointmentDuration { get; set; }
+        public string AppointmentDuration { get; set; }
         public OperatingHoursDTO PracticeOperatingHours { get; set; }
         public List<AppointmentTimesForDay> AppointmentTimes { get; set; }
 

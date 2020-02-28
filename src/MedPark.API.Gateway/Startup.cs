@@ -40,8 +40,8 @@ namespace MedPark.API.Gateway
                     .AddCustomCors()
                     .AddRestEaseServices();
 
-            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
+            services.AddMvc(mvc => mvc.EnableEndpointRouting = false).AddNewtonsoftJson().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+    ;
             services.AddOptions();
             services.Configure<RestEaseOptions>(Configuration.GetSection("restEase"));
         }
