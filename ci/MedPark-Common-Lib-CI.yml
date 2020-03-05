@@ -64,7 +64,6 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: Publish Library to NuGet feed (Only if the build was triggered by master branch)
-  condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: custom
     custom: nuget
