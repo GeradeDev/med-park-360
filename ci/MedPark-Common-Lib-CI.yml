@@ -72,7 +72,7 @@ steps:
       push $(Build.ArtifactStagingDirectory)/MedPark.Common.$(packageVersion).nupkg
       -s $(NugetFeedUrl)
       -k $(NugetMedParkAPIKey)
-  enabled: false
+  enabled: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifcats'
