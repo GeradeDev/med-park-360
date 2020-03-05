@@ -21,6 +21,7 @@ using Microsoft.Extensions.Options;
 using AutoMapper;
 using MedPark.Basket.Messaging.Events;
 using Microsoft.Extensions.Hosting;
+using MedPark.Common.Redis;
 
 namespace MedPark.Basket
 {
@@ -38,6 +39,8 @@ namespace MedPark.Basket
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddRedis(Configuration);
 
             //Add DBContext
             services.AddDbContext<BasketDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
