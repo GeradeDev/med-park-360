@@ -28,36 +28,36 @@ namespace MedPark.Basket.Handlers.Basket
 
         public async Task HandleAsync(CheckoutBasket command, ICorrelationContext context)
         {
-            CustomerBasket basket = await _basketRepo.GetAsync(command.BasketId);
+            //CustomerBasket basket = await _basketRepo.GetAsync(command.BasketId);
 
-            if (basket is null)
-                throw new MedParkException("basket_does_not_exist", $"A basket for customer {command.BasketId} does not exist.");
+            //if (basket is null)
+            //    throw new MedParkException("basket_does_not_exist", $"A basket for customer {command.BasketId} does not exist.");
 
-            IEnumerable<BasketItem> items = await _basketItemRepo.FindAsync(x => x.BasketId == command.BasketId);
+            //IEnumerable<BasketItem> items = await _basketItemRepo.FindAsync(x => x.BasketId == command.BasketId);
 
-             if (items.Count() == 0)
-                throw new MedParkException("basket_items_not_valid", $"The basket {command.BasketId} items are not valid to checkout.");
+            // if (items.Count() == 0)
+            //    throw new MedParkException("basket_items_not_valid", $"The basket {command.BasketId} items are not valid to checkout.");
 
 
-            BasketCheckedOut basketCheckedOutEvent = new BasketCheckedOut(basket.CustomerId, command.ShippingType, command.ShippingAddress);
-            List<LineItemDto> lineItems = new List<LineItemDto>();
+            //BasketCheckedOut basketCheckedOutEvent = new BasketCheckedOut(basket.CustomerId, command.ShippingType, command.ShippingAddress);
+            //List<LineItemDto> lineItems = new List<LineItemDto>();
 
-            items.ToList().ForEach(i =>
-            {
-                LineItemDto lineItem = new LineItemDto { Id = Guid.NewGuid(), ProductCode = i.Code, Price = i.Price, ProductName = i.Name, Quantity = i.Quantity };
-                lineItems.Add(lineItem);
-            });
+            //items.ToList().ForEach(i =>
+            //{
+            //    LineItemDto lineItem = new LineItemDto { Id = Guid.NewGuid(), ProductCode = i.Code, Price = i.Price, ProductName = i.Name, Quantity = i.Quantity };
+            //    lineItems.Add(lineItem);
+            //});
 
-            basketCheckedOutEvent.Items = lineItems;
+            //basketCheckedOutEvent.Items = lineItems;
 
-            //Publish event to start order
-            await _busPublisher.PublishAsync(basketCheckedOutEvent, null);
+            ////Publish event to start order
+            //await _busPublisher.PublishAsync(basketCheckedOutEvent, null);
 
-            //Empty basket
-            items.ToList().ForEach(async (i) =>
-            {
-                await _basketItemRepo.DeleteAsync(i.Id);
-            });
+            ////Empty basket
+            //items.ToList().ForEach(async (i) =>
+            //{
+            //    await _basketItemRepo.DeleteAsync(i.Id);
+            //});
         }
     }
 }

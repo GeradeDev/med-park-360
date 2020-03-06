@@ -15,9 +15,6 @@ namespace MedPark.Basket.Domain
 
         public Guid BasketId { get; set; }
         public Guid ProductId { get; set; }
-        public string Code { get; set; }
-        public string Name { get;  set; }
-        public decimal Price { get; set; }
         public int Quantity { get; set; }
 
         public void UpdatedModifiedDate()

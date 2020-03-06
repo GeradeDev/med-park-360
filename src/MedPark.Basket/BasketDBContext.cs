@@ -11,7 +11,8 @@ namespace MedPark.Basket
     {
         public DbSet<CustomerBasket> Basket { get; set; }
         public DbSet<BasketItem> BasketItem { get; set; }
-
+        public DbSet<Product> Product { get; set; }
+        
         public BasketDBContext(DbContextOptions<BasketDBContext> options) : base(options)
         {
 
@@ -23,6 +24,7 @@ namespace MedPark.Basket
 
             builder.Entity<CustomerBasket>().ToTable("Basket");
             builder.Entity<BasketItem>().ToTable("BasketItem");
+            builder.Entity<Product>().ToTable("Product");
         }
     }
 }

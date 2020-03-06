@@ -25,7 +25,7 @@ namespace MedPark.Basket.Controllers
         }
 
         [HttpGet("{customerid}")]
-        [Cached(Constants.Day_In_Seconds)]
+        //[Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> Get([FromRoute] BasketQuery query)
         {
             var basket = await _dispatcher.QueryAsync<BasketDto>(query);
