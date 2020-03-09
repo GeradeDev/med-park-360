@@ -22,7 +22,7 @@ steps:
   condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/dev'))
   inputs:
     targetType: 'inline'
-    script: 'Write-Output "##vso[task.setvariable variable=$buildConfiguration;]Debug"'
+    script: 'Write-Output "##vso[task.setvariable variable=buildConfiguration;]Debug"'
 
 - task: PowerShell@2
   inputs:
