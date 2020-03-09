@@ -19,15 +19,10 @@ variables:
 
 steps:
 - task: PowerShell@2
-  condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/dev'))
+  condition: and(succeeded(), or(eq(variables['build.SourceBranch'], 'refs/heads/dev'), eq(variables['build.SourceBranch'], 'refs/heads/feature/*')))
   inputs:
     targetType: 'inline'
     script: 'Write-Output "##vso[task.setvariable variable=buildConfiguration;]Debug"'
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: Write-Host "Configuration Set $(buildConfiguration)"
 
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
