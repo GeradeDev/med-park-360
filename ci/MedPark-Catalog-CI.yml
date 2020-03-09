@@ -18,22 +18,31 @@ variables:
   proj-dir: "src/MedPark.Catalog/"
 
 steps:
+- task: PowerShell@2
+  condition: and(succeeded(), eq(variables['build.SourceBranch'], 'refs/heads/dev'))
+  inputs:
+    script: Write-Output "##vso[task.setvariable variable=$buildConfiguration;]Debug"
+
+- task: PowerShell@2
+  inputs:
+    script: Write-Host "Configuration Set $buildConfiguration"
+
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
-  enabled: true
+  enabled: false
 
 - task: UseDotNet@2
   displayName: 'Set pipeline to use DotNet Core 3.1'
   inputs:
     version: '3.1.x'
     includePreviewVersions: false
-  enabled: true
+  enabled: false
 
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
   inputs:
     restoreSolution: '$(proj-dir)/MedPark.Catalog.csproj'
-  enabled: true
+  enabled: false
 
 - task: CmdLine@2
   displayName: 'Install Dotnet Tools'
@@ -45,7 +54,7 @@ steps:
   displayName: 'Generate DB migration script for MedPark.Catalog'
   inputs:
     script: 'dotnet ef migrations script --project $(proj-dir)/MedPark.Catalog.csproj -i -o $(build.artifactstagingdirectory)/sql/MedPark.Catalog_DB_Migrations.sql'
-  enabled: true
+  enabled: false
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
@@ -60,7 +69,7 @@ steps:
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-  enabled: true
+  enabled: false
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
@@ -70,7 +79,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '$(proj-dir)/Dockerfile.multistage'
     tags: dev
-  enabled: true
+  enabled: false
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
@@ -78,4 +87,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  enabled: true
+  enabled: false
