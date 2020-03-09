@@ -31,14 +31,14 @@ steps:
 
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
-  enabled: false
+  enabled: true
 
 - task: UseDotNet@2
   displayName: 'Set pipeline to use DotNet Core 3.1'
   inputs:
     version: '3.1.x'
     includePreviewVersions: false
-  enabled: false
+  enabled: true
 
 - task: NuGetCommand@2
   displayName: 'Restore NuGet packages for project'
@@ -56,7 +56,7 @@ steps:
   displayName: 'Generate DB migration script for MedPark.Catalog'
   inputs:
     script: 'dotnet ef migrations script --project $(proj-dir)/MedPark.Catalog.csproj -i -o $(build.artifactstagingdirectory)/sql/MedPark.Catalog_DB_Migrations.sql'
-  enabled: false
+  enabled: true
 
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
@@ -64,14 +64,14 @@ steps:
     command: 'build'
     projects: '$(proj-dir)/MedPark.Catalog.csproj'
     arguments: '-c Release'
-  enabled: false
+  enabled: true
 
 - task: Docker@2
   displayName: 'Login to Docker Hub'
   inputs:
     containerRegistry: 'docker-hub-connection'
     command: 'login'
-  enabled: false
+  enabled: true
 
 - task: Docker@2
   displayName: 'Build and Push docker image'
@@ -81,7 +81,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '$(proj-dir)/Dockerfile.multistage'
     tags: dev
-  enabled: false
+  enabled: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
@@ -89,4 +89,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  enabled: false
+  enabled: true
