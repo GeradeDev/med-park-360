@@ -23,6 +23,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'Write-Output "##vso[task.setvariable variable=buildConfiguration;]Debug"'
+    
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: Write-Host "Configuration Set $(buildConfiguration)"
 
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
