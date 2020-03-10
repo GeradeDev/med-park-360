@@ -48,7 +48,6 @@ namespace MedPark.CustomersService
 
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
-
             services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
