@@ -59,6 +59,7 @@ namespace MedPark.CustomersService
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Customer>();
+            builder.AddRepository<Address>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

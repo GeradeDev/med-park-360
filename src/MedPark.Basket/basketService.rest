@@ -30,11 +30,13 @@ Content-Type: application/json
 
 
 ### Checkout basket
-POST {{apiUrl}}/checkout
+POST {{apiUrl}}/{{customerId}}/checkout
 Content-Type: application/json
 
 {
-  "basketId": "{{basketId}}"
+  "basketId": "{{basketId}}",
+  "shippingType": 2,
+  "shippingAddress": "7AFBDF54-66DB-41CE-95BD-625247B561BF"
 }
 
 

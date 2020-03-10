@@ -17,5 +17,6 @@ namespace MedPark.Common
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+        Task DeleteAllAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

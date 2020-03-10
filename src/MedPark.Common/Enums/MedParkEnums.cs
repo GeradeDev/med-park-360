@@ -44,4 +44,10 @@ namespace MedPark.Common.Enums
         Payment_Confirmed = 2,
         Payment_Failed = 3
     }
+
+    public enum CustomerAddressType
+    {
+        Business = 1,
+        Residential = 2
+    }
 }

@@ -52,7 +52,7 @@ namespace MedPark.API.Gateway.Controllers
             return Accepted();
         }
 
-        [HttpPost("{customerid}/checkout/{basketid}")]
+        [HttpPost("{customerid}/checkout/")]
         public async Task<IActionResult> CheckoutBasket([FromBody] CheckoutBasket command)
         {
             await _busPublisher.SendAsync(command, null);
