@@ -70,7 +70,7 @@ namespace MedPark.CustomersService
             }
             else
             {
-                app.UseHsts();
+                app.UseHsts(); 
             }
 
             app.UseHttpsRedirection();
