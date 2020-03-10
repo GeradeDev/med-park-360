@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedPark.API.Gateway.Messages.Commands.BasketService;
 using MedPark.API.Gateway.Services;
 using MedPark.Common;
+using MedPark.Common.Cache;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpGet("{customerid}")]
+        [Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> GetCustomerBasket(Guid customerid)
         {
             var basket = await _basketService.GetBasketByCustomerId(customerid);
@@ -32,32 +34,25 @@ namespace MedPark.API.Gateway.Controllers
             return Ok(basket);
         }
 
-
-        [HttpPost("createbasket")]
-        public async Task<IActionResult> CreateBasket([FromBody] CreateBasket command)
+        [HttpPost("createbasket/{customerid}")]
+        public async Task<IActionResult> CreateBasket(Guid customerid)
         {
-            await _busPublisher.SendAsync(command.Bind(x => x.BasketId, Guid.NewGuid()), null);
+            CreateBasket command = new CreateBasket(customerid, Guid.NewGuid());
 
-            return Accepted();
-        }
-
-        [HttpPost("addproduct")]
-        public async Task<IActionResult> UpdateBasket([FromBody] AddProductToBasket command)
-        {
-            await _busPublisher.SendAsync(command.Bind(x => x.Item.Id, Guid.NewGuid()), null);
-
-            return Accepted();
-        }
-
-        [HttpPost("updatebasket")]
-        public async Task<IActionResult> UpdateBasket([FromBody] UpdateBasket command)
-        {
             await _busPublisher.SendAsync(command, null);
 
             return Accepted();
         }
 
-        [HttpPost("checkout")]
+        [HttpPost("{customerid}/addproduct")]
+        public async Task<IActionResult> AddProduct([FromBody] AddProductToBasket command)
+        {
+            await _busPublisher.SendAsync(command.Bind(x => x.BasketItemtId, Guid.NewGuid()), null);
+
+            return Accepted();
+        }
+
+        [HttpPost("{customerid}/checkout/")]
         public async Task<IActionResult> CheckoutBasket([FromBody] CheckoutBasket command)
         {
             await _busPublisher.SendAsync(command, null);

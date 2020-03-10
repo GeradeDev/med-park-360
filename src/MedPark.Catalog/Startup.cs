@@ -13,6 +13,7 @@ using MedPark.Catalog.Queries;
 using MedPark.Common;
 using MedPark.Common.Handlers;
 using MedPark.Common.RabbitMq;
+using MedPark.Common.Redis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +41,7 @@ namespace MedPark.Catalog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+            services.AddRedis(Configuration);
 
             //Add DBContext
             services.AddDbContext<CatalogDBContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));

@@ -8,6 +8,7 @@ using Autofac.Extensions.DependencyInjection;
 using MedPark.API.Gateway.Controllers;
 using MedPark.API.Gateway.Services;
 using MedPark.Common.RabbitMq;
+using MedPark.Common.Redis;
 using MedPark.Common.RestEase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,8 @@ namespace MedPark.API.Gateway
             services.AddCustomAPIVersioning()
                     .AddCustomCors()
                     .AddRestEaseServices();
+
+            services.AddRedis(Configuration);
 
             services.AddMvc(mvc => mvc.EnableEndpointRouting = false).AddNewtonsoftJson().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
     ;

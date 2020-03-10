@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MedPark.API.Gateway.Models.Catalog;
 using MedPark.API.Gateway.Services;
+using MedPark.Common;
+using MedPark.Common.Cache;
 using MedPark.Common.RabbitMq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +26,7 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpGet("fullcatalog")]
+        [Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> GetCatalog()
         {
             CatalogDetailDto catalog = await _catalogService.GetFullCatalog();
@@ -32,7 +35,8 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpGet("catalogByCategory/{parentcategoryid}")]
-        public async Task<IActionResult> GetCatalogByCategory([FromRoute] Guid parentcategoryid)
+        [Cached(Constants.Day_In_Seconds)]
+        public async Task<IActionResult> GetCatalogByCategory(Guid parentcategoryid)
         {
             CatalogDetailDto category = await _catalogService.GetCatalogByCategoryId(parentcategoryid);
 
@@ -42,6 +46,7 @@ namespace MedPark.API.Gateway.Controllers
 
 
         [HttpGet("category/{categoryid}/")]
+        [Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> GetCategory([FromRoute] Guid categoryid)
         {
             CategoryDto category = await _catalogService.GetCategoryById(categoryid);
@@ -50,6 +55,7 @@ namespace MedPark.API.Gateway.Controllers
         }
 
         [HttpGet("category/{categoryid}/details")]
+        [Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> GetCategoryDetails([FromRoute] Guid categoryid)
         {
             CategoryDetailDto categoryDetails = await _catalogService.GetCategoryByIdDetails(categoryid);
@@ -61,6 +67,7 @@ namespace MedPark.API.Gateway.Controllers
 
 
         [HttpGet("product/{productid}")]
+        [Cached(Constants.Day_In_Seconds)]
         public async Task<IActionResult> GetProduct([FromRoute] Guid productid)
         {
             ProductDetailDto product = await _catalogService.GetProductById(productid);

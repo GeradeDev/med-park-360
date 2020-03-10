@@ -48,7 +48,6 @@ namespace MedPark.CustomersService
 
             //Add DBContext
             services.AddDbContext<CustomersDbContext>(options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
-
             services.AddMvc(mvc => mvc.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
@@ -59,6 +58,7 @@ namespace MedPark.CustomersService
             builder.AddDispatchers();
             builder.AddRabbitMq();
             builder.AddRepository<Customer>();
+            builder.AddRepository<Address>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,8 +70,7 @@ namespace MedPark.CustomersService
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseHsts(); 
             }
 
             app.UseHttpsRedirection();

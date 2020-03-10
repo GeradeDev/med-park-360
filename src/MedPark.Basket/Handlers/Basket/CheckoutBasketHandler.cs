@@ -17,13 +17,16 @@ namespace MedPark.Basket.Handlers.Basket
     {
         private IMedParkRepository<CustomerBasket> _basketRepo { get; }
         private IMedParkRepository<BasketItem> _basketItemRepo { get; }
+        private IMedParkRepository<Product> _productRepo { get; }
+
         private IBusPublisher _busPublisher { get; }
 
-        public CheckoutBasketHandler(IMedParkRepository<CustomerBasket> basketRepo, IMedParkRepository<BasketItem> basketItemRepo, IBusPublisher busPublisher)
+        public CheckoutBasketHandler(IMedParkRepository<CustomerBasket> basketRepo, IMedParkRepository<BasketItem> basketItemRepo, IBusPublisher busPublisher, IMedParkRepository<Product> productRepo)
         {
             _basketRepo = basketRepo;
             _basketItemRepo = basketItemRepo;
             _busPublisher = busPublisher;
+            _productRepo = productRepo;
         }
 
         public async Task HandleAsync(CheckoutBasket command, ICorrelationContext context)
@@ -35,16 +38,15 @@ namespace MedPark.Basket.Handlers.Basket
 
             IEnumerable<BasketItem> items = await _basketItemRepo.FindAsync(x => x.BasketId == command.BasketId);
 
-             if (items.Count() == 0)
-                throw new MedParkException("basket_items_not_valid", $"The basket {command.BasketId} items are not valid to checkout.");
-
 
             BasketCheckedOut basketCheckedOutEvent = new BasketCheckedOut(basket.CustomerId, command.ShippingType, command.ShippingAddress);
             List<LineItemDto> lineItems = new List<LineItemDto>();
 
-            items.ToList().ForEach(i =>
+            items.ToList().ForEach(async (i) =>
             {
-                LineItemDto lineItem = new LineItemDto { Id = Guid.NewGuid(), ProductCode = i.Code, Price = i.Price, ProductName = i.Name, Quantity = i.Quantity };
+                Product p = await _productRepo.GetAsync(i.ProductId);
+
+                LineItemDto lineItem = new LineItemDto { Id = Guid.NewGuid(), ProductCode = p.Code, Price = p.Price, ProductName = p.Name, Quantity = i.Quantity };
                 lineItems.Add(lineItem);
             });
 
@@ -54,10 +56,10 @@ namespace MedPark.Basket.Handlers.Basket
             await _busPublisher.PublishAsync(basketCheckedOutEvent, null);
 
             //Empty basket
-            items.ToList().ForEach(async (i) =>
-            {
-                await _basketItemRepo.DeleteAsync(i.Id);
-            });
+            //await _basketItemRepo.DeleteAllAsync(x => x.BasketId == command.BasketId);
+
+
+            //TODO: Update Cache with empty basket
         }
     }
 }

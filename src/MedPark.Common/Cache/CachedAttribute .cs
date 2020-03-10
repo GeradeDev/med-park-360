@@ -73,7 +73,7 @@ namespace MedPark.Common.Cache
                 keyBuilder.Append($"|{key}-{value}");
             }
 
-            return keyBuilder.ToString();
+            return keyBuilder.ToString().ToLower();
         }
     }
 }

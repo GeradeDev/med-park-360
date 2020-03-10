@@ -11,11 +11,15 @@ namespace MedPark.API.Gateway.Messages.Commands.BasketService
     public class CheckoutBasket : ICommand
     {
         public Guid BasketId { get; private set; }
+        public Guid ShippingAddress { get; private set; }
+        public int ShippingType { get; private set; }
 
         [JsonConstructor]
-        public CheckoutBasket(Guid basketId)
+        public CheckoutBasket(Guid basketId, int shippingType, Guid shippingAddress)
         {
             BasketId = basketId;
+            ShippingType = shippingType;
+            ShippingAddress = shippingAddress;
         }
     }
 }

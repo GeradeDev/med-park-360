@@ -59,5 +59,12 @@ namespace MedPark.Common
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
+
+        public async Task DeleteAllAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            var records = await FindAsync(predicate);
+            _context.Set<TEntity>().RemoveRange(records);
+            _context.SaveChanges();
+        }
     }
 }

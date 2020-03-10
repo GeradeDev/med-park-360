@@ -1,11 +1,11 @@
-@apiUrl = https://localhost:44308/api/catalog/
-@parentCategoryId = ""
+@apiUrl = https://localhost:44308/api/catalog
+@parentCategoryId = e6320113-d3cb-45d7-9567-0c07cfa6eb07
 @categoryId = ""
-@productId = ""
+@productId = fa1c4a1e-c99e-4d5c-9969-2d51f60cd402
 
 
 ### Get the fulle product catalog
-GET {{apiUrl}}/fullcatalog/
+GET {{apiUrl}}/fullcatalog
 
 
 ### Get the the full catalog by category

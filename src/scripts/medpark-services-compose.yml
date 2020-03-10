@@ -65,7 +65,7 @@ services:
     image: medpark-catalog
     build:
       dockerfile: Dockerfile.multistage
-      context: ../MedParl.Catalog
+      context: ../MedPark.Catalog
     ports:
       - 8004:5004
     # depends_on:

@@ -1,6 +1,7 @@
 @apiUrl = https://localhost:44308/api/basket
 @customerId = 888E9C20-0401-4D6B-BC39-4F5F203C8A5A
 @basketId = 4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1
+@productId = fa1c4a1e-c99e-4d5c-9969-2d51f60cd402
 
 
 ### Create new customer basket
@@ -8,7 +9,7 @@ POST {{apiUrl}}/createbasket
 Content-Type: application/json
 
 {
-  "basketId": "888E9C20-0401-4D6B-BC39-4F5F203C8A5A",
+  "basketId": "",
   "buyerId": "4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1"
 }
 
@@ -18,63 +19,24 @@ GET {{apiUrl}}/{{customerId}}
 
 
 ### Add product to customer's basket
-POST {{apiUrl}}/addproduct
+POST {{apiUrl}}/{{customerId}}/addproduct
 Content-Type: application/json
 
 {
   "basketId": "{{basketId}}",
-  "Item": {
-        "basketId": "4acd7b7b-4ac7-4714-b74f-bcd3b82b0dd1",
-        "productId": "F114FF43-022C-46CC-AD34-057D894BE4D0",
-        "code": "PARCETML500MG1000",
-        "name": "Paracetamol 500mg, tablet",
-        "price": 4.92,
-        "quantity": 2
-    }
-}
-
-
-### Update basket
-POST {{apiUrl}}/updatebasket
-Content-Type: application/json
-
-{
-  "basketId": "{{basketId}}",
-  "Items":[
-      {
-        "basketId": "{{basketId}}",
-        "productId": "9FFB4357-884B-4B31-8C21-143418D6D9F1",
-        "code": "NACL1L10",
-        "name": "Sodium chloride 0.9% isotonic IV infusion in 1000ml bag + In",
-        "price": 12.85,
-        "quantity": 4
-      },
-      {
-        "basketId": "{{basketId}}",
-        "productId": "0539AFB6-CCF8-4ED5-91E3-1B12367932F0",
-        "code": "RHKIT6A",
-        "name": "ERH Kit 6A - Clinical Delivery Assistance Kit - Reusable Equ",
-        "price": 895.37,
-        "quantity": 1
-      },
-      {
-        "basketId": "{{basketId}}",
-        "productId": "4A0C4B07-134E-4CC4-9CC1-26E3B409726E",
-        "code": "ATROPINSULP1MG100",
-        "name": "Atropine sulphate 1mg/ml, injection in 1-ml ampoule",
-        "price": 65.00,
-        "quantity": 3
-      },
-  ]
+  "productId": "{{productId}}",
+  "quantity": 2
 }
 
 
 ### Checkout basket
-POST {{apiUrl}}/checkout
+POST {{apiUrl}}/{{customerId}}/checkout
 Content-Type: application/json
 
 {
-  "basketId": "{{basketId}}"
+  "basketId": "{{basketId}}",
+  "shippingType": 2,
+  "shippingAddress": "7AFBDF54-66DB-41CE-95BD-625247B561BF"
 }
 
 

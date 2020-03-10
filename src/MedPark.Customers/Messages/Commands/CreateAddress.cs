@@ -9,13 +9,13 @@ namespace MedPark.CustomersService.Messages.Commands
 {
     public class CreateAddress : ICommand
     {
-        public Guid Id { get; }
-        public string AddressLine1 { get; }
-        public string AddressLine2 { get; }
-        public string AddressLine3 { get; }
-        public Int32 AddressType { get; }
-        public string PostalCode { get; }
-        public Guid UserId { get; }
+        public Guid Id { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string AddressLine3 { get; set; }
+        public Int32 AddressType { get; set; }
+        public string PostalCode { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonConstructor]
         public CreateAddress(Guid id, string line1, string line2, string line3, string postal, Int32 type, Guid userid)

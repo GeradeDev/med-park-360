@@ -56,6 +56,7 @@ namespace MedPark.Basket
             builder.AddRabbitMq();
             builder.AddRepository<CustomerBasket>();
             builder.AddRepository<BasketItem>();
+            builder.AddRepository<Product>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +77,6 @@ namespace MedPark.Basket
             app.UseRabbitMq()
                 .SubscribeCommand<CreateBasket>()
                 .SubscribeCommand<AddProductToBasket>()
-                .SubscribeCommand<UpdateBasket>()
                 .SubscribeCommand<CheckoutBasket>()
                 .SubscribeEvent<CustomerCreated>(@namespace: "customers");
 

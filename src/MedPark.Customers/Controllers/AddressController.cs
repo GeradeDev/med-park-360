@@ -26,9 +26,16 @@ namespace MedPark.CustomersService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<AddressDto>>> Get([FromRoute] GetCustomerAddress query)
         {
-            var addresses = await _dispatcher.QueryAsync(query);
+            try
+            {
+                var addresses = await _dispatcher.QueryAsync(query);
 
-            return Ok(addresses);
+                return Ok(addresses);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
