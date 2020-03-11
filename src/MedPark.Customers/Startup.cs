@@ -66,7 +66,7 @@ namespace MedPark.CustomersService
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();        
             }
             else
             {
@@ -80,7 +80,7 @@ namespace MedPark.CustomersService
                 .SubscribeCommand<CreateAddress>()
                 .SubscribeCommand<UpdateCustomerDetails>()
                 .SubscribeEvent<SignedUp>(@namespace: "identity")
-                .SubscribeEvent<AddressCreated>(@namespace: "gateway");
+                .SubscribeEvent<AddressCreated>(@namespace: "gateway");      
 
             app.UseMvcWithDefaultRoute();
         }

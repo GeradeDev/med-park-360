@@ -4,8 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- dev
-- master
+  branches:
+    include:
+      - master
+      - dev
+  paths:
+    include:
+      - "src/MedPark.Customers"
+
+pr:
+  branches:
+    include:
+      - master
+      - dev
+  paths:
+    include:
+      - "src/MedPark.Customers"
 
 pool:
   vmImage: 'Ubuntu-16.04' 
