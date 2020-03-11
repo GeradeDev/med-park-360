@@ -3,8 +3,23 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+pr:
+  branches:
+    include:
+      - master
+      - dev
+  paths:
+    include:
+      - "src/MedPark.Customers"
+
 trigger:
-  - feature/*
+  branches:
+    include:
+      - master
+      - dev
+  paths:
+    include:
+      - "src/MedPark.Customers"
 
 pool:
   vmImage: 'Ubuntu-16.04' 
