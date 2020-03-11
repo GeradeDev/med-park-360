@@ -8,7 +8,6 @@ trigger:
     include:
       - master
       - dev
-      - feature/*
   paths:
     include:
       - "src/MedPark.Customers"
