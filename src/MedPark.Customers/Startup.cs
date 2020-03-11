@@ -71,7 +71,7 @@ namespace MedPark.CustomersService
             else
             {
                 app.UseHsts(); 
-            }
+            }   
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
