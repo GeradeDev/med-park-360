@@ -3,7 +3,7 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-pr:
+trigger:
   branches:
     include:
       - master
@@ -12,7 +12,7 @@ pr:
     include:
       - "src/MedPark.Customers"
 
-trigger:
+pr:
   branches:
     include:
       - master
